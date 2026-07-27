@@ -1552,7 +1552,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.07.27-v118',
+ buildVersion: '2026.07.27-v119',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4161,78 +4161,161 @@ ${'</'+'style>'}
 ${'</'+'body>'}
 ${'</'+'html>'}`;
     },
-    // มือถือ / WebView (APK) มักไม่รองรับ <a download> + blob — ใช้ Share หรือพรีวิวแทน
+    // มือถือ / WebView (APK): blob+download มักใช้ไม่ได้ → data URL + Share + Capacitor
     isMobileClient() {
       try {
         if (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()) return true;
       } catch (e) { /* ignore */ }
       return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '');
     },
-    async saveBlobAsFile(blob, filename, mime) {
-      const type = mime || blob.type || 'application/octet-stream';
-      const file = new File([blob], filename, { type });
-
-      // 1) Web Share API — บันทึกรูปหรือส่ง LINE ได้บนมือถือ
-      if (navigator.canShare) {
-        try {
-          if (navigator.canShare({ files: [file] })) {
-            await navigator.share({ files: [file], title: filename, text: filename });
-            return 'shared';
-          }
-        } catch (e) {
-          if (e && e.name === 'AbortError') return 'cancelled';
-        }
-      }
-
-      // 2) เดสก์ท็อป: <a download>
-      const url = URL.createObjectURL(blob);
+    isNativeApp() {
       try {
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        a.rel = 'noopener';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-      } catch (e) { /* ignore */ }
+        return !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
+      } catch (e) { return false; }
+    },
+    blobToDataUrl(blob) {
+      return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result);
+        r.onerror = () => reject(new Error('readAsDataURL failed'));
+        r.readAsDataURL(blob);
+      });
+    },
+    blobToBase64Raw(blob) {
+      return this.blobToDataUrl(blob).then((dataUrl) => {
+        const i = String(dataUrl).indexOf(',');
+        return i >= 0 ? String(dataUrl).slice(i + 1) : String(dataUrl);
+      });
+    },
+    async saveWithCapacitor(blob, filename) {
+      try {
+        if (!this.isNativeApp()) return false;
+        const plugins = window.Capacitor && window.Capacitor.Plugins;
+        if (!plugins) return false;
+        const Filesystem = plugins.Filesystem;
+        const Share = plugins.Share;
+        if (!Filesystem || !Share) return false;
+        const base64 = await this.blobToBase64Raw(blob);
+        const path = 'quotes/' + filename.replace(/[^\w.\-ก-๙]+/g, '_');
+        await Filesystem.writeFile({
+          path,
+          data: base64,
+          directory: 'CACHE',
+          recursive: true
+        });
+        let uri = null;
+        try {
+          const got = await Filesystem.getUri({ path, directory: 'CACHE' });
+          uri = got && (got.uri || got.path);
+        } catch (e) { /* ignore */ }
+        if (!uri) {
+          // fallback read path
+          try {
+            const got2 = await Filesystem.getUri({ path, directory: 'CACHE' });
+            uri = got2 && got2.uri;
+          } catch (e2) { /* ignore */ }
+        }
+        if (!uri) return false;
+        await Share.share({
+          title: filename,
+          text: filename,
+          url: uri,
+          dialogTitle: 'บันทึก / แชร์ ' + filename
+        });
+        return true;
+      } catch (e) {
+        console.warn('Capacitor save failed', e);
+        return false;
+      }
+    },
+    async saveBlobAsFile(blob, filename, mime) {
+      const type = mime || blob.type || 'image/png';
 
-      // 3) มือถือ: พรีวิว + กดค้างบันทึก / แชร์
-      if (this.isMobileClient()) {
-        this.showImageSaveOverlay(url, filename, blob);
-        return 'preview';
+      // 0) Capacitor native app — เขียนไฟล์แล้วเปิด Share (บันทึกรูป/LINE ได้)
+      if (await this.saveWithCapacitor(blob, filename)) {
+        return 'shared';
       }
 
-      setTimeout(() => URL.revokeObjectURL(url), 60000);
-      return 'download';
+      // 1) Web Share API (Chrome Android / Safari)
+      try {
+        const file = new File([blob], filename, { type });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: filename, text: filename });
+          return 'shared';
+        }
+      } catch (e) {
+        if (e && e.name === 'AbortError') return 'cancelled';
+      }
+
+      // 2) แปลงเป็น data URL — มือถือ long-press / download ใช้ได้ดีกว่า blob:
+      let dataUrl = null;
+      try { dataUrl = await this.blobToDataUrl(blob); } catch (e) { /* ignore */ }
+
+      // 3) เดสก์ท็อป: <a download>
+      if (!this.isMobileClient()) {
+        const href = dataUrl || URL.createObjectURL(blob);
+        try {
+          const a = document.createElement('a');
+          a.href = href;
+          a.download = filename;
+          a.rel = 'noopener';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        } catch (e) { /* ignore */ }
+        if (!dataUrl) setTimeout(() => URL.revokeObjectURL(href), 60000);
+        return 'download';
+      }
+
+      // 4) มือถือ: เปิดแผงบันทึก (data URL) เสมอ
+      this.showImageSaveOverlay(dataUrl || URL.createObjectURL(blob), filename, blob, !!dataUrl);
+      return 'preview';
     },
-    showImageSaveOverlay(url, filename, blob) {
+    showImageSaveOverlay(url, filename, blob, isDataUrl) {
       const old = document.getElementById('lg-save-image-overlay');
       if (old) old.remove();
       const isProposal = (filename || '').indexOf('เสนอ') >= 0;
       const wrap = document.createElement('div');
       wrap.id = 'lg-save-image-overlay';
-      wrap.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.72);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px;overflow:auto;-webkit-overflow-scrolling:touch;';
+      wrap.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.78);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:14px;overflow:auto;-webkit-overflow-scrolling:touch;';
       wrap.innerHTML =
-        '<div style="width:100%;max-width:420px;margin:0 auto;color:#fff;font-family:system-ui,sans-serif">' +
+        '<div style="width:100%;max-width:440px;margin:0 auto;color:#fff;font-family:system-ui,sans-serif">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px">' +
         '<div style="font-weight:700;font-size:15px">บันทึก' + (isProposal ? 'ใบเสนอราคา' : 'ใบสรุปราคา') + '</div>' +
         '<button type="button" data-lg-close style="background:#fff;color:#111;border:0;border-radius:999px;padding:8px 14px;font-weight:700;cursor:pointer">ปิด</button>' +
         '</div>' +
-        '<p style="margin:0 0 10px;font-size:13px;line-height:1.45;opacity:.95">กดค้างที่รูปเพื่อบันทึก หรือกดปุ่มแชร์ แล้วเลือก บันทึกรูป / LINE</p>' +
-        '<img alt="quotation" style="width:100%;height:auto;background:#fff;border-radius:8px;display:block" />' +
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">' +
-        '<button type="button" data-lg-share style="background:#C8102E;color:#fff;border:0;border-radius:10px;padding:12px;font-weight:700;cursor:pointer">แชร์ / บันทึก</button>' +
-        '<button type="button" data-lg-open style="background:#fff;color:#111;border:0;border-radius:10px;padding:12px;font-weight:700;cursor:pointer">เปิดรูปเต็ม</button>' +
-        '</div></div>';
+        '<p style="margin:0 0 10px;font-size:13px;line-height:1.5;opacity:.95">' +
+        'เลือกอย่างใดอย่างหนึ่ง:<br>' +
+        '1) กด <b>แชร์ / บันทึกรูป</b> → เลือก บันทึกรูป หรือ LINE<br>' +
+        '2) <b>กดค้างที่รูป</b> → ดาวน์โหลดรูป / บันทึกรูป' +
+        '</p>' +
+        '<img alt="quotation" draggable="false" style="width:100%;height:auto;background:#fff;border-radius:8px;display:block;-webkit-touch-callout:default;touch-action:manipulation" />' +
+        '<div style="display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px">' +
+        '<button type="button" data-lg-share style="background:#C8102E;color:#fff;border:0;border-radius:10px;padding:14px;font-weight:700;cursor:pointer;font-size:15px">แชร์ / บันทึกรูป</button>' +
+        '<button type="button" data-lg-dl style="background:#fff;color:#111;border:0;border-radius:10px;padding:14px;font-weight:700;cursor:pointer;font-size:15px">ลองดาวน์โหลดไฟล์</button>' +
+        '</div>' +
+        '<p style="margin:10px 0 0;font-size:11px;opacity:.75;line-height:1.4">ชื่อไฟล์: ' + String(filename || '').replace(/[<>&]/g, '') + '</p>' +
+        '</div>';
       const img = wrap.querySelector('img');
       img.src = url;
+      // ช่วย iOS: บางเครื่องต้องอยู่บนภาพจริง
+      img.setAttribute('data-filename', filename || 'quote.png');
+
       const close = () => {
         wrap.remove();
-        try { URL.revokeObjectURL(url); } catch (e) {}
+        if (!isDataUrl && url && String(url).indexOf('blob:') === 0) {
+          try { URL.revokeObjectURL(url); } catch (e) {}
+        }
       };
       wrap.querySelector('[data-lg-close]').onclick = close;
       wrap.addEventListener('click', (ev) => { if (ev.target === wrap) close(); });
-      wrap.querySelector('[data-lg-share]').onclick = async () => {
+
+      const doShare = async () => {
+        // native ก่อน
+        if (await this.saveWithCapacitor(blob, filename)) {
+          this.showToast('เปิดเมนูแชร์แล้ว — เลือก บันทึกรูป หรือ LINE');
+          return;
+        }
         try {
           const file = new File([blob], filename, { type: blob.type || 'image/png' });
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -4240,23 +4323,52 @@ ${'</'+'html>'}`;
             this.showToast('แชร์แล้ว');
             return;
           }
+          // แชร์แค่ URL รูป (data URL ยาวเกินไม่ได้ — ใช้ text)
+          if (navigator.share) {
+            await navigator.share({ title: filename, text: 'ใบสรุปราคา LG Subscribe — กดค้างที่รูปในแอปเพื่อบันทึก' });
+          }
         } catch (e) {
           if (e && e.name === 'AbortError') return;
         }
-        this.showToast('กดค้างที่รูปด้านบนเพื่อบันทึก');
+        this.showToast('กดค้างที่รูปด้านบน → เลือก ดาวน์โหลดรูป / บันทึกรูป');
       };
-      wrap.querySelector('[data-lg-open]').onclick = () => {
+
+      const doDownload = async () => {
         try {
-          const w = window.open('about:blank', '_blank');
-          if (w) {
-            w.document.write('<html><body style="margin:0;background:#111;text-align:center"><img src="' + url + '" style="max-width:100%">' + '<' + '/body><' + '/html>');
-            w.document.close();
-            return;
+          // ลอง data URL + download attribute
+          let href = url;
+          if (!isDataUrl) {
+            try { href = await this.blobToDataUrl(blob); } catch (e) {}
           }
-        } catch (e) {}
-        // fallback เปิดในแท็บเดียวกันไม่ได้ — บอกให้กดค้าง
-        this.showToast('กดค้างที่รูปเพื่อบันทึก');
+          const a = document.createElement('a');
+          a.href = href;
+          a.download = filename;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          // บางเครื่อง Chrome ต้องเปิดแท็บ data URL
+          if (this.isMobileClient() && href && String(href).indexOf('data:') === 0) {
+            try {
+              const w = window.open();
+              if (w) {
+                w.document.write('<!doctype html><title>' + filename + '</title><meta name="viewport" content="width=device-width,initial-scale=1">' +
+                  '<p style="font-family:sans-serif;text-align:center">กดค้างที่รูปเพื่อบันทึก</p>' +
+                  '<img src="' + href + '" style="width:100%;height:auto;background:#fff">' +
+                  '<' + '/body><' + '/html>');
+                // note: split body close tags for build_all
+              }
+            } catch (e2) { /* ignore */ }
+          }
+          this.showToast('ถ้าไม่ขึ้นโฟลเดอร์ดาวน์โหลด — กดค้างที่รูปด้านบน');
+        } catch (e) {
+          this.showToast('ดาวน์โหลดไม่สำเร็จ — กดค้างที่รูปแทน');
+        }
       };
+
+      wrap.querySelector('[data-lg-share]').onclick = () => { doShare(); };
+      wrap.querySelector('[data-lg-dl]').onclick = () => { doDownload(); };
       document.body.appendChild(wrap);
     },
     openQuotationOverlay(html, label) {
@@ -4285,7 +4397,7 @@ ${'</'+'html>'}`;
         try { iframe.contentWindow.focus(); iframe.contentWindow.print(); }
         catch (e) { this.showToast('พิมพ์ไม่สำเร็จ — ลองเซฟเป็นรูปแทน'); }
       };
-      this.showToast('เปิด' + (label || 'เอกสาร') + 'แล้ว — กด พิมพ์/PDF หรือปิดแล้วกดเซฟรูป');
+      this.showToast('เปิด' + (label || 'เอกสาร') + 'แล้ว — หรือปิดแล้วกด เซฟเป็นรูป');
     },
     printQuotation(mode = 'summary') {
 
@@ -4498,8 +4610,8 @@ ${'</'+'html>'}`;
         });
         const result = await this.saveBlobAsFile(blob, fname, 'image/png');
         if (result === 'cancelled') this.showToast('ยกเลิกการแชร์/บันทึก');
-        else if (result === 'shared') this.showToast('แชร์/บันทึกรูปแล้ว — เลือก บันทึกรูป หรือ ส่ง LINE ได้');
-        else if (result === 'preview') this.showToast('กดค้างที่รูปเพื่อบันทึก หรือกดปุ่มแชร์');
+        else if (result === 'shared') this.showToast('เลือก บันทึกรูป หรือ ส่ง LINE ในเมนูแชร์');
+        else if (result === 'preview') this.showToast('กด แชร์/บันทึกรูป หรือ กดค้างที่รูป');
         else this.showToast('บันทึกรูป A4 แล้ว: ' + fname);
       } catch (e) {
         console.error(e);
