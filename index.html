@@ -1552,7 +1552,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.07.27-v117',
+ buildVersion: '2026.07.27-v118',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4161,23 +4161,154 @@ ${'</'+'style>'}
 ${'</'+'body>'}
 ${'</'+'html>'}`;
     },
+    // มือถือ / WebView (APK) มักไม่รองรับ <a download> + blob — ใช้ Share หรือพรีวิวแทน
+    isMobileClient() {
+      try {
+        if (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()) return true;
+      } catch (e) { /* ignore */ }
+      return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '');
+    },
+    async saveBlobAsFile(blob, filename, mime) {
+      const type = mime || blob.type || 'application/octet-stream';
+      const file = new File([blob], filename, { type });
+
+      // 1) Web Share API — บันทึกรูปหรือส่ง LINE ได้บนมือถือ
+      if (navigator.canShare) {
+        try {
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: filename, text: filename });
+            return 'shared';
+          }
+        } catch (e) {
+          if (e && e.name === 'AbortError') return 'cancelled';
+        }
+      }
+
+      // 2) เดสก์ท็อป: <a download>
+      const url = URL.createObjectURL(blob);
+      try {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.rel = 'noopener';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      } catch (e) { /* ignore */ }
+
+      // 3) มือถือ: พรีวิว + กดค้างบันทึก / แชร์
+      if (this.isMobileClient()) {
+        this.showImageSaveOverlay(url, filename, blob);
+        return 'preview';
+      }
+
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      return 'download';
+    },
+    showImageSaveOverlay(url, filename, blob) {
+      const old = document.getElementById('lg-save-image-overlay');
+      if (old) old.remove();
+      const isProposal = (filename || '').indexOf('เสนอ') >= 0;
+      const wrap = document.createElement('div');
+      wrap.id = 'lg-save-image-overlay';
+      wrap.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.72);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px;overflow:auto;-webkit-overflow-scrolling:touch;';
+      wrap.innerHTML =
+        '<div style="width:100%;max-width:420px;margin:0 auto;color:#fff;font-family:system-ui,sans-serif">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px">' +
+        '<div style="font-weight:700;font-size:15px">บันทึก' + (isProposal ? 'ใบเสนอราคา' : 'ใบสรุปราคา') + '</div>' +
+        '<button type="button" data-lg-close style="background:#fff;color:#111;border:0;border-radius:999px;padding:8px 14px;font-weight:700;cursor:pointer">ปิด</button>' +
+        '</div>' +
+        '<p style="margin:0 0 10px;font-size:13px;line-height:1.45;opacity:.95">กดค้างที่รูปเพื่อบันทึก หรือกดปุ่มแชร์ แล้วเลือก บันทึกรูป / LINE</p>' +
+        '<img alt="quotation" style="width:100%;height:auto;background:#fff;border-radius:8px;display:block" />' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">' +
+        '<button type="button" data-lg-share style="background:#C8102E;color:#fff;border:0;border-radius:10px;padding:12px;font-weight:700;cursor:pointer">แชร์ / บันทึก</button>' +
+        '<button type="button" data-lg-open style="background:#fff;color:#111;border:0;border-radius:10px;padding:12px;font-weight:700;cursor:pointer">เปิดรูปเต็ม</button>' +
+        '</div></div>';
+      const img = wrap.querySelector('img');
+      img.src = url;
+      const close = () => {
+        wrap.remove();
+        try { URL.revokeObjectURL(url); } catch (e) {}
+      };
+      wrap.querySelector('[data-lg-close]').onclick = close;
+      wrap.addEventListener('click', (ev) => { if (ev.target === wrap) close(); });
+      wrap.querySelector('[data-lg-share]').onclick = async () => {
+        try {
+          const file = new File([blob], filename, { type: blob.type || 'image/png' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: filename });
+            this.showToast('แชร์แล้ว');
+            return;
+          }
+        } catch (e) {
+          if (e && e.name === 'AbortError') return;
+        }
+        this.showToast('กดค้างที่รูปด้านบนเพื่อบันทึก');
+      };
+      wrap.querySelector('[data-lg-open]').onclick = () => {
+        try {
+          const w = window.open('about:blank', '_blank');
+          if (w) {
+            w.document.write('<html><body style="margin:0;background:#111;text-align:center"><img src="' + url + '" style="max-width:100%">' + '<' + '/body><' + '/html>');
+            w.document.close();
+            return;
+          }
+        } catch (e) {}
+        // fallback เปิดในแท็บเดียวกันไม่ได้ — บอกให้กดค้าง
+        this.showToast('กดค้างที่รูปเพื่อบันทึก');
+      };
+      document.body.appendChild(wrap);
+    },
+    openQuotationOverlay(html, label) {
+      const old = document.getElementById('lg-quote-doc-overlay');
+      if (old) old.remove();
+      const wrap = document.createElement('div');
+      wrap.id = 'lg-quote-doc-overlay';
+      wrap.style.cssText = 'position:fixed;inset:0;z-index:99998;background:#fff;display:flex;flex-direction:column;';
+      const bar = document.createElement('div');
+      bar.style.cssText = 'flex:0 0 auto;display:flex;gap:8px;padding:10px 12px;background:#C8102E;color:#fff;align-items:center;';
+      bar.innerHTML =
+        '<div style="flex:1;font-weight:700;font-size:14px">' + (label || 'เอกสาร') + '</div>' +
+        '<button type="button" data-lg-print style="background:#fff;color:#C8102E;border:0;border-radius:8px;padding:8px 12px;font-weight:700">พิมพ์/PDF</button>' +
+        '<button type="button" data-lg-close style="background:transparent;color:#fff;border:1px solid #fff;border-radius:8px;padding:8px 12px;font-weight:700">ปิด</button>';
+      const iframe = document.createElement('iframe');
+      iframe.style.cssText = 'flex:1;width:100%;border:0;background:#fff;';
+      wrap.appendChild(bar);
+      wrap.appendChild(iframe);
+      document.body.appendChild(wrap);
+      const idoc = iframe.contentDocument || iframe.contentWindow.document;
+      idoc.open();
+      idoc.write(html);
+      idoc.close();
+      bar.querySelector('[data-lg-close]').onclick = () => wrap.remove();
+      bar.querySelector('[data-lg-print]').onclick = () => {
+        try { iframe.contentWindow.focus(); iframe.contentWindow.print(); }
+        catch (e) { this.showToast('พิมพ์ไม่สำเร็จ — ลองเซฟเป็นรูปแทน'); }
+      };
+      this.showToast('เปิด' + (label || 'เอกสาร') + 'แล้ว — กด พิมพ์/PDF หรือปิดแล้วกดเซฟรูป');
+    },
     printQuotation(mode = 'summary') {
+
       if (this.cart.length === 0) {
         this.showToast('เลือกสินค้าในตะกร้าก่อนพิมพ์เอกสาร');
         return;
       }
       const isProposal = mode === 'proposal';
       const label = isProposal ? 'ใบเสนอราคา' : 'ใบสรุปราคา';
-      const html = this.quotationHtml(mode, { autoPrint: true });
+      // มือถือ: autoPrint มักใช้ยาก — เปิดเอกสารให้กด พิมพ์/บันทึก PDF เอง
+      const html = this.quotationHtml(mode, { autoPrint: !this.isMobileClient() });
       const w = window.open('', '_blank');
       if (!w) {
-        this.showToast('เบราว์เซอร์บล็อกป๊อปอัป — อนุญาตแล้วกดใหม่');
+        // WebView / บล็อกป๊อปอัป — เปิดในหน้าเดียวกัน
+        this.openQuotationOverlay(html, label);
         return;
       }
       w.document.open();
       w.document.write(html);
       w.document.close();
-      this.showToast('เปิด' + label + 'แล้ว — กดพิมพ์หรือบันทึกเป็น PDF');
+      this.showToast(this.isMobileClient()
+        ? ('เปิด' + label + 'แล้ว — กดปุ่มพิมพ์/บันทึก PDF ในหน้านั้น')
+        : ('เปิด' + label + 'แล้ว — กดพิมพ์หรือบันทึกเป็น PDF'));
     },
 
     async loadHtml2Canvas() {
@@ -4359,19 +4490,17 @@ ${'</'+'html>'}`;
 
         const docNo = this.quoteDocNo();
         const fname = label + '_' + docNo + '_A4.png';
-        await new Promise((resolve, reject) => {
-          out.toBlob((blob) => {
-            if (!blob) { reject(new Error('toBlob failed')); return; }
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = fname;
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
-            resolve();
+        const blob = await new Promise((resolve, reject) => {
+          out.toBlob((b) => {
+            if (!b) { reject(new Error('toBlob failed')); return; }
+            resolve(b);
           }, 'image/png');
         });
-        this.showToast('บันทึกรูป A4 แล้ว: ' + fname);
+        const result = await this.saveBlobAsFile(blob, fname, 'image/png');
+        if (result === 'cancelled') this.showToast('ยกเลิกการแชร์/บันทึก');
+        else if (result === 'shared') this.showToast('แชร์/บันทึกรูปแล้ว — เลือก บันทึกรูป หรือ ส่ง LINE ได้');
+        else if (result === 'preview') this.showToast('กดค้างที่รูปเพื่อบันทึก หรือกดปุ่มแชร์');
+        else this.showToast('บันทึกรูป A4 แล้ว: ' + fname);
       } catch (e) {
         console.error(e);
         this.showToast('เซฟรูปภาพไม่สำเร็จ — ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่');
