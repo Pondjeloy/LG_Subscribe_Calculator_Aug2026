@@ -1552,7 +1552,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.01-v121',
+ buildVersion: '2026.08.01-v122',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4253,29 +4253,33 @@ ${'</'+'html>'}`;
     },
     async saveBlobAsFile(blob, filename, mime) {
       const type = mime || blob.type || 'image/png';
+      const mobile = this.isMobileClient();
 
       // 0) Capacitor native app — เขียนไฟล์แล้วเปิด Share (บันทึกรูป/LINE ได้)
       if (await this.saveWithCapacitor(blob, filename)) {
         return 'shared';
       }
 
-      // 1) Web Share API (Chrome Android / Safari)
-      try {
-        const file = new File([blob], filename, { type });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: filename, text: filename });
-          return 'shared';
+      // 1) Web Share API — เฉพาะมือถือ/แท็บเล็ต (Android/iOS)
+      //    บน Windows/Mac Chrome ก็มี navigator.share แต่ผู้ใช้คอมต้องการดาวน์โหลดตรง ไม่เอาเมนูแชร์
+      if (mobile) {
+        try {
+          const file = new File([blob], filename, { type });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: filename, text: filename });
+            return 'shared';
+          }
+        } catch (e) {
+          if (e && e.name === 'AbortError') return 'cancelled';
         }
-      } catch (e) {
-        if (e && e.name === 'AbortError') return 'cancelled';
       }
 
       // 2) แปลงเป็น data URL — มือถือ long-press / download ใช้ได้ดีกว่า blob:
       let dataUrl = null;
       try { dataUrl = await this.blobToDataUrl(blob); } catch (e) { /* ignore */ }
 
-      // 3) เดสก์ท็อป: <a download>
-      if (!this.isMobileClient()) {
+      // 3) เดสก์ท็อป: ดาวน์โหลดไฟล์ทันที (<a download>) — ไม่เปิด share / overlay
+      if (!mobile) {
         const href = dataUrl || URL.createObjectURL(blob);
         try {
           const a = document.createElement('a');
@@ -4290,7 +4294,7 @@ ${'</'+'html>'}`;
         return 'download';
       }
 
-      // 4) มือถือ: เปิดแผงบันทึก (data URL) เสมอ
+      // 4) มือถือ: เปิดแผงบันทึก (data URL) เสมอ — แชร์ / กดค้างรูป
       this.showImageSaveOverlay(dataUrl || URL.createObjectURL(blob), filename, blob, !!dataUrl);
       return 'preview';
     },
@@ -4635,6 +4639,7 @@ ${'</'+'html>'}`;
         if (result === 'cancelled') this.showToast('ยกเลิกการแชร์/บันทึก');
         else if (result === 'shared') this.showToast('เลือก บันทึกรูป หรือ ส่ง LINE ในเมนูแชร์');
         else if (result === 'preview') this.showToast('กด แชร์/บันทึกรูป หรือ กดค้างที่รูป');
+        else if (result === 'download') this.showToast('ดาวน์โหลดรูปแล้ว: ' + fname);
         else this.showToast('บันทึกรูป A4 แล้ว: ' + fname);
       } catch (e) {
         console.error(e);
