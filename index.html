@@ -1553,7 +1553,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v3',
+ buildVersion: '2026.08.02-v4',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4076,13 +4076,13 @@ function lgCalculator() {
   .remark-box { border: 1px solid #d0d0d0; padding: 6px 8px; }
   .remark-box h3 { margin: 0 0 3px; font-size: 10.5px; font-weight: 700; color: #1a1a1a; }
   .remark-box ul { margin: 0; padding-left: 14px; font-size: 9.5px; line-height: 1.4; color: #333; }
-  .baht { margin-top: 6px; padding: 5px 8px; border: 1px solid #d0d0d0; background: #f7f7f7; font-size: 10.5px; font-weight: 700; color: #1a1a1a; line-height: 1.4; }
   .sum-box { border: 1px solid #d0d0d0; }
   .sum-box .row { display: flex; justify-content: space-between; gap: 6px; padding: 4px 8px; border-bottom: 1px solid #e8e8e8; font-size: 10.5px; color: #1a1a1a; }
   .sum-box .row:last-child { border-bottom: 0; }
   .sum-box .row span:last-child { font-weight: 700; white-space: nowrap; color: #1a1a1a; }
   .sum-box .row.grand { background: #a50034; color: #fff; font-size: 12px; font-weight: 700; }
   .sum-box .row.grand span:last-child { color: #fff; }
+  .sum-box .baht { padding: 5px 8px; font-size: 10px; font-weight: 700; color: #1a1a1a; line-height: 1.4; background: #f7f7f7; border-top: 1px solid #e8e8e8; }
   .sum-box .row .en { display: block; font-size: 8.5px; font-weight: 400; opacity: .85; }
   .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
   .sign .box { border: 1px solid #d0d0d0; padding: 6px 8px; min-height: 72px; }
@@ -4164,9 +4164,9 @@ ${'</'+'style>'}
         ${this.hasOutright() ? '<div class="row"><span>ซื้อขาดรวม</span><span>฿' + this.fmtMoney(this.totalOutright()) + '</span></div>' : ''}
         <div class="row"><span>ส่วนลดทั้งหมด</span><span>฿${this.fmtMoney(totalDiscountAll)}</span></div>
         <div class="row grand"><span>ยอดรวมทั้งสิ้น</span><span>฿${this.fmtMoney(grand)}</span></div>
+        <div class="baht">฿ BAHT : ${esc(this.bahtText(grand))}</div>
       </div>
     </div>
-    <div class="baht">฿ BAHT : ${esc(this.bahtText(grand))}</div>
 
     ${isProposal ? `
     <div class="sign">
@@ -4572,7 +4572,7 @@ ${'</'+'html>'}`;
           '.remark-box h3{line-height:1.4!important;margin:0 0 6px!important;}',
           '.remark-box ul{line-height:1.6!important;}',
           '.remark-box li{margin:3px 0!important;}',
-          '.baht{line-height:1.5!important;margin-top:8px!important;}',
+          '.sum-box .baht{line-height:1.5!important;padding:6px 8px!important;}',
           '.sign .box{padding:8px 10px!important;}',
           '.sign h4{line-height:1.4!important;margin:0 0 6px!important;}',
           '.sign .info{line-height:1.55!important;}',
