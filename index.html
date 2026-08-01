@@ -1553,7 +1553,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v2',
+ buildVersion: '2026.08.02-v3',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4076,7 +4076,7 @@ function lgCalculator() {
   .remark-box { border: 1px solid #d0d0d0; padding: 6px 8px; }
   .remark-box h3 { margin: 0 0 3px; font-size: 10.5px; font-weight: 700; color: #1a1a1a; }
   .remark-box ul { margin: 0; padding-left: 14px; font-size: 9.5px; line-height: 1.4; color: #333; }
-  .baht { margin-top: 5px; font-size: 10.5px; font-weight: 700; color: #1a1a1a; }
+  .baht { margin-top: 6px; padding: 5px 8px; border: 1px solid #d0d0d0; background: #f7f7f7; font-size: 10.5px; font-weight: 700; color: #1a1a1a; line-height: 1.4; }
   .sum-box { border: 1px solid #d0d0d0; }
   .sum-box .row { display: flex; justify-content: space-between; gap: 6px; padding: 4px 8px; border-bottom: 1px solid #e8e8e8; font-size: 10.5px; color: #1a1a1a; }
   .sum-box .row:last-child { border-bottom: 0; }
@@ -4156,7 +4156,6 @@ ${'</'+'style>'}
           <li>ยอดชำระครั้งแรก: สินค้าทั่วไป = งวดที่ 1 · TV/จอ/ลำโพง = ล่วงหน้าอย่างเดียว · ซื้อขาด = ราคาซื้อขาด</li>
           <li>*เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด ราคาอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
         </ul>
-        <div class="baht">฿ BAHT : ${esc(this.bahtText(grand))}</div>
       </div>
       <div class="sum-box">
         <div class="row"><span>ยอดชำระครั้งแรกรวม</span><span>฿${this.fmtMoney(firstPay)}</span></div>
@@ -4167,6 +4166,7 @@ ${'</'+'style>'}
         <div class="row grand"><span>ยอดรวมทั้งสิ้น</span><span>฿${this.fmtMoney(grand)}</span></div>
       </div>
     </div>
+    <div class="baht">฿ BAHT : ${esc(this.bahtText(grand))}</div>
 
     ${isProposal ? `
     <div class="sign">
