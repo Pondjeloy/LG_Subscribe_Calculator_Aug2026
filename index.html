@@ -1553,7 +1553,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v4',
+ buildVersion: '2026.08.02-v5',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3426,6 +3426,124 @@ function lgCalculator() {
  const services = info.items.map(s => s.label + ' (' + s.freq + ')').join(', ');
  return item.code + ': ' + info.title.replace(/[^\u0E00-\u0E7Fa-zA-Z0-9 /().-]/g, '').trim() + ' - ' + services + '. หมายเหตุ: ' + info.note;
  },
+ // แมปรุ่น/หมวด → หน้าสไลด์ Care Service (assets/care-service)
+ // dual=true → มีทั้ง Visit+Self (ใช้รูปตีกรอบ) · dual=false → ทางเลือกเดียว (รูปปกติ)
+ careServiceSlideMeta(item) {
+   if (!item || item.outright) return null;
+   const st = item.serviceType;
+   if (st !== 'Visit' && st !== 'Self') return null;
+   const cat = item.category || '';
+   const code = String(item.code || '').toUpperCase();
+   const name = String(item.name || '');
+
+   // เครื่องกรองน้ำ
+   if (cat === 'เครื่องกรองน้ำ') {
+     if (code.includes('WS510')) return { page: '04', dual: false, only: 'Visit' };
+     return { page: '03', dual: true }; // WD516 / WD518 / WD110
+   }
+   // ตู้เย็น
+   if (cat.startsWith('ตู้เย็น')) {
+     if (code.includes('X24') || code.includes('L24') || code.includes('X257CMHW')) {
+       return { page: '06', dual: false, only: 'Visit' };
+     }
+     return { page: '05', dual: false, only: 'Visit' };
+   }
+   // Wash Tower
+   if (cat === 'Wash Tower') return { page: '08', dual: true };
+   // ซักผ้า
+   if (cat === 'เครื่องซักผ้า Front Load') return { page: '09', dual: true };
+   if (cat === 'เครื่องซักผ้า Top Load') return { page: '10', dual: true };
+   // อบผ้า / Styler / ล้างจาน
+   if (cat === 'เครื่องอบผ้า / Styler / ล้างจาน') {
+     if (code.includes('DFC') || name.includes('Dishwasher') || name.includes('ล้างจาน')) {
+       return { page: '17', dual: true };
+     }
+     if (code.includes('S3MFC') || name.includes('Styler')) return null; // ไม่มีสไลด์ Styler
+     return { page: '11', dual: true }; // Dryer
+   }
+   // ดูดฝุ่น
+   if (cat === 'เครื่องดูดฝุ่น') return { page: '13', dual: false, only: 'Self' };
+   // ฟอกอากาศ
+   if (cat === 'เครื่องฟอกอากาศ') {
+     if (code.includes('AS35') || code.includes('AS35GGW')) return { page: '15', dual: true };
+     return { page: '14', dual: true };
+   }
+   // ลดความชื้น
+   if (cat === 'เครื่องลดความชื้น') return { page: '16', dual: true };
+   // แอร์บ้าน
+   if (cat.includes('DUALCOOL') || cat.includes('DUAL INVERTER') || cat.includes('ARTCOOL')) {
+     return { page: '18', dual: false, only: 'Visit' };
+   }
+   // แอร์เชิงพาณิชย์
+   if (cat === 'แอร์เชิงพาณิชย์ SAC') return { page: '19', dual: false, only: 'Visit' };
+   return null;
+ },
+ careServiceSlideRel(item) {
+   const meta = this.careServiceSlideMeta(item);
+   if (!meta) return '';
+   const st = item.serviceType;
+   if (meta.dual) {
+     if (st !== 'Visit' && st !== 'Self') return '';
+     return 'assets/care-service/' + meta.page + '_' + st + '.jpg';
+   }
+   // หน้าทางเลือกเดียว — แนบรูปปกติเมื่อ service ตรง
+   if (meta.only && meta.only !== st) return '';
+   return 'assets/care-service/' + meta.page + '.jpg';
+ },
+ careServiceSlideUrl(item) {
+   const rel = this.careServiceSlideRel(item);
+   if (!rel) return '';
+   try {
+     if (typeof window !== 'undefined' && window.location && window.location.href
+         && !String(window.location.href).startsWith('about:')) {
+       return new URL(rel, window.location.href).href;
+     }
+   } catch (e) { /* ignore */ }
+   return rel;
+ },
+ // รายการสไลด์ Care ต่อท้ายใบสรุปราคา (ไม่ซ้ำ · ตามตะกร้า)
+ careServiceSlidesForQuote() {
+   const seen = new Set();
+   const out = [];
+   this.quoteGroupedItems().forEach(g => {
+     const it = g.item;
+     const rel = this.careServiceSlideRel(it);
+     if (!rel || seen.has(rel)) return;
+     seen.add(rel);
+     const st = it.serviceType;
+     const label = st === 'Self' ? 'Self Service' : (st === 'Visit' ? 'Visit Service' : 'Care Service');
+     out.push({
+       rel,
+       url: this.careServiceSlideUrl(it),
+       code: it.code || '',
+       name: it.name || '',
+       serviceType: st,
+       label,
+       title: this.careCategoryLabel(it) + ' · ' + label,
+     });
+   });
+   return out;
+ },
+ careServiceSlidesHtml() {
+   const slides = this.careServiceSlidesForQuote();
+   if (!slides.length) return '';
+   let html = '<div class="care-slides">';
+   html += '<div class="care-slides-head">รายละเอียด Care Service ตามแพ็กที่เลือก</div>';
+   slides.forEach((s, i) => {
+     html += '<div class="care-slide' + (i === 0 ? '' : ' care-slide-break') + '">';
+     html += '<div class="care-slide-cap">' + this.escapeHtmlLite(s.title);
+     if (s.code) html += ' <span class="care-slide-code">(' + this.escapeHtmlLite(s.code) + ')</span>';
+     html += '</div>';
+     html += '<img class="care-slide-img" src="' + s.url + '" alt="' + this.escapeHtmlLite(s.title) + '"/>';
+     html += '</div>';
+   });
+   html += '</div>';
+   return html;
+ },
+ escapeHtmlLite(s) {
+   return String(s == null ? '' : s)
+     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+ },
 
     annualValueHtml() {
       const ann = this.annualBreakdown();
@@ -4092,6 +4210,13 @@ function lgCalculator() {
   .sign .sig { margin-top: 14px; text-align: center; font-size: 10px; color: #1a1a1a; }
   .sign .sig small { display: block; margin-top: 2px; font-size: 9px; color: #444; }
   .foot { margin-top: 6px; padding-top: 4px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 9px; color: #333; line-height: 1.35; }
+  .care-slides { margin-top: 10px; page-break-before: always; }
+  .care-slides-head { font-size: 12px; font-weight: 700; color: #a50034; margin: 0 0 8px; padding-bottom: 4px; border-bottom: 2px solid #a50034; }
+  .care-slide { margin: 0 0 10px; }
+  .care-slide-break { page-break-before: always; }
+  .care-slide-cap { font-size: 10.5px; font-weight: 700; color: #1a1a1a; margin: 0 0 4px; }
+  .care-slide-cap .care-slide-code { font-weight: 600; color: #444; font-family: Consolas,"Courier New",monospace; font-size: 9.5px; }
+  .care-slide-img { width: 100%; max-width: 100%; height: auto; display: block; border: 1px solid #e0e0e0; border-radius: 4px; }
   .no-print { text-align: center; margin: 10px auto 12px; }
   .no-print button { background: #a50034; color: #fff; border: 0; border-radius: 8px; padding: 9px 16px; font-size: 13px; cursor: pointer; margin: 0 4px; font-family: inherit; }
   .no-print button.ghost { background: #fff; color: #a50034; border: 1px solid #a50034; }
@@ -4099,6 +4224,8 @@ function lgCalculator() {
     .no-print { display: none !important; }
     body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .sheet { max-width: none; }
+    .care-slides { page-break-before: always; }
+    .care-slide-break { page-break-before: always; }
   }
 ${'</'+'style>'}
 </head>
@@ -4186,8 +4313,10 @@ ${'</'+'style>'}
     <div class="foot">
       ติดต่อ: Line @Lgthailand (8.00-18.00) · ฝ่ายบริการลูกค้า 02-057-5757${sellerName ? ' · ผู้เสนอราคา <span class="name">' + sellerName + '</span>' : ''}${sellerLine ? ' · LINE ' + sellerLine : ''}
     </div>
+
+    ${(opts.includeCareSlides === false) ? '' : this.careServiceSlidesHtml()}
   </div>
-  ${autoPrint ? `${'<'+'script>'}window.addEventListener('load',function(){setTimeout(function(){window.print()},280)});${'</'+'script>'}` : ''}
+  ${autoPrint ? `${'<'+'script>'}window.addEventListener('load',function(){var imgs=[].slice.call(document.images||[]);var left=imgs.length;function go(){setTimeout(function(){window.print()},220);}if(!left)return go();imgs.forEach(function(img){if(img.complete){if(--left===0)go();}else{img.onload=img.onerror=function(){if(--left===0)go();};}});});${'</'+'script>'}` : ''}
 ${'</'+'body>'}
 ${'</'+'html>'}`;
     },
@@ -4490,7 +4619,8 @@ ${'</'+'html>'}`;
         this.showToast('กำลังสร้างรูป' + label + ' A4...');
         const html2canvas = await this.loadHtml2Canvas();
         // ห้าม autoPrint — iframe โหลด HTML นี้ ถ้ามี window.print() จะเด้งหน้าปริ้น
-        const fullHtml = this.quotationHtml(mode, { autoPrint: false });
+        // เซฟรูป = หน้าใบราคาอย่างเดียว (Care Service ดูในโหมดพิมพ์/PDF ที่ต่อหลายหน้า)
+        const fullHtml = this.quotationHtml(mode, { autoPrint: false, includeCareSlides: false });
         // A4 portrait @ 96 CSS px (210mm × 297mm) — เซฟ PNG สัดส่วน A4 จริง
         const A4_W = 794;
         const A4_H = 1123;
