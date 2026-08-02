@@ -1553,7 +1553,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v11',
+ buildVersion: '2026.08.02-v12',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4143,7 +4143,11 @@ function lgCalculator() {
           itemsHtml += '</tr>';
         }
 
-        // ไม่แสดงแถว Total. ต่อรายการ — ดูยอดรวมที่กล่องสรุปด้านล่างแทน
+        itemsHtml += '<tr class="tot">';
+        itemsHtml += '<td class="c"><strong>Total.</strong></td>';
+        itemsHtml += '<td class="num"></td><td class="num"></td>';
+        itemsHtml += '<td class="num"><strong>' + this.fmtMoney(totalItem) + '</strong></td>';
+        itemsHtml += '</tr>';
       });
       totalDiscountAll = Math.round(totalDiscountAll * 100) / 100;
 
