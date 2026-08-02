@@ -859,7 +859,7 @@
  <div class="flex justify-between items-start flex-wrap gap-2">
  <div class="flex-1 min-w-0">
  <div class="flex items-center gap-2 flex-wrap mb-1">
- <span class="font-semibold text-sm" x-text="plan.term"></span>
+ <span class="font-semibold text-sm" x-text="termYearsOnly(plan)"></span>
  <span class="tag" :class="'tag-' + plan.serviceType.toLowerCase().replace(' ','')" x-text="serviceTypeTag(plan.serviceType)"></span>
  <span class="text-xs text-gray-500" x-show="planServiceNote(plan)" x-text="planServiceNote(plan)"></span>
  <span x-show="plan.promo" class="tag tag-promo">โปร</span>
@@ -1073,7 +1073,7 @@
  <div class="font-mono text-xs text-gray-700" x-text="g.item.code"></div>
  <div class="text-sm" x-text="g.item.name"></div>
  <div class="flex gap-2 mt-2 flex-wrap items-center">
- <span class="tag" :class="'tag-' + g.item.serviceType.toLowerCase().replace(' ','')" x-text="g.item.term + ' · ' + serviceTypeTag(g.item.serviceType)"></span>
+ <span class="tag" :class="'tag-' + g.item.serviceType.toLowerCase().replace(' ','')" x-text="termYearsOnly(g.item) + ' · ' + serviceTypeTag(g.item.serviceType)"></span>
  <span class="tag tag-promo" x-show="g.item.promo">โปรโมชัน</span>
  <span class="tag" style="background:#f5f5f7;color:var(--ink)" x-show="g.item.outright" x-text="'ซื้อขาด ฿' + g.item.advancePayment.toLocaleString()"></span>
  <span class="tag" style="background:#f5f5f7;color:var(--ink)" x-show="g.item.advancePayment && !g.item.outright" x-text="'ล่วงหน้า ฿' + g.item.advancePayment.toLocaleString()"></span>
@@ -1224,7 +1224,7 @@
  </div>
  <div class="truncate text-xs text-gray-600" x-text="g.item.name"></div>
  <div class="text-xs text-gray-400 font-mono truncate" x-text="g.item.code"></div>
- <div class="text-xs text-gray-500" x-text="g.item.term + ' · ' + serviceTypeTag(g.item.serviceType)"></div>
+ <div class="text-xs text-gray-500" x-text="termYearsOnly(g.item) + ' · ' + serviceTypeTag(g.item.serviceType)"></div>
  </div>
  <div class="text-right font-mono shrink-0" x-text="'฿' + (g.item.effectiveMonthly * g.qty).toLocaleString()"></div>
  </div>
@@ -1553,7 +1553,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v12',
+ buildVersion: '2026.08.02-v13',
  quoteCustomer: {
    name: '',
    address: '',
@@ -1671,11 +1671,18 @@ function lgCalculator() {
  if (plan.serviceType === 'No Service') return '';
  return 'รอบบริการ: ' + plan.serviceCycle;
  },
+ // แสดงแค่ "6 ปี" — ไม่ใส่ 6Y ซ้ำ
+ termYearsOnly(itemOrPlan) {
+   if (!itemOrPlan) return '';
+   const months = itemOrPlan.totalContractMonths
+     || (itemOrPlan.term === '6Y' ? 72 : (itemOrPlan.term === '5Y' ? 60 : (itemOrPlan.term === '2Y' ? 24 : 60)));
+   return Math.round(months / 12) + ' ปี';
+ },
  planTermYears(plan) {
  if (!plan) return '';
  const months = plan.totalContractMonths || (plan.term === '6Y' ? 72 : 60);
  const y = Math.round(months / 12);
- return (plan.term || (y + 'Y')) + ' (' + y + ' ปี · ' + months + ' งวด)';
+ return y + ' ปี · ' + months + ' งวด';
  },
  planContractFoot(plan) {
  if (!plan || plan.outright) return '';
@@ -2588,7 +2595,7 @@ function lgCalculator() {
  const careScore = this.careServiceScore(item);
  return {
  idx, plan,
- label: plan.term + ' · ' + this.serviceTypeTag(plan.serviceType),
+ label: this.termYearsOnly(plan) + ' · ' + this.serviceTypeTag(plan.serviceType),
  serviceCycle: plan.serviceType !== 'No Service' ? plan.serviceCycle : '—',
  periodText: this.itemPeriodText(item),
  careSummary: this.compareCareSummary(item),
@@ -3140,7 +3147,7 @@ function lgCalculator() {
         const years = Math.round(months / 12);
         h += '<div class="br-item">';
         h += '<div class="br-title"><span>' + (i+1) + '.</span> <strong>' + this.productTypeLabel(it) + ' · ' + it.code + (qty > 1 ? (' ×' + qty) : '') + '</strong>';
-        h += ' <span style="font-weight:500;color:#6b7280;font-size:11px">· สัญญา ' + (it.term || '') + ' (' + years + ' ปี · ' + months + ' งวด)</span></div>';
+        h += ' <span style="font-weight:500;color:#6b7280;font-size:11px">· สัญญา ' + years + ' ปี (' + months + ' งวด)</span></div>';
         h += '<div class="br-rows">';
         if (advance > 0) {
           h += '<div class="br-row"><span class="br-range">จ่ายล่วงหน้า</span><span class="br-calc">ตอนเริ่มสัญญา' + (qty > 1 ? (' · ฿' + this.fmtMoney(it.advancePayment) + ' × ' + qty) : '') + '</span><span class="br-total">฿' + this.fmtMoney(advance) + '</span></div>';
@@ -3683,17 +3690,17 @@ function lgCalculator() {
         // Title
         txt += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:3px">';
         txt += '<div><span style="font-weight:700;color:#a50034">' + (i+1) + '.</span> <strong>' + this.productSummaryTitle(it) + (qty > 1 ? (' ×' + qty) : '') + '</strong></div>';
-        txt += '<span style="font-size:0.75em;background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:4px;white-space:nowrap">' + it.term + (qty > 1 ? (' · ' + qty + ' ชิ้น') : '') + '</span>';
+        txt += '<span style="font-size:0.75em;background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:4px;white-space:nowrap">' + this.termYearsOnly(it) + (qty > 1 ? (' · ' + qty + ' ชิ้น') : '') + '</span>';
         txt += '</div>';
         const months = it.totalContractMonths || 60;
         const years = Math.round(months / 12);
-        txt += '<div style="font-size:0.78em;color:#6b7280;margin-bottom:6px">' + this.productTypeLabel(it) + ' · สัญญา ' + (it.term || '') + ' (' + years + ' ปี · ' + months + ' งวด)' + (qty > 1 ? (' · จำนวน ' + qty + ' ชิ้น') : '') + '</div>';
+        txt += '<div style="font-size:0.78em;color:#6b7280;margin-bottom:6px">' + this.productTypeLabel(it) + ' · สัญญา ' + years + ' ปี (' + months + ' งวด)' + (qty > 1 ? (' · จำนวน ' + qty + ' ชิ้น') : '') + '</div>';
         // สรุปจ่ายต่อเดือนแยกช่วง (ยอดรวมตามจำนวน)
         if (it.outright) {
           txt += '<div style="font-size:0.85em;color:#7c3aed;margin-bottom:3px">ซื้อขาด <strong>฿' + (it.advancePayment * qty).toLocaleString() + '</strong>' + (qty > 1 ? (' (฿' + it.advancePayment.toLocaleString() + ' × ' + qty + ')') : '') + ' (รวมเครื่อง + บริการ 2 ปี · ลด 10%)</div>';
         } else {
           txt += '<div style="font-size:0.82em;margin-bottom:4px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:6px 8px;line-height:1.35">';
-          txt += '<div style="font-weight:700;font-size:0.88em;margin-bottom:2px;color:#374151">จ่าย/เดือน · ' + (it.term || '') + ' (' + years + 'ปี)' + (qty > 1 ? (' · รวม ' + qty + ' ชิ้น') : '') + '</div>';
+          txt += '<div style="font-weight:700;font-size:0.88em;margin-bottom:2px;color:#374151">จ่าย/เดือน · ' + years + ' ปี' + (qty > 1 ? (' · รวม ' + qty + ' ชิ้น') : '') + '</div>';
           this.itemMonthlyPeriodLines(it).forEach(line => {
             const noteHtml = line.note ? ' <span style="color:#9ca3af;font-size:0.85em">(' + line.note + ')</span>' : '';
             let priceShow = line.priceText;
@@ -3810,7 +3817,7 @@ function lgCalculator() {
 
         // สัญญา + บริการ
         lines.push(
-          'สัญญา ' + (it.term || '') + ' (' + months + ' เดือน) | บริการ: '
+          'สัญญา ' + Math.round(months / 12) + ' ปี (' + months + ' เดือน) | บริการ: '
           + this.formatServiceDetail(it, true)
           + (qty > 1 ? (' | จำนวน ' + qty + ' ชิ้น') : '')
         );
@@ -4069,7 +4076,7 @@ function lgCalculator() {
           pkgLine = 'ซื้อขาด (รวมเครื่อง + บริการ 2 ปี)';
         } else {
           // รายละเอียดบริการอยู่ที่ Care Service บรรทัดเดียว — ไม่ซ้ำที่นี่
-          pkgLine = 'สัญญา ' + (it.term || '') + ' · ' + years + ' ปี (' + months + ' งวด)';
+          pkgLine = 'สัญญา ' + years + ' ปี (' + months + ' งวด)';
         }
         const imgSrc = this.productImageUrl(it.code);
         // ใบสรุปราคา: Care Service แค่สาระสำคัญ 1 บรรทัด (ไม่ลิสต์อะไหล่/รายการย่อย)
