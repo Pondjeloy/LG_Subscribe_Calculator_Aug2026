@@ -1554,7 +1554,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v18',
+ buildVersion: '2026.08.02-v19',
  quoteCustomer: {
    name: '',
    address: '',
@@ -2025,6 +2025,7 @@ function lgCalculator() {
           { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 6 เดือน', regular:849, effectiveMonthly:149, promoMonths:1, postPromoPrice:849, billSchedule:[{'range': 'บิล 1', 'price': 149, 'note': 'ราคา 149.-'}, {'range': 'บิล 2-60', 'price': 849, 'note': ''}], promo:'ราคา 149.- (1 รอบบิลแรก) จากนั้น 849/เดือน', totalContractMonths:60, totalSaving:700 }
         ]}
  ]},
+ // SAC: แสดงเฉพาะรุ่น New Aug (ลบ New PTO WiFi / รุ่นเก่า)
  'แอร์เชิงพาณิชย์ SAC': { models: [
  { code:'ZT4Q18GPLA1.EWGHATH', name:'Cassette 4-Way · 18k BTU (New Aug)', plans:[
           { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1949, effectiveMonthly:1949, promoMonths:0, postPromoPrice:1949, promo:'', totalContractMonths:60, totalSaving:0 }
@@ -2043,27 +2044,6 @@ function lgCalculator() {
         ]},
  { code:'ZTRQ48GYLA1.EWGHATH', name:'Cassette Round · 48k BTU (New Aug)', plans:[
           { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:2499, effectiveMonthly:2499, promoMonths:0, postPromoPrice:2499, promo:'', totalContractMonths:60, totalSaving:0 }
-        ]},
- { code:'ZVQ18GM1E0.EWGHATH', name:'Ceiling · 18k BTU (New PTO WiFi)', plans:[
-          { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1599, effectiveMonthly:1599, promoMonths:0, postPromoPrice:1599, promo:'', totalContractMonths:60, totalSaving:0 }
-        ]},
- { code:'ZVQ24GM1E0.EWGHATH', name:'Ceiling · 24k BTU (New PTO WiFi)', plans:[
-          { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1699, effectiveMonthly:1699, promoMonths:0, postPromoPrice:1699, promo:'', totalContractMonths:60, totalSaving:0 }
-        ]},
- { code:'ZVQ36GM2E0.EWGHATH', name:'Ceiling · 36k BTU (New PTO WiFi)', plans:[
-          { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1849, effectiveMonthly:1849, promoMonths:0, postPromoPrice:1849, promo:'', totalContractMonths:60, totalSaving:0 }
-        ]},
- { code:'ZTQ12GULA0.EWGHATH', name:'Cassette 1-Way · 12k BTU (New PTO WiFi)', plans:[
-          { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1499, effectiveMonthly:1499, promoMonths:0, postPromoPrice:1499, promo:'', totalContractMonths:60, totalSaving:0 }
-        ]},
- { code:'ZTQ18GTLA0.EWGHATH', name:'Cassette 1-Way · 18k BTU (New PTO WiFi)', plans:[
-          { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1599, effectiveMonthly:1599, promoMonths:0, postPromoPrice:1599, promo:'', totalContractMonths:60, totalSaving:0 }
-        ]},
- { code:'ZTQ24GTLA0.EWGHATH', name:'Cassette 1-Way · 24k BTU (New PTO WiFi)', plans:[
-          { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1799, effectiveMonthly:1799, promoMonths:0, postPromoPrice:1799, promo:'', totalContractMonths:60, totalSaving:0 }
-        ]},
- { code:'ZTQ18GPLE0.EWGHATH', name:'Cassette 4-Way · 18k BTU (New PTO WiFi)', plans:[
-          { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 4 เดือน', regular:1949, effectiveMonthly:1949, promoMonths:0, postPromoPrice:1949, promo:'', totalContractMonths:60, totalSaving:0 }
         ]}
  ]},
  'โทรทัศน์ Life Style / OLED / QNED / NANO': { models: [
