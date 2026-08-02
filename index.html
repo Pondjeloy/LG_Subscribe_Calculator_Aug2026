@@ -1538,7 +1538,7 @@ function lgCalculator() {
  'A9T-CORE.DCGPETH': 'assets/products/a9t-core.png',
  'A9T-LITE.DCGPETH': 'assets/products/a9t-lite.png',
  'A9T-ULTRA.DCBPETH': 'assets/products/a9t-ultra.png',
- 'RV10VHP4B.BMBPETH': 'assets/products/rv10vhp4b.png',
+ 
  'AS10GDBY0.ABAE': 'assets/products/as10gdby0.png',
  'AS25GCBY0.ABAE': 'assets/products/as25gcby0.png',
  'AS30GGW10.ABAE': 'assets/products/as30ggw10.png',
@@ -1554,7 +1554,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v19',
+ buildVersion: '2026.08.02-v20',
  quoteCustomer: {
    name: '',
    address: '',
@@ -1902,12 +1902,7 @@ function lgCalculator() {
           { term:'6Y', serviceType:'Visit', serviceCycle:'ทุก 12 เดือน', regular:649, effectiveMonthly:149, promoMonths:1, postPromoPrice:649, billSchedule:[{'range': 'บิล 1', 'price': 149, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 324, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-72', 'price': 649, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน', totalContractMonths:72, totalSaving:2775 },
           { term:'6Y', serviceType:'Self', serviceCycle:'ทุก 12 เดือน', regular:599, effectiveMonthly:149, promoMonths:1, postPromoPrice:599, billSchedule:[{'range': 'บิล 1', 'price': 149, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 299, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-72', 'price': 599, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (299) จากนั้น 599/เดือน', totalContractMonths:72, totalSaving:2550 }
         ]},
- { code:'RV10VHP4B.BMBPETH', name:'อบ 10 กก.', plans:[
- { term:'5Y', serviceType:'Self', serviceCycle:'ทุก 12 เดือน', regular:749, effectiveMonthly:149.0, promoMonths:1, postPromoPrice:749, billSchedule:[{'range': 'บิล 1', 'price': 149.0, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 374.0, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-60', 'price': 749.0, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน', totalContractMonths:60, totalSaving:3225 },
- { term:'5Y', serviceType:'Visit', serviceCycle:'ทุก 12 เดือน', regular:849, effectiveMonthly:149.0, promoMonths:1, postPromoPrice:849, billSchedule:[{'range': 'บิล 1', 'price': 149.0, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 424.0, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-60', 'price': 849.0, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (424) จากนั้น 849/เดือน', totalContractMonths:60, totalSaving:3675 },
- { term:'6Y', serviceType:'Self', serviceCycle:'ทุก 12 เดือน', regular:649, effectiveMonthly:149.0, promoMonths:1, postPromoPrice:649, billSchedule:[{'range': 'บิล 1', 'price': 149.0, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 324.0, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-72', 'price': 649.0, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน', totalContractMonths:72, totalSaving:2775 },
- { term:'6Y', serviceType:'Visit', serviceCycle:'ทุก 12 เดือน', regular:749, effectiveMonthly:149.0, promoMonths:1, postPromoPrice:749, billSchedule:[{'range': 'บิล 1', 'price': 149.0, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 374.0, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-72', 'price': 749.0, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน', totalContractMonths:72, totalSaving:3225 }
- ]},
+// เครื่องอบผ้า RV10* ตัดออก — ไม่มีใน Price list ส.ค. 2026 (เหลือแต่ Wash&Dry ฝั่ง WM)
  { code:'S3MFC.ALBPETH', name:'LG Styler', plans:[
           { term:'5Y', serviceType:'Self', serviceCycle:'ทุก 12 เดือน', regular:899, effectiveMonthly:149, promoMonths:1, postPromoPrice:899, billSchedule:[{'range': 'บิล 1', 'price': 149, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 449, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-60', 'price': 899, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (449) จากนั้น 899/เดือน', totalContractMonths:60, totalSaving:3900 },
           { term:'6Y', serviceType:'Self', serviceCycle:'ทุก 12 เดือน', regular:799, effectiveMonthly:149, promoMonths:1, postPromoPrice:799, billSchedule:[{'range': 'บิล 1', 'price': 149, 'note': 'ราคาพิเศษ'}, {'range': 'บิล 2-8', 'price': 399, 'note': 'โปรลด 50%'}, {'range': 'บิล 9-72', 'price': 799, 'note': 'ราคาปกติ'}], promo:'บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (399) จากนั้น 799/เดือน', totalContractMonths:72, totalSaving:3450 }
