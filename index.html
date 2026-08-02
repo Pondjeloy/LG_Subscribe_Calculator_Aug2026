@@ -1553,7 +1553,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.02-v6',
+ buildVersion: '2026.08.02-v7',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3470,13 +3470,20 @@ function lgCalculator() {
    }
    // ลดความชื้น
    if (cat === 'เครื่องลดความชื้น') return { page: '16', dual: true };
-   // แอร์บ้าน
+   // แอร์บ้าน — Visit อย่างเดียว แต่มีรอบ 6 เดือน / 12 เดือน (ตีกรอบคอลัมน์)
    if (cat.includes('DUALCOOL') || cat.includes('DUAL INVERTER') || cat.includes('ARTCOOL')) {
-     return { page: '18', dual: false, only: 'Visit' };
+     return { page: '18', dual: false, acCycle: true, only: 'Visit' };
    }
    // แอร์เชิงพาณิชย์
    if (cat === 'แอร์เชิงพาณิชย์ SAC') return { page: '19', dual: false, only: 'Visit' };
    return null;
+ },
+ careServiceAcCycleKey(item) {
+   // '6m' | '12m' จาก serviceCycle เช่น "ทุก 6 เดือน" / "ทุก 12 เดือน"
+   const c = String(item.serviceCycle || '');
+   if (c.includes('6')) return '6m';
+   if (c.includes('12')) return '12m';
+   return '12m'; // fallback
  },
  careServiceSlideRel(item) {
    const meta = this.careServiceSlideMeta(item);
@@ -3485,6 +3492,12 @@ function lgCalculator() {
    if (meta.dual) {
      if (st !== 'Visit' && st !== 'Self') return '';
      return 'assets/care-service/' + meta.page + '_' + st + '.jpg';
+   }
+   // แอร์บ้าน: ตีกรอบคอลัมน์ตามรอบ Visit 6m / 12m
+   if (meta.acCycle) {
+     if (meta.only && meta.only !== st) return '';
+     const cyc = this.careServiceAcCycleKey(item);
+     return 'assets/care-service/' + meta.page + '_' + cyc + '.jpg';
    }
    // หน้าทางเลือกเดียว — แนบรูปปกติเมื่อ service ตรง
    if (meta.only && meta.only !== st) return '';
@@ -3511,7 +3524,12 @@ function lgCalculator() {
      if (!rel || seen.has(rel)) return;
      seen.add(rel);
      const st = it.serviceType;
-     const label = st === 'Self' ? 'Self Service' : (st === 'Visit' ? 'Visit Service' : 'Care Service');
+     let label = st === 'Self' ? 'Self Service' : (st === 'Visit' ? 'Visit Service' : 'Care Service');
+     const meta = this.careServiceSlideMeta(it);
+     if (meta && meta.acCycle && st === 'Visit') {
+       const cyc = this.careServiceAcCycleKey(it);
+       label = cyc === '6m' ? 'Visit · ทุก 6 เดือน' : 'Visit · ทุก 12 เดือน';
+     }
      out.push({
        rel,
        url: this.careServiceSlideUrl(it),
