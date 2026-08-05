@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.05-v29 · Tab title Aug 2026 -->
+<!-- LG Subscribe Calculator build 2026.08.05-v30 · Tab title Aug 2026 -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1590,7 +1590,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.05-v29',
+ buildVersion: '2026.08.05-v30',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4075,9 +4075,16 @@ function lgCalculator() {
       const mi = String(d.getMinutes()).padStart(2, '0');
       return y + m + day + '-' + h + mi;
     },
-    // วันสิ้นสุดโปรโมชั่นปกติ (BE → CE) = วันที่มีผลถึงบนใบ
+    // วันหมดโปรที่ใช้กำหนด "มีผลถึง" บนใบ
+    // เปิดคอมโบพิเศษ (specialCombo) → วันหมดโปรพิเศษ · ปิด → โปรหลัก (normal)
+    quoteValidPromoEnd() {
+      const p = (typeof this.activePromo === 'function') ? this.activePromo() : null;
+      if (p && p.dateEnd) return String(p.dateEnd);
+      return (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
+    },
+    // วันสิ้นสุดโปร (BE → CE) = วันที่มีผลถึงบนใบ
     quoteValidToDate() {
-      const end = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
+      const end = this.quoteValidPromoEnd();
       const parts = String(end).split('-');
       if (parts.length === 3) {
         let y = +parts[0], m = +parts[1], day = +parts[2];
@@ -4090,11 +4097,12 @@ function lgCalculator() {
       fallback.setDate(fallback.getDate() + 15);
       return fallback;
     },
-    // ข้อความบอกใบใช้ได้ถึงเมื่อไหร่ (ยึดวันสิ้นสุดโปร)
+    // ข้อความบอกใบใช้ได้ถึงเมื่อไหร่ (ยึดวันสิ้นสุดโปรตามสถานะคอมโบ)
     validDaysHint() {
       const d = this.quoteValidToDate();
-      const promoEnd = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
-      return 'ใบใช้ได้ถึงสิ้นโปร · มีผลถึง ' + this.quoteDateText(d) +
+      const promoEnd = this.quoteValidPromoEnd();
+      const which = this.specialCombo ? 'โปรพิเศษ' : 'โปรหลัก';
+      return 'ใบใช้ได้ถึงสิ้น' + which + ' · มีผลถึง ' + this.quoteDateText(d) +
         (promoEnd ? ' (' + this.fmtDate(promoEnd) + ')' : '');
     },
     // รวมรายการรุ่น+สัญญาเดียวกันเป็นแถวเดียว (ใบสรุปราคา)
