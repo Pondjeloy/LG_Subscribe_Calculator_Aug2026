@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.05-v28 · Tab title Aug 2026 -->
+<!-- LG Subscribe Calculator build 2026.08.05-v29 · Tab title Aug 2026 -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1590,7 +1590,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.05-v28',
+ buildVersion: '2026.08.05-v29',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3549,7 +3549,7 @@ function lgCalculator() {
    // ฟอกอากาศ
    if (cat === 'เครื่องฟอกอากาศ') {
      if (code.includes('AS35') || code.includes('AS35GGW')) return { page: '15', dual: true };
-     return { page: '14', dual: true };
+     return { page: '14', dual: false, apCycle: true };
    }
    // ลดความชื้น
    if (cat === 'เครื่องลดความชื้น') return { page: '16', dual: true };
@@ -3563,8 +3563,11 @@ function lgCalculator() {
  },
  careServiceAcCycleKey(item) {
    // '6m' | '12m' จาก serviceCycle เช่น "ทุก 6 เดือน" / "ทุก 12 เดือน"
+   // ระวัง: "ทุก 16 เดือน" / "ทุก 24 เดือน" อย่าจับเป็น 6m
    const c = String(item.serviceCycle || '');
-   if (c.includes('6')) return '6m';
+   if (/\b6\s*เดือน/.test(c) || c.includes('ทุก 6')) return '6m';
+   if (c.includes('12')) return '12m';
+   if (c.includes('6') && !c.includes('16') && !c.includes('24') && !c.includes('36') && !c.includes('60')) return '6m';
    if (c.includes('12')) return '12m';
    return '12m'; // fallback
  },
@@ -3581,6 +3584,12 @@ function lgCalculator() {
      if (meta.only && meta.only !== st) return '';
      const cyc = this.careServiceAcCycleKey(item);
      return 'assets/care-service/' + meta.page + '_' + cyc + '.jpg';
+   }
+   // ฟอกอากาศหน้า 14: ตีกรอบคอลัมน์ Visit/Self × 6m/12m
+   if (meta.apCycle) {
+     if (st !== 'Visit' && st !== 'Self') return '';
+     const cyc = this.careServiceAcCycleKey(item);
+     return 'assets/care-service/' + meta.page + '_' + st + '_' + cyc + '.jpg';
    }
    // หน้าทางเลือกเดียว — แนบรูปปกติเมื่อ service ตรง
    if (meta.only && meta.only !== st) return '';
@@ -3612,6 +3621,10 @@ function lgCalculator() {
      if (meta && meta.acCycle && st === 'Visit') {
        const cyc = this.careServiceAcCycleKey(it);
        label = cyc === '6m' ? 'Visit · ทุก 6 เดือน' : 'Visit · ทุก 12 เดือน';
+     } else if (meta && meta.apCycle && (st === 'Visit' || st === 'Self')) {
+       const cyc = this.careServiceAcCycleKey(it);
+       const mode = st === 'Self' ? 'Self' : 'Visit';
+       label = cyc === '6m' ? (mode + ' · ทุก 6 เดือน') : (mode + ' · ทุก 12 เดือน');
      }
      out.push({
        rel,
