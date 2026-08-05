@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.03-v27 · Tab title Aug 2026 -->
+<!-- LG Subscribe Calculator build 2026.08.05-v28 · Tab title Aug 2026 -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -258,6 +258,32 @@
   }
   .plan-card.active .tag-recommend{background:var(--blood) !important;border-color:var(--blood) !important;color:#fff !important}
   .plan-card.active:hover{border-color:var(--blood) !important;background:linear-gradient(165deg, rgba(200,16,46,.12) 0%, #fff 50%) !important}
+  /* แยกรอบบริการ (เช่น ฟอกอากาศ Visit 6 เดือน vs 12 เดือน) */
+  .plan-cycle-group{margin:0}
+  .plan-cycle-group.framed{
+    border:1.5px solid var(--line-strong);
+    border-radius:var(--radius-sm);
+    padding:12px 12px 10px;
+    background:var(--fill);
+  }
+  .plan-cycle-group.framed + .plan-cycle-group.framed{margin-top:12px}
+  .plan-cycle-group.cycle-6m{
+    border-color:rgba(200,16,46,.28);
+    background:linear-gradient(180deg, rgba(200,16,46,.05) 0%, var(--fill) 45%);
+  }
+  .plan-cycle-group.cycle-12m{
+    border-color:rgba(0,0,0,.12);
+    background:linear-gradient(180deg, rgba(0,0,0,.03) 0%, var(--fill) 45%);
+  }
+  .plan-cycle-group-head{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+    font-size:12px;font-weight:700;color:var(--ink);
+    margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line);
+    letter-spacing:.01em;
+  }
+  .plan-cycle-group-head .pcg-sub{font-size:11px;font-weight:500;color:var(--muted)}
+  .plan-cycle-group.cycle-6m .plan-cycle-group-head{border-bottom-color:rgba(200,16,46,.18);color:var(--blood)}
+  .plan-cycle-group.framed .plan-card{background:#fff}
   .plan-periods{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
   .plan-periods-head{font-size:11px;font-weight:500;color:var(--muted);margin-bottom:4px;letter-spacing:.02em}
   .plan-period-row{display:grid;grid-template-columns:1fr auto auto;gap:2px 8px;align-items:baseline;font-size:12px;padding:2px 0;line-height:1.4;color:var(--ink-2)}
@@ -852,49 +878,59 @@
  <span x-show="isDishwasherModel(currentModel())">เครื่องล้างจาน สัญญา <strong>6 ปี Visit</strong> คุ้มที่สุด</span>
  </div>
  <div class="space-y-2">
- <template x-for="(plan, idx) in (currentModel()?.plans || [])" :key="idx">
- <label class="cursor-pointer block" @click="picker.plan = String(idx)">
- <input type="radio" x-model="picker.plan" :value="String(idx)" class="hidden-peer" name="plan-pick" />
- <div class="plan-card" :class="String(picker.plan) === String(idx) ? 'active' : ''">
+ <template x-for="group in planPickerGroups()" :key="group.key">
+ <div class="plan-cycle-group" :class="[group.framed ? 'framed' : '', group.cycleClass]">
+ <div class="plan-cycle-group-head" x-show="group.framed">
+ <span x-text="group.label"></span>
+ <span class="pcg-sub" x-show="group.sub" x-text="group.sub"></span>
+ </div>
+ <div class="space-y-2">
+ <template x-for="entry in group.plans" :key="entry.idx">
+ <label class="cursor-pointer block" @click="picker.plan = String(entry.idx)">
+ <input type="radio" x-model="picker.plan" :value="String(entry.idx)" class="hidden-peer" name="plan-pick" />
+ <div class="plan-card" :class="String(picker.plan) === String(entry.idx) ? 'active' : ''">
  <div class="flex justify-between items-start flex-wrap gap-2">
  <div class="flex-1 min-w-0">
  <div class="flex items-center gap-2 flex-wrap mb-1">
- <span class="font-semibold text-sm" x-text="termYearsOnly(plan)"></span>
- <span class="tag" :class="'tag-' + plan.serviceType.toLowerCase().replace(' ','')" x-text="serviceTypeTag(plan.serviceType)"></span>
- <span class="text-xs text-gray-500" x-show="planServiceNote(plan)" x-text="planServiceNote(plan)"></span>
- <span x-show="plan.promo" class="tag tag-promo">โปร</span>
- <span x-show="isRecommendedPlan(picker.category, plan)" class="tag tag-recommend">แนะนำ</span>
+ <span class="font-semibold text-sm" x-text="termYearsOnly(entry.plan)"></span>
+ <span class="tag" :class="'tag-' + entry.plan.serviceType.toLowerCase().replace(' ','')" x-text="serviceTypeTag(entry.plan.serviceType)"></span>
+ <span class="text-xs text-gray-500" x-show="!group.framed && planServiceNote(entry.plan)" x-text="planServiceNote(entry.plan)"></span>
+ <span x-show="entry.plan.promo" class="tag tag-promo">โปร</span>
+ <span x-show="isRecommendedPlan(picker.category, entry.plan)" class="tag tag-recommend">แนะนำ</span>
  </div>
- <div class="text-xs" style="color:var(--ink-2);margin-top:2px" x-show="isRecommendedPlan(picker.category, plan)" x-text="planRecommendNote(picker.category, plan)"></div>
- <div class="text-xs text-gray-600" x-show="plan.promo" x-text="plan.promo"></div>
- <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="plan.outright && plan.advancePayment" x-text="'จ่ายครั้งเดียว ฿' + plan.advancePayment.toLocaleString() + ' (รวมเครื่อง + บริการ 2 ปี)'"></div>
- <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="plan.advancePayment && !plan.outright" x-text="'จ่ายก้อนแรก ฿' + plan.advancePayment.toLocaleString() + ' (ชำระล่วงหน้า 12 เดือน 50%)'"></div>
+ <div class="text-xs" style="color:var(--ink-2);margin-top:2px" x-show="isRecommendedPlan(picker.category, entry.plan)" x-text="planRecommendNote(picker.category, entry.plan)"></div>
+ <div class="text-xs text-gray-600" x-show="entry.plan.promo" x-text="entry.plan.promo"></div>
+ <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="entry.plan.outright && entry.plan.advancePayment" x-text="'จ่ายครั้งเดียว ฿' + entry.plan.advancePayment.toLocaleString() + ' (รวมเครื่อง + บริการ 2 ปี)'"></div>
+ <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="entry.plan.advancePayment && !entry.plan.outright" x-text="'จ่ายก้อนแรก ฿' + entry.plan.advancePayment.toLocaleString() + ' (ชำระล่วงหน้า 12 เดือน 50%)'"></div>
  </div>
  <div class="text-right">
- <div class="text-xs text-gray-400 line-through" x-show="plan.outright && plan.regular > plan.advancePayment" x-text="'฿' + plan.regular.toLocaleString()"></div>
- <div class="text-xs text-gray-400 line-through" x-show="!plan.outright && plan.regular !== plan.effectiveMonthly" x-text="'฿' + plan.regular.toLocaleString() + '/เดือน'"></div>
- <div class="font-display font-bold text-lg price-highlight" x-show="plan.outright" x-text="'฿' + plan.advancePayment.toLocaleString()"></div>
- <div class="font-display font-bold text-lg price-highlight" x-show="!plan.outright" x-text="'฿' + plan.effectiveMonthly.toLocaleString()"></div>
- <div class="text-xs text-gray-500" x-show="plan.outright">จ่ายครั้งเดียว</div>
- <div class="text-xs text-gray-500" x-show="!plan.outright && (!plan.promoMonths || plan.promoMonths >= plan.totalContractMonths)">ราคา/เดือน</div>
- <div class="text-xs text-gray-500" x-show="plan.promoMonths > 0 && plan.promoMonths < plan.totalContractMonths">ราคา <span x-text="plan.promoMonths"></span> บิลแรก</div>
- <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500"x-show="plan.promoMonths > 0 && plan.promoMonths < plan.totalContractMonths"x-text="'หลังโปร ฿' + plan.postPromoPrice.toLocaleString() + '/เดือน'"></div>
+ <div class="text-xs text-gray-400 line-through" x-show="entry.plan.outright && entry.plan.regular > entry.plan.advancePayment" x-text="'฿' + entry.plan.regular.toLocaleString()"></div>
+ <div class="text-xs text-gray-400 line-through" x-show="!entry.plan.outright && entry.plan.regular !== entry.plan.effectiveMonthly" x-text="'฿' + entry.plan.regular.toLocaleString() + '/เดือน'"></div>
+ <div class="font-display font-bold text-lg price-highlight" x-show="entry.plan.outright" x-text="'฿' + entry.plan.advancePayment.toLocaleString()"></div>
+ <div class="font-display font-bold text-lg price-highlight" x-show="!entry.plan.outright" x-text="'฿' + entry.plan.effectiveMonthly.toLocaleString()"></div>
+ <div class="text-xs text-gray-500" x-show="entry.plan.outright">จ่ายครั้งเดียว</div>
+ <div class="text-xs text-gray-500" x-show="!entry.plan.outright && (!entry.plan.promoMonths || entry.plan.promoMonths >= entry.plan.totalContractMonths)">ราคา/เดือน</div>
+ <div class="text-xs text-gray-500" x-show="entry.plan.promoMonths > 0 && entry.plan.promoMonths < entry.plan.totalContractMonths">ราคา <span x-text="entry.plan.promoMonths"></span> บิลแรก</div>
+ <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500" x-show="entry.plan.promoMonths > 0 && entry.plan.promoMonths < entry.plan.totalContractMonths" x-text="'หลังโปร ฿' + entry.plan.postPromoPrice.toLocaleString() + '/เดือน'"></div>
  </div>
  </div>
  <!-- สรุปจ่ายต่อเดือนแยกช่วงงวด (5Y / 6Y) -->
- <div class="plan-periods" x-show="!plan.outright && planMonthlyPeriods(plan).length">
- <div class="plan-periods-head" x-text="'สรุปจ่ายต่อเดือน · สัญญา ' + planTermYears(plan)"></div>
- <template x-for="(line, li) in planMonthlyPeriods(plan)" :key="li">
+ <div class="plan-periods" x-show="!entry.plan.outright && planMonthlyPeriods(entry.plan).length">
+ <div class="plan-periods-head" x-text="'สรุปจ่ายต่อเดือน · สัญญา ' + planTermYears(entry.plan)"></div>
+ <template x-for="(line, li) in planMonthlyPeriods(entry.plan)" :key="li">
  <div class="plan-period-row" :class="line.kind === 'advance' ? 'pp-adv' : ''">
  <span class="pp-label" x-text="line.label"></span>
  <span class="pp-price" x-text="line.priceText"></span>
  <span class="pp-note" x-show="line.note" x-text="line.note"></span>
  </div>
  </template>
- <div class="plan-period-foot" x-text="planContractFoot(plan)"></div>
+ <div class="plan-period-foot" x-text="planContractFoot(entry.plan)"></div>
  </div>
  </div>
  </label>
+ </template>
+ </div>
+ </div>
  </template>
  </div>
  </div>
@@ -1554,7 +1590,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.03-v27',
+ buildVersion: '2026.08.05-v28',
  quoteCustomer: {
    name: '',
    address: '',
@@ -1672,6 +1708,61 @@ function lgCalculator() {
  // No Service: tag แสดง "รับประกันตลอดสัญญา" แล้ว — อย่าซ้ำใน note
  if (plan.serviceType === 'No Service') return '';
  return 'รอบบริการ: ' + plan.serviceCycle;
+ },
+ /** จัดกลุ่มแพ็คตามรอบบริการ — ถ้ามีหลายรอบ (เช่น 6 เดือน + 12 เดือน) จะตีกรอบแยก */
+ planPickerGroups() {
+   const plans = this.currentModel()?.plans || [];
+   if (!plans.length) return [];
+   const order = [];
+   const map = new Map();
+   plans.forEach((plan, idx) => {
+     const cycle = (plan.serviceCycle && String(plan.serviceCycle).trim()) || 'ไม่มีบริการ';
+     if (!map.has(cycle)) {
+       const g = { key: cycle, cycle, plans: [] };
+       map.set(cycle, g);
+       order.push(g);
+     }
+     map.get(cycle).plans.push({ plan, idx });
+   });
+   // เรียง: 12 เดือนก่อน · 6 เดือน · อื่นๆ · ไม่มีบริการท้าย
+   const rank = (c) => {
+     if (c.includes('12')) return 1;
+     if (c.includes('6') && !c.includes('24') && !c.includes('16')) return 2;
+     if (c.includes('24')) return 3;
+     if (c === 'ไม่มีบริการ') return 9;
+     return 5;
+   };
+   order.sort((a, b) => rank(a.cycle) - rank(b.cycle) || a.cycle.localeCompare(b.cycle, 'th'));
+   const framed = order.length > 1;
+   return order.map((g) => {
+     const types = [...new Set(g.plans.map((e) => e.plan.serviceType).filter(Boolean))];
+     const typeLabel = types.map((t) => {
+       if (t === 'Visit') return 'Visit';
+       if (t === 'Self') return 'Self';
+       if (t === 'No Service') return 'รับประกัน';
+       return t;
+     }).join(' / ');
+     let cycleClass = '';
+     if (framed) {
+       if (g.cycle.includes('6') && !g.cycle.includes('24') && !g.cycle.includes('16')) cycleClass = 'cycle-6m';
+       else if (g.cycle.includes('12')) cycleClass = 'cycle-12m';
+     }
+     return {
+       key: g.key,
+       cycle: g.cycle,
+       plans: g.plans,
+       framed,
+       cycleClass,
+       label: this.planCycleGroupLabel(g.cycle),
+       sub: framed && typeLabel ? typeLabel : '',
+     };
+   });
+ },
+ planCycleGroupLabel(cycle) {
+   if (!cycle || cycle === 'ไม่มีบริการ') return 'รับประกันตลอดสัญญา';
+   // ใช้ข้อความจาก catalog โดยตรง เช่น "ทุก 6 เดือน" / "ทุก 12 เดือน"
+   if (cycle.startsWith('ทุก ')) return 'รอบบริการ ' + cycle;
+   return 'รอบบริการ: ' + cycle;
  },
  // แสดงแค่ "6 ปี" — ไม่ใส่ 6Y ซ้ำ
  termYearsOnly(itemOrPlan) {
