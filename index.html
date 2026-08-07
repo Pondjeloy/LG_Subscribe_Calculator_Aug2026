@@ -1395,6 +1395,19 @@
                 <strong style="color:var(--ink)">ใบเสนอราคา</strong> = มีเซ็นรับทราบ + วันที่อัตโนมัติ<br/>
                 <span x-text="validDaysHint()"></span>
               </div>
+              <!-- เลือกแสดงยอดรวมทั้งสัญญาในใบสรุป/ใบเสนอ/คัดลอก -->
+              <div class="mb-3" style="border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff">
+                <div class="text-xs font-semibold mb-2" style="color:var(--ink)">ยอดรวมทั้งสัญญาในใบสรุปราคา</div>
+                <div class="flex gap-2 flex-wrap">
+                  <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
+                    :style="quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
+                    @click="quoteShowGrandTotal = true">แสดงยอดรวม</button>
+                  <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
+                    :style="!quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
+                    @click="quoteShowGrandTotal = false">ไม่แสดงยอดรวม</button>
+                </div>
+                <div class="text-xs text-gray-500 mt-1.5" x-text="quoteShowGrandTotal ? 'จะโชว์ยอดรวมทั้งสิ้น + ตัวอักษรบาท ในใบพิมพ์/รูป/คัดลอก' : 'ซ่อนยอดรวมทั้งสิ้น — ยังโชว์ยอดครั้งแรก / รายเดือน / ตารางบิล'"></div>
+              </div>
               <!-- ปุ่มพิมพ์/เซฟ โชว์ตลอด — ไม่ต้องเปิดฟอร์ม -->
               <div class="space-y-2">
                 <button class="btn-primary" style="width:100%" @click="printQuotation('summary')">พิมพ์ใบสรุปราคา</button>
@@ -1593,11 +1606,13 @@ function lgCalculator() {
  modelList: [],
  showComparePlans: false,
  showQuoteForm: false,
+ /** ใบสรุป/ใบเสนอ/คัดลอก: แสดงยอดรวมทั้งสัญญาหรือไม่ (default = แสดง) */
+ quoteShowGrandTotal: true,
  showCompareModels: false,
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.07-v35',
+ buildVersion: '2026.08.07-v36',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3220,11 +3235,13 @@ function lgCalculator() {
           h += '<span class="br-total">฿' + this.fmtMoney(r.total) + '</span>';
           h += '</div>';
         });
-        h += '<div class="br-row br-sum">';
-        h += '<span class="br-range"><strong>รวมตลอดสัญญา</strong></span>';
-        h += '<span class="br-calc">' + cartRanges.maxMonths + ' งวด · ' + years + ' ปี' + (cartRanges.advance > 0 ? ' + ล่วงหน้า' : '') + '</span>';
-        h += '<span class="br-total"><strong>฿' + this.fmtMoney(this.grandTotal()) + '</strong></span>';
-        h += '</div>';
+        if (this.quoteShowGrandTotal) {
+          h += '<div class="br-row br-sum">';
+          h += '<span class="br-range"><strong>รวมตลอดสัญญา</strong></span>';
+          h += '<span class="br-calc">' + cartRanges.maxMonths + ' งวด · ' + years + ' ปี' + (cartRanges.advance > 0 ? ' + ล่วงหน้า' : '') + '</span>';
+          h += '<span class="br-total"><strong>฿' + this.fmtMoney(this.grandTotal()) + '</strong></span>';
+          h += '</div>';
+        }
         h += '</div></div>';
       }
 
@@ -3263,19 +3280,23 @@ function lgCalculator() {
           h += '<span class="br-total">฿' + this.fmtMoney(rTotal) + '</span>';
           h += '</div>';
         });
-        h += '<div class="br-row br-sum">';
-        h += '<span class="br-range"><strong>รวมทั้งสัญญา</strong></span>';
-        h += '<span class="br-calc">' + months + ' งวด · ' + years + ' ปี' + (advance > 0 ? ' + ล่วงหน้า' : '') + (qty > 1 ? (' · ' + qty + ' ชิ้น') : '') + '</span>';
-        h += '<span class="br-total"><strong>฿' + this.fmtMoney(totalItem) + '</strong></span>';
-        h += '</div>';
+        if (this.quoteShowGrandTotal) {
+          h += '<div class="br-row br-sum">';
+          h += '<span class="br-range"><strong>รวมทั้งสัญญา</strong></span>';
+          h += '<span class="br-calc">' + months + ' งวด · ' + years + ' ปี' + (advance > 0 ? ' + ล่วงหน้า' : '') + (qty > 1 ? (' · ' + qty + ' ชิ้น') : '') + '</span>';
+          h += '<span class="br-total"><strong>฿' + this.fmtMoney(totalItem) + '</strong></span>';
+          h += '</div>';
+        }
         h += '</div></div>';
       });
       // Grand total
-      const grand = this.grandTotal();
-      h += '<div class="br-grand">';
-      h += '<span><strong>ยอดรวมทั้งหมด</strong></span>';
-      h += '<span><strong>฿' + this.fmtMoney(grand) + '</strong></span>';
-      h += '</div>';
+      if (this.quoteShowGrandTotal) {
+        const grand = this.grandTotal();
+        h += '<div class="br-grand">';
+        h += '<span><strong>ยอดรวมทั้งหมด</strong></span>';
+        h += '<span><strong>฿' + this.fmtMoney(grand) + '</strong></span>';
+        h += '</div>';
+      }
       return h;
     },
 
@@ -3867,8 +3888,10 @@ function lgCalculator() {
         txt += '<div style="color:#7c3aed;margin-top:3px">จ่ายก้อนแรก (ตอนเริ่มสัญญา): <strong>฿' + this.totalTvAdvance().toLocaleString() + '</strong></div>';
       }
       txt += '<div style="color:#5b21b6;margin-top:5px;font-weight:600">ยอดชำระครั้งแรกรวม: <strong>฿' + this.fmtMoney(this.firstPaymentTotal()) + '</strong></div>';
-      txt += '<div style="color:#15803d;margin-top:3px">ประหยัดรวมตลอดสัญญา: <strong>฿' + this.totalSaving().toLocaleString() + '</strong></div>';
-      txt += '<div style="font-weight:700;color:#a50034;margin-top:5px;font-size:1.05em">ยอดรวมทั้งสัญญา: ฿' + this.fmtMoney(this.grandTotal()) + '</div>';
+      if (this.quoteShowGrandTotal) {
+        txt += '<div style="color:#15803d;margin-top:3px">ประหยัดรวมตลอดสัญญา: <strong>฿' + this.totalSaving().toLocaleString() + '</strong></div>';
+        txt += '<div style="font-weight:700;color:#a50034;margin-top:5px;font-size:1.05em">ยอดรวมทั้งสัญญา: ฿' + this.fmtMoney(this.grandTotal()) + '</div>';
+      }
       txt += '</div>';
       return txt;
     },
@@ -3952,26 +3975,28 @@ function lgCalculator() {
           });
         }
 
-        lines.push('');
-        let totalLine = 'รวม ' + months + ' งวด = ' + this.fmtMoney(totalItem) + ' บาท';
-        if (it.totalSaving > 0) {
-          totalLine += ' | ประหยัด ' + (it.totalSaving * qty).toLocaleString() + ' บาท';
-        }
-        lines.push(totalLine);
+        if (this.quoteShowGrandTotal) {
+          lines.push('');
+          let totalLine = 'รวม ' + months + ' งวด = ' + this.fmtMoney(totalItem) + ' บาท';
+          if (it.totalSaving > 0) {
+            totalLine += ' | ประหยัด ' + (it.totalSaving * qty).toLocaleString() + ' บาท';
+          }
+          lines.push(totalLine);
 
-        // เฉลี่ย — รายชิ้นเมื่อ 1 ชิ้นใช้ annualBreakdown; หลายชิ้นคำนวณต่อชิ้น
-        if (this.cart.length === 1 && ann) {
-          lines.push(
-            'เฉลี่ย ' + ann.perMonth.toLocaleString() + ' บาท/เดือน ('
-            + ann.perYear.toLocaleString() + ' บาท/ปี)'
-          );
-        } else {
-          const perM = Math.round(totalItem / months);
-          const perY = Math.round(totalItem / years);
-          lines.push(
-            'เฉลี่ย ' + perM.toLocaleString() + ' บาท/เดือน ('
-            + perY.toLocaleString() + ' บาท/ปี)'
-          );
+          // เฉลี่ย — รายชิ้นเมื่อ 1 ชิ้นใช้ annualBreakdown; หลายชิ้นคำนวณต่อชิ้น
+          if (this.cart.length === 1 && ann) {
+            lines.push(
+              'เฉลี่ย ' + ann.perMonth.toLocaleString() + ' บาท/เดือน ('
+              + ann.perYear.toLocaleString() + ' บาท/ปี)'
+            );
+          } else {
+            const perM = Math.round(totalItem / months);
+            const perY = Math.round(totalItem / years);
+            lines.push(
+              'เฉลี่ย ' + perM.toLocaleString() + ' บาท/เดือน ('
+              + perY.toLocaleString() + ' บาท/ปี)'
+            );
+          }
         }
 
         // Care Service
@@ -4021,15 +4046,17 @@ function lgCalculator() {
           lines.push('จ่ายล่วงหน้ารวม: ' + this.totalTvAdvance().toLocaleString() + ' บาท');
         }
         lines.push('ยอดชำระครั้งแรกรวม: ' + this.fmtMoney(this.firstPaymentTotal()) + ' บาท');
-        if (this.totalSaving() > 0) {
-          lines.push('ประหยัดรวม: ' + this.totalSaving().toLocaleString() + ' บาท');
-        }
-        lines.push('รวมตลอดสัญญา: ' + this.fmtMoney(this.grandTotal()) + ' บาท');
-        if (ann) {
-          lines.push(
-            'เฉลี่ย ' + ann.perMonth.toLocaleString() + ' บาท/เดือน ('
-            + ann.perYear.toLocaleString() + ' บาท/ปี)'
-          );
+        if (this.quoteShowGrandTotal) {
+          if (this.totalSaving() > 0) {
+            lines.push('ประหยัดรวม: ' + this.totalSaving().toLocaleString() + ' บาท');
+          }
+          lines.push('รวมตลอดสัญญา: ' + this.fmtMoney(this.grandTotal()) + ' บาท');
+          if (ann) {
+            lines.push(
+              'เฉลี่ย ' + ann.perMonth.toLocaleString() + ' บาท/เดือน ('
+              + ann.perYear.toLocaleString() + ' บาท/ปี)'
+            );
+          }
         }
       }
 
@@ -4561,9 +4588,9 @@ ${'</'+'style>'}
         ${hasCombo ? '<div class="row"><span>ส่วนลด Combo ' + esc(this.comboLabel()) + ' ' + cr + '%</span><span>−฿' + this.fmtMoney(this.grandTotalSaving()) + '</span></div>' : ''}
         ${this.hasTvAdvance() ? '<div class="row"><span>จ่ายล่วงหน้ารวม</span><span>฿' + this.fmtMoney(this.totalTvAdvance()) + '</span></div>' : ''}
         ${this.hasOutright() ? '<div class="row"><span>ซื้อขาดรวม</span><span>฿' + this.fmtMoney(this.totalOutright()) + '</span></div>' : ''}
-        <div class="row"><span>ส่วนลดทั้งหมด</span><span>฿${this.fmtMoney(totalDiscountAll)}</span></div>
-        <div class="row grand"><span>ยอดรวมทั้งสิ้น</span><span>฿${this.fmtMoney(grand)}</span></div>
-        <div class="baht">฿ BAHT : ${esc(this.bahtText(grand))}</div>
+        ${this.quoteShowGrandTotal ? ('<div class="row"><span>ส่วนลดทั้งหมด</span><span>฿' + this.fmtMoney(totalDiscountAll) + '</span></div>'
+          + '<div class="row grand"><span>ยอดรวมทั้งสิ้น</span><span>฿' + this.fmtMoney(grand) + '</span></div>'
+          + '<div class="baht">฿ BAHT : ' + esc(this.bahtText(grand)) + '</div>') : ''}
       </div>
     </div>
 
