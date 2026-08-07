@@ -1614,7 +1614,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.07-v37',
+ buildVersion: '2026.08.07-v38',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4229,7 +4229,17 @@ function lgCalculator() {
 
         const periods = [];
         if (it.outright) {
-          periods.push({ bill: '—', regular: '', promo: '', total: advance * qty });
+          // ซื้อขาด (เครื่องกรองน้ำ): ราคาปกติ = regular · ราคาโปร = ราคาขาย (advance หลังลด 10%)
+          const salePrice = advance * qty;
+          const normalPrice = (listPrice > 0 ? listPrice : advance) * qty;
+          const discOnce = Math.max(0, Math.round((normalPrice - salePrice) * 100) / 100);
+          totalDiscountAll += discOnce;
+          periods.push({
+            bill: 'ซื้อขาด',
+            regular: normalPrice,
+            promo: salePrice,
+            total: salePrice,
+          });
         } else {
           if (advance > 0) {
             periods.push({ bill: 'ล่วงหน้า', regular: '', promo: '', total: advance * qty });
