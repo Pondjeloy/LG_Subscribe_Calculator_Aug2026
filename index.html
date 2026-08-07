@@ -909,9 +909,12 @@
  <div class="font-display font-bold text-lg price-highlight" x-show="entry.plan.outright" x-text="'฿' + entry.plan.advancePayment.toLocaleString()"></div>
  <div class="font-display font-bold text-lg price-highlight" x-show="!entry.plan.outright" x-text="'฿' + entry.plan.effectiveMonthly.toLocaleString()"></div>
  <div class="text-xs text-gray-500" x-show="entry.plan.outright">จ่ายครั้งเดียว</div>
- <div class="text-xs text-gray-500" x-show="!entry.plan.outright && (!entry.plan.promoMonths || entry.plan.promoMonths >= entry.plan.totalContractMonths)">ราคา/เดือน</div>
- <div class="text-xs text-gray-500" x-show="entry.plan.promoMonths > 0 && entry.plan.promoMonths < entry.plan.totalContractMonths">ราคา <span x-text="entry.plan.promoMonths"></span> บิลแรก</div>
- <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500" x-show="entry.plan.promoMonths > 0 && entry.plan.promoMonths < entry.plan.totalContractMonths" x-text="'หลังโปร ฿' + entry.plan.postPromoPrice.toLocaleString() + '/เดือน'"></div>
+ <!-- TV/จอ/ลำโพง (advance): ตัวเลขใหญ่ = ครึ่งราคาบิล 1-12 — ห้ามโชว์ "ราคา X บิลแรก" จาก promoMonths (โปร 50% อยู่หลังบิล 12) -->
+ <div class="text-xs text-gray-500" x-show="!entry.plan.outright && entry.plan.advancePayment">ครึ่งราคา · บิล 1–12</div>
+ <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500" x-show="!entry.plan.outright && entry.plan.advancePayment" x-text="'ราคาปกติ ฿' + entry.plan.regular.toLocaleString() + '/เดือน'"></div>
+ <div class="text-xs text-gray-500" x-show="!entry.plan.outright && !entry.plan.advancePayment && (!entry.plan.promoMonths || entry.plan.promoMonths >= entry.plan.totalContractMonths)">ราคา/เดือน</div>
+ <div class="text-xs text-gray-500" x-show="!entry.plan.outright && !entry.plan.advancePayment && entry.plan.promoMonths > 0 && entry.plan.promoMonths < entry.plan.totalContractMonths">ราคา <span x-text="entry.plan.promoMonths"></span> บิลแรก</div>
+ <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500" x-show="!entry.plan.outright && !entry.plan.advancePayment && entry.plan.promoMonths > 0 && entry.plan.promoMonths < entry.plan.totalContractMonths" x-text="'หลังโปร ฿' + entry.plan.postPromoPrice.toLocaleString() + '/เดือน'"></div>
  </div>
  </div>
  <!-- สรุปจ่ายต่อเดือนแยกช่วงงวด (5Y / 6Y) -->
@@ -1127,9 +1130,12 @@
  <div class="price-highlight text-xl" x-show="g.item.outright" x-text="'฿' + (g.item.advancePayment * g.qty).toLocaleString()"></div>
  <div class="price-highlight text-xl" x-show="!g.item.outright" x-text="'฿' + (g.item.effectiveMonthly * g.qty).toLocaleString()"></div>
  <div class="text-xs text-gray-500" x-show="g.item.outright">จ่ายครั้งเดียว<span x-show="g.qty > 1" x-text="' · ฿' + g.item.advancePayment.toLocaleString() + '/ชิ้น'"></span></div>
- <div class="text-xs text-gray-500" x-show="!g.item.outright && g.item.promoMonths > 0 && g.item.promoMonths < g.item.totalContractMonths">/ เดือน (โปร)<span x-show="g.qty > 1" x-text="' · ฿' + g.item.effectiveMonthly.toLocaleString() + '/ชิ้น'"></span></div>
- <div class="text-xs text-gray-500" x-show="!g.item.outright && (!g.item.promoMonths || g.item.promoMonths >= g.item.totalContractMonths)">/ เดือน<span x-show="g.qty > 1" x-text="' · ฿' + g.item.effectiveMonthly.toLocaleString() + '/ชิ้น'"></span></div>
- <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500" x-show="g.item.promoMonths > 0 && g.item.promoMonths < g.item.totalContractMonths" x-text="'หลังโปร ฿' + (g.item.postPromoPrice * g.qty).toLocaleString()"></div>
+ <!-- Advance TV/จอ/ลำโพง: ตัวเลขใหญ่ = ครึ่งราคาบิล 1-12 ไม่ใช่ "โปร X บิลแรก" -->
+ <div class="text-xs text-gray-500" x-show="!g.item.outright && g.item.advancePayment">/ เดือน (ครึ่งราคา บิล 1–12)<span x-show="g.qty > 1" x-text="' · ฿' + g.item.effectiveMonthly.toLocaleString() + '/ชิ้น'"></span></div>
+ <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500" x-show="!g.item.outright && g.item.advancePayment" x-text="'ราคาปกติ ฿' + (g.item.regular * g.qty).toLocaleString() + '/เดือน'"></div>
+ <div class="text-xs text-gray-500" x-show="!g.item.outright && !g.item.advancePayment && g.item.promoMonths > 0 && g.item.promoMonths < g.item.totalContractMonths">/ เดือน (โปร)<span x-show="g.qty > 1" x-text="' · ฿' + g.item.effectiveMonthly.toLocaleString() + '/ชิ้น'"></span></div>
+ <div class="text-xs text-gray-500" x-show="!g.item.outright && !g.item.advancePayment && (!g.item.promoMonths || g.item.promoMonths >= g.item.totalContractMonths)">/ เดือน<span x-show="g.qty > 1" x-text="' · ฿' + g.item.effectiveMonthly.toLocaleString() + '/ชิ้น'"></span></div>
+ <div class="text-xs mt-1" style="color:var(--ink-2);font-weight:500" x-show="!g.item.outright && !g.item.advancePayment && g.item.promoMonths > 0 && g.item.promoMonths < g.item.totalContractMonths" x-text="'หลังโปร ฿' + (g.item.postPromoPrice * g.qty).toLocaleString()"></div>
  <button class="btn-danger mt-2" @click="setGroupQty(quoteGroupKey(g.item), 0)">ลบ</button>
  </div>
  </div>
@@ -1590,7 +1596,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.05-v31',
+ buildVersion: '2026.08.07-v32',
  quoteCustomer: {
    name: '',
    address: '',
