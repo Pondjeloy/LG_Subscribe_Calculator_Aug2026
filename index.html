@@ -1395,9 +1395,10 @@
                 <strong style="color:var(--ink)">ใบเสนอราคา</strong> = มีเซ็นรับทราบ + วันที่อัตโนมัติ<br/>
                 <span x-text="validDaysHint()"></span>
               </div>
-              <!-- เลือกแสดงยอดรวมทั้งสัญญาในใบสรุป/ใบเสนอ/คัดลอก -->
+              <!-- เลือกแสดงยอดรวมทั้งสัญญา — มีผลกับใบพิมพ์/เซฟรูป/คัดลอก -->
               <div class="mb-3" style="border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff">
-                <div class="text-xs font-semibold mb-2" style="color:var(--ink)">ยอดรวมทั้งสัญญาในใบสรุปราคา</div>
+                <div class="text-xs font-semibold mb-1" style="color:var(--ink)">ยอดรวมทั้งสิ้นในใบพิมพ์</div>
+                <div class="text-xs text-gray-500 mb-2">กดเลือกก่อน แล้วค่อยกดพิมพ์ / เซฟรูป — มีผลกับใบสรุปราคาและใบเสนอราคา</div>
                 <div class="flex gap-2 flex-wrap">
                   <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
                     :style="quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
@@ -1406,7 +1407,8 @@
                     :style="!quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
                     @click="quoteShowGrandTotal = false">ไม่แสดงยอดรวม</button>
                 </div>
-                <div class="text-xs text-gray-500 mt-1.5" x-text="quoteShowGrandTotal ? 'จะโชว์ยอดรวมทั้งสิ้น + ตัวอักษรบาท ในใบพิมพ์/รูป/คัดลอก' : 'ซ่อนยอดรวมทั้งสิ้น — ยังโชว์ยอดครั้งแรก / รายเดือน / ตารางบิล'"></div>
+                <div class="text-xs mt-1.5" :style="quoteShowGrandTotal ? 'color:#15803d' : 'color:#a50034'"
+                  x-text="quoteShowGrandTotal ? 'ใบพิมพ์จะมีแถบแดง «ยอดรวมทั้งสิ้น» + ตัวอักษรบาท' : 'ใบพิมพ์จะไม่มี «ยอดรวมทั้งสิ้น» (ยังมียอดชำระครั้งแรก)'"></div>
               </div>
               <!-- ปุ่มพิมพ์/เซฟ โชว์ตลอด — ไม่ต้องเปิดฟอร์ม -->
               <div class="space-y-2">
@@ -1612,7 +1614,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.07-v36',
+ buildVersion: '2026.08.07-v37',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4172,10 +4174,12 @@ function lgCalculator() {
       return Array.from(map.values());
     },
     // mode: 'summary' | 'proposal' · opts.autoPrint = true เฉพาะตอนพิมพ์ (เซฟรูปต้องปิด ไม่งั้น iframe จะเด้งหน้า print)
+    // opts.showGrandTotal: บังคับโชว์/ซ่อนยอดรวมทั้งสิ้นในใบพิมพ์ (default = quoteShowGrandTotal)
     quotationHtml(mode = 'summary', opts = {}) {
       if (this.cart.length === 0) return '';
       const isProposal = mode === 'proposal';
       const autoPrint = opts.autoPrint !== false && opts.autoPrint !== 0;
+      const showGrand = opts.showGrandTotal !== undefined ? !!opts.showGrandTotal : !!this.quoteShowGrandTotal;
 
       const q = this.quoteCustomer;
       const today = new Date();
@@ -4585,12 +4589,14 @@ ${'</'+'style>'}
       </div>
       <div class="sum-box">
         <div class="row"><span>ยอดชำระครั้งแรกรวม</span><span>฿${this.fmtMoney(firstPay)}</span></div>
-        ${hasCombo ? '<div class="row"><span>ส่วนลด Combo ' + esc(this.comboLabel()) + ' ' + cr + '%</span><span>−฿' + this.fmtMoney(this.grandTotalSaving()) + '</span></div>' : ''}
         ${this.hasTvAdvance() ? '<div class="row"><span>จ่ายล่วงหน้ารวม</span><span>฿' + this.fmtMoney(this.totalTvAdvance()) + '</span></div>' : ''}
         ${this.hasOutright() ? '<div class="row"><span>ซื้อขาดรวม</span><span>฿' + this.fmtMoney(this.totalOutright()) + '</span></div>' : ''}
-        ${this.quoteShowGrandTotal ? ('<div class="row"><span>ส่วนลดทั้งหมด</span><span>฿' + this.fmtMoney(totalDiscountAll) + '</span></div>'
+        ${showGrand ? (
+          (hasCombo ? '<div class="row"><span>ส่วนลด Combo ' + esc(this.comboLabel()) + ' ' + cr + '%</span><span>−฿' + this.fmtMoney(this.grandTotalSaving()) + '</span></div>' : '')
+          + '<div class="row"><span>ส่วนลดทั้งหมด</span><span>฿' + this.fmtMoney(totalDiscountAll) + '</span></div>'
           + '<div class="row grand"><span>ยอดรวมทั้งสิ้น</span><span>฿' + this.fmtMoney(grand) + '</span></div>'
-          + '<div class="baht">฿ BAHT : ' + esc(this.bahtText(grand)) + '</div>') : ''}
+          + '<div class="baht">฿ BAHT : ' + esc(this.bahtText(grand)) + '</div>'
+        ) : ''}
       </div>
     </div>
 
@@ -4870,7 +4876,10 @@ ${'</'+'html>'}`;
       const isProposal = mode === 'proposal';
       const label = isProposal ? 'ใบเสนอราคา' : 'ใบสรุปราคา';
       // มือถือ: autoPrint มักใช้ยาก — เปิดเอกสารให้กด พิมพ์/บันทึก PDF เอง
-      const html = this.quotationHtml(mode, { autoPrint: !this.isMobileClient() });
+      const html = this.quotationHtml(mode, {
+        autoPrint: !this.isMobileClient(),
+        showGrandTotal: !!this.quoteShowGrandTotal,
+      });
       const w = window.open('', '_blank');
       if (!w) {
         // WebView / บล็อกป๊อปอัป — เปิดในหน้าเดียวกัน
@@ -4881,8 +4890,8 @@ ${'</'+'html>'}`;
       w.document.write(html);
       w.document.close();
       this.showToast(this.isMobileClient()
-        ? ('เปิด' + label + 'แล้ว — กดปุ่มพิมพ์/บันทึก PDF ในหน้านั้น')
-        : ('เปิด' + label + 'แล้ว — กดพิมพ์หรือบันทึกเป็น PDF'));
+        ? ('เปิด' + label + 'แล้ว — กดปุ่มพิมพ์/บันทึก PDF ในหน้านั้น' + (this.quoteShowGrandTotal ? '' : ' · ไม่แสดงยอดรวม'))
+        : ('เปิด' + label + 'แล้ว — กดพิมพ์หรือบันทึกเป็น PDF' + (this.quoteShowGrandTotal ? '' : ' · ไม่แสดงยอดรวม')));
     },
 
     async loadHtml2Canvas() {
@@ -4919,7 +4928,12 @@ ${'</'+'html>'}`;
         const html2canvas = await this.loadHtml2Canvas();
         // ห้าม autoPrint — iframe โหลด HTML นี้ ถ้ามี window.print() จะเด้งหน้าปริ้น
         // เซฟรูป = รวม Care Service · ห้ามย่อลง A4 จนบีบ — เก็บสเกลเต็ม
-        const fullHtml = this.quotationHtml(mode, { autoPrint: false, includeCareSlides: true, exportCapture: true });
+        const fullHtml = this.quotationHtml(mode, {
+          autoPrint: false,
+          includeCareSlides: true,
+          exportCapture: true,
+          showGrandTotal: !!this.quoteShowGrandTotal,
+        });
         // ความกว้างเทียบ A4 @96dpi · ความสูง = ตามเนื้อหาจริง (ไม่บีบ)
         const PAGE_W = 794;
         const A4_H = 1123;
