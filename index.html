@@ -1186,7 +1186,7 @@
  <span class="section-num">05 /</span>
  <h2 class="font-display font-bold text-lg">ตารางชำระเงินรายเดือน <span class="text-gray-400 font-normal text-sm">/ Payment Schedule</span></h2>
  </div>
- <div class="text-xs text-gray-500 mb-3" x-show="comboRate() > 0"> ราคาด้านล่างรวมส่วนลด Combo <strong x-text="Math.round(comboRate()*100)+'%'"></strong> แล้ว — บิลแรก/เงินจ่ายล่วงหน้าเก็บราคาเต็ม (ยังไม่หัก) · สินค้าไม่มี Advance นำ combo บิลแรกไปลดทั้งหมดที่งวดที่ 2 · สินค้า Advance เฉลี่ยลดทุกงวด
+ <div class="text-xs text-gray-500 mb-3" x-show="comboRate() > 0"> ราคาด้านล่างรวมส่วนลด Combo <strong x-text="Math.round(comboRate()*100)+'%'"></strong> แล้ว — บิลแรก/เงินจ่ายล่วงหน้าเก็บราคาเต็ม (ยังไม่หัก) · สินค้าไม่มี Advance นำ combo บิลแรกไปลดทั้งหมดที่งวดที่ 2 · สินค้า Advance นำ combo ของ advance เฉลี่ยลดใน 12 เดือนแรก
  </div>
  <div class="text-xs text-gray-500 mb-3" x-show="comboRate() === 0"> ราคาต่อเดือนในแต่ละช่วงบิล (ยังไม่มีส่วนลด Combo — ต้องซื้อเพิ่มเพื่อรับส่วนลด)
  </div>
@@ -1218,7 +1218,7 @@
  </template>
  </div>
  <div class="text-xs text-gray-400 mt-2" x-show="g.item.advancePayment && comboRate() > 0" style="font-style:italic">
- * เงินจ่ายล่วงหน้า ฿<span x-text="(g.item.advancePayment * g.qty).toLocaleString()"></span> เก็บเต็ม แล้วนำ combo <span x-text="Math.round(comboRate()*100)+'%'"></span> เฉลี่ยลดทุกบิล
+ * เงินจ่ายล่วงหน้า ฿<span x-text="(g.item.advancePayment * g.qty).toLocaleString()"></span> เก็บเต็ม แล้วนำ combo <span x-text="Math.round(comboRate()*100)+'%'"></span> ของ advance เฉลี่ยลดใน 12 เดือนแรก
  </div>
  <div class="text-xs text-gray-400 mt-2" x-show="!g.item.advancePayment && comboRate() > 0" style="font-style:italic">
  * บิลแรกเก็บเต็ม (ยังไม่หัก combo) แล้วนำ combo <span x-text="Math.round(comboRate()*100)+'%'"></span> ของบิลแรกไปลดทั้งหมดที่งวดที่ 2
@@ -1596,7 +1596,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.07-v32',
+ buildVersion: '2026.08.07-v33',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3070,11 +3070,14 @@ function lgCalculator() {
 
  if (adv > 0) {
  // === สินค้า Advance (TV/จอ/ลำโพง) ===
- // เงินก้อนแรกเก็บราคาเต็ม (ไม่หัก combo) แล้วนำ combo ของยอด advance ไปเฉลี่ยลดทุกบิล
- // ทุกบิล (รวมบิล 1) หัก combo ตามปกติ — ไม่มีแนวคิด "บิลแรกเก็บเต็ม"
- const advPerBill = cr > 0 ? ceil2((adv * cr) / months) : 0;
+ // เงินก้อนแรกเก็บราคาเต็ม (ไม่หัก combo)
+ // combo ของยอด advance เฉลี่ยลดเฉพาะ 12 เดือนแรก (บิล 1–12) — ไม่กระจายทั้งสัญญา
+ // ทุกบิล (รวมบิล 1) หัก combo ของค่างวดตามปกติ
+ const advSpreadMonths = Math.min(12, months);
+ const advPerBill = cr > 0 ? ceil2((adv * cr) / advSpreadMonths) : 0;
  for (let k = 1; k <= months; k++) {
- const raw = bills[k] - bills[k] * cr - advPerBill;
+ const advShare = (k <= advSpreadMonths) ? advPerBill : 0;
+ const raw = bills[k] - bills[k] * cr - advShare;
  out.push({ bill: k, base: bills[k], price: billPrice(raw, bills[k]) });
  }
  } else {
