@@ -1675,7 +1675,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.08-v42',
+ buildVersion: '2026.08.08-v43',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4412,7 +4412,10 @@ function lgCalculator() {
           });
         } else {
           if (advance > 0) {
-            periods.push({ bill: 'ล่วงหน้า', regular: '', promo: '', total: advance * qty });
+            // ชำระล่วงหน้า = ก้อนเดียว (TV/จอ/ลำโพง 50%×12) — ต้องใส่ตัวเลขในคอลัมน์ราคา
+            // เดิม regular/promo ว่าง → ตารางโชว์ "—" ทั้งที่มียอด (แย่เมื่อตัดคอลัมน์ยอดสุทธิ)
+            const advAmt = Math.round(advance * qty * 100) / 100;
+            periods.push({ bill: 'ล่วงหน้า', regular: advAmt, promo: advAmt, total: advAmt });
           }
           ranges.forEach(r => {
             const promoOne = Number(r.pricePerMonth) || 0;
