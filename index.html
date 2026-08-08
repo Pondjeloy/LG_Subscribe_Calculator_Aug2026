@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.09-v53 · ใบสรุป: มีรุ่น88→10 / ไม่มี→31 (ไม่ผูกคอมโบ) -->
+<!-- LG Subscribe Calculator build 2026.08.09-v54 · โปรเริ่ม/ถึง + ใบสรุป: 88→10 / ไม่มี→31 -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1677,7 +1677,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.09-v53',
+ buildVersion: '2026.08.09-v54',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3083,8 +3083,13 @@ function lgCalculator() {
    .replace(/"/g, '&quot;');
  },
  comboPeriod() {
- const p = this.activePromo();
- return this.fmtDate(p.dateStart) + ' – ' + this.fmtDate(p.dateEnd);
+ // ช่วงที่แสดงลูกค้า: เริ่มโปรหลัก · สิ้น = ตามตะกร้า (มี 88 → 10 · ไม่มี → 31)
+ const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart)
+   || (this.activePromo() && this.activePromo().dateStart) || '';
+ const end = (typeof this.quoteValidPromoEnd === 'function' && this.quoteValidPromoEnd())
+   || (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd)
+   || (this.activePromo() && this.activePromo().dateEnd) || '';
+ return this.fmtDate(start) + ' – ' + this.fmtDate(end);
  },
  fmtDate(d) {
  // 2569-05-21 -> 21 พ.ค. 2569
@@ -3691,8 +3696,14 @@ function lgCalculator() {
  return 'ลูกค้าใหม่ Subscribe เพิ่ม ' + newMin + ' ชิ้นขึ้นไป เริ่มลด ' + newRate + '% · ลูกค้าเก่า Subscribe เพิ่ม ' + existMin + ' ชิ้นขึ้นไป เริ่มลด ' + existRate + '%';
  },
  promoDateText() {
- const p = this.activePromo();
- return 'โปรเริ่ม ' + this.fmtDate(p.dateStart) + ' ถึง ' + this.fmtDate(p.dateEnd);
+ // แสดงในสรุป/ใบสรุป/คัดลอก — วันสิ้นสุดตามรุ่นในตะกร้า (user):
+ // มีรุ่นโปร 88 → ถึง 10 ส.ค. · ไม่มี → ถึง 31 ส.ค. (ไม่ผูกคอมโบ)
+ const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart)
+   || (this.activePromo() && this.activePromo().dateStart) || '';
+ const end = (typeof this.quoteValidPromoEnd === 'function' && this.quoteValidPromoEnd())
+   || (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd)
+   || (this.activePromo() && this.activePromo().dateEnd) || '';
+ return 'โปรเริ่ม ' + this.fmtDate(start) + ' ถึง ' + this.fmtDate(end);
  },
  promoMonthLabel() {
  // ดึง "เดือน ปี" จาก promoConfig.normal.dateStart เพื่อแสดงใน header
