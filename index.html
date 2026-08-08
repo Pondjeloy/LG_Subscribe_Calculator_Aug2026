@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.09-v52 · ใบสรุปตามคอมโบ: 15%→9 / ปกติ→31 · 88 ถึง 10 -->
+<!-- LG Subscribe Calculator build 2026.08.09-v53 · ใบสรุป: มีรุ่น88→10 / ไม่มี→31 (ไม่ผูกคอมโบ) -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1677,7 +1677,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.09-v52',
+ buildVersion: '2026.08.09-v53',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4280,16 +4280,36 @@ function lgCalculator() {
       const mi = String(d.getMinutes()).padStart(2, '0');
       return y + m + day + '-' + h + mi;
     },
-    // วันสงวนสิทธิ์บนใบสรุป/ใบเสนอ — ตามโปรคอมโบที่เปิดอยู่ (ไม่ใช้วันโปร 88)
-    // · เปิดคอมโบ 15% (special) → dateEnd พิเศษ = 9 ส.ค.
-    // · ปิด special → โปรหลัก 10% = 31 ส.ค.
-    // · โปร 88 บาท (shock) แยกคนละเรื่อง ไม่ผูกวันใบสรุป
-    quoteValidPromoEnd() {
-      const p = (typeof this.activePromo === 'function') ? this.activePromo() : null;
-      if (p && p.dateEnd) return String(p.dateEnd);
-      return (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
+    // ตะกร้ามีรุ่นที่ติดโปร 88 (บิลแรก 149→88) หรือไม่ — ไม่สนคอมโบ
+    cartHasShock88Promo() {
+      const cart = this.cart || [];
+      if (!cart.length) return false;
+      const to = (this.shockPromo && this.shockPromo.toPrice) || 88;
+      const from = (this.shockPromo && this.shockPromo.fromPrice) || 149;
+      return cart.some(it => {
+        if (!it || it.outright || (it.advancePayment > 0)) return false;
+        if (it._shock88Applied) return true;
+        // แพ็คบิลแรก 149 (ก่อน/พร้อม apply 88)
+        if (typeof this.isShock149FirstMonthPlan === 'function' && this.isShock149FirstMonthPlan(it)) return true;
+        // apply แล้ว: บิลแรก/eff = 88
+        if (Number(it.promoMonths) === 1 && Number(it.effectiveMonthly) === to) return true;
+        const bs = it.billSchedule;
+        if (Array.isArray(bs) && bs[0] && bs[0].range === 'บิล 1') {
+          const p0 = Number(bs[0].price);
+          if (Number(it.promoMonths) === 1 && (p0 === to || p0 === from)) return true;
+        }
+        return false;
+      });
     },
-    // วันสิ้นสุดโปรคอมโบที่ active (BE → CE) = มีผลถึงบนใบ
+    // วันสงวนสิทธิ์บนใบสรุป/ใบเสนอ (user):
+    // · มีรุ่นโปร 88 ในตะกร้า → ถึงวันหมด 88 (10 ส.ค.) ไม่ว่าคอมโบเปิด/ปิด
+    // · ไม่มีรุ่น 88 → ถึงสิ้นโปรหลัก (31 ส.ค.)
+    quoteValidPromoEnd() {
+      const normalEnd = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
+      const shockEnd = (this.shockPromo && this.shockPromo.dateEnd) || '';
+      if (this.cartHasShock88Promo() && shockEnd) return String(shockEnd);
+      return String(normalEnd || '');
+    },
     quoteValidToDate() {
       const end = this.quoteValidPromoEnd();
       const parts = String(end).split('-');
@@ -4304,12 +4324,14 @@ function lgCalculator() {
       fallback.setDate(fallback.getDate() + 15);
       return fallback;
     },
-    // ข้อความบอกใบใช้ได้ถึงเมื่อไหร่
     validDaysHint() {
       const d = this.quoteValidToDate();
-      const which = this.specialCombo ? 'คอมโบ 15% (Birthday)' : 'โปรหลัก / คอมโบ 10%';
+      const has88 = this.cartHasShock88Promo();
+      const which = has88
+        ? 'มีรุ่นโปร 88 ในตะกร้า → ถึงวันหมด 88'
+        : 'ไม่มีรุ่น 88 → ถึงสิ้นโปรหลัก';
       return 'ขอสงวนสิทธิ์ใบสรุปราคาไว้จนถึงวันที่ ' + this.quoteDateText(d) +
-        ' · ' + which + ' สิ้น ' + this.fmtDate(this.quoteValidPromoEnd() || '');
+        ' · ' + which + ' (' + this.fmtDate(this.quoteValidPromoEnd() || '') + ')';
     },
     // รวมรายการรุ่น+สัญญาเดียวกันเป็นแถวเดียว (ใบสรุปราคา)
     quoteGroupKey(it) {
