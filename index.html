@@ -1675,7 +1675,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.08-v41',
+ buildVersion: '2026.08.08-v42',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4356,6 +4356,21 @@ function lgCalculator() {
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       const val = (v, fb) => esc((v && String(v).trim()) ? String(v).trim() : (fb || '—'));
 
+      // สรุปยอดที่ลูกค้าจ่ายต่อรอบ (รวมทุกชิ้น) แยกช่วงงวด — โชว์ใต้ยอดชำระครั้งแรก
+      const cartRanges = this.cartBillRangeTotals();
+      let payPeriodRows = '';
+      if (cartRanges.segments.length) {
+        payPeriodRows += '<div class="row subhead"><span>ยอดจ่ายต่อรอบ (รวมทุกชิ้น)</span><span></span></div>';
+        cartRanges.segments.forEach(r => {
+          const rangeTxt = r.start === r.end
+            ? ('งวดที่ ' + r.start)
+            : ('งวดที่ ' + r.start + '–' + r.end);
+          const monthNote = r.months > 1 ? (' · ' + r.months + ' งวด') : '';
+          payPeriodRows += '<div class="row period"><span>' + esc(rangeTxt) + '<span class="en">' + esc(monthNote) + '</span></span>'
+            + '<span>฿' + this.fmtBillPrice(r.pricePerMonth) + '/เดือน</span></div>';
+        });
+      }
+
       // ตาราง: รุ่น+สัญญาเดียวกันรวมจำนวน (ไม่ซ้ำแถว)
       let itemsHtml = '';
       let totalDiscountAll = 0;
@@ -4573,10 +4588,17 @@ function lgCalculator() {
   .sum-box .row { display: flex; justify-content: space-between; gap: 6px; padding: 4px 8px; border-bottom: 1px solid #e8e8e8; font-size: 10.5px; color: #1a1a1a; }
   .sum-box .row:last-child { border-bottom: 0; }
   .sum-box .row span:last-child { font-weight: 700; white-space: nowrap; color: #1a1a1a; }
+  .sum-box .row.highlight { background: #f5f3ff; font-weight: 700; }
+  .sum-box .row.highlight span:last-child { color: #5b21b6; font-size: 12px; }
+  .sum-box .row.subhead { background: #f3f4f6; font-size: 9.5px; font-weight: 700; color: #374151; padding-top: 5px; padding-bottom: 5px; }
+  .sum-box .row.subhead span:last-child { font-weight: 700; }
+  .sum-box .row.period { font-size: 10px; }
+  .sum-box .row.period span:first-child { font-weight: 500; }
+  .sum-box .row.period span:last-child { color: #a50034; }
   .sum-box .row.grand { background: #a50034; color: #fff; font-size: 12px; font-weight: 700; }
   .sum-box .row.grand span:last-child { color: #fff; }
   .sum-box .baht { padding: 5px 8px; font-size: 10px; font-weight: 700; color: #1a1a1a; line-height: 1.4; background: #f7f7f7; border-top: 1px solid #e8e8e8; }
-  .sum-box .row .en { display: block; font-size: 8.5px; font-weight: 400; opacity: .85; }
+  .sum-box .row .en { font-size: 8.5px; font-weight: 400; opacity: .75; margin-left: 2px; }
   .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
   .sign .box { border: 1px solid #d0d0d0; padding: 6px 8px; min-height: 72px; }
   .sign h4 { margin: 0 0 4px; font-size: 10.5px; font-weight: 700; color: #1a1a1a; }
@@ -4757,9 +4779,10 @@ ${'</'+'style>'}
         </ul>
       </div>
       <div class="sum-box">
-        <div class="row"><span>ยอดชำระครั้งแรกรวม</span><span>฿${this.fmtMoney(firstPay)}</span></div>
+        <div class="row highlight"><span>ยอดชำระครั้งแรกรวม</span><span>฿${this.fmtMoney(firstPay)}</span></div>
         ${this.hasTvAdvance() ? '<div class="row"><span>จ่ายล่วงหน้ารวม</span><span>฿' + this.fmtMoney(this.totalTvAdvance()) + '</span></div>' : ''}
         ${this.hasOutright() ? '<div class="row"><span>ซื้อขาดรวม</span><span>฿' + this.fmtMoney(this.totalOutright()) + '</span></div>' : ''}
+        ${payPeriodRows}
         ${showGrand ? (
           (hasCombo ? '<div class="row"><span>ส่วนลด Combo ' + esc(this.comboLabel()) + ' ' + cr + '%</span><span>−฿' + this.fmtMoney(this.grandTotalSaving()) + '</span></div>' : '')
           + '<div class="row"><span>ส่วนลดทั้งหมด</span><span>฿' + this.fmtMoney(totalDiscountAll) + '</span></div>'
