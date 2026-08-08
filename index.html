@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.05-v31 · Tab title Aug 2026 -->
+<!-- LG Subscribe Calculator build 2026.08.08-v39 · DOUBLE DAY 8.8 SHOCK 149→88 · 8-10 ส.ค. 2569 -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -706,6 +706,27 @@
   .compare-table-wrap{overflow-x:hidden !important;max-width:100% !important}
   .compare-table,.compare-table-a{width:100% !important;min-width:0 !important;max-width:100% !important;table-layout:fixed !important}
 
+
+  [x-cloak]{display:none!important}
+  /* DOUBLE DAY 8.8 SHOCK PRICE banner */
+  .shock-88-banner{
+    position:relative;overflow:hidden;border-radius:18px;
+    background:linear-gradient(135deg,#a50034 0%,#e11d48 45%,#fb7185 100%);
+    color:#fff;padding:14px 18px;box-shadow:0 8px 28px rgba(165,0,52,.28);
+    border:1px solid rgba(255,255,255,.12);
+  }
+  .shock-88-banner .shock-title{font-weight:800;letter-spacing:.02em;font-size:1.05rem;line-height:1.25}
+  .shock-88-banner .shock-sub{font-size:12px;opacity:.92;margin-top:4px;line-height:1.45}
+  .shock-88-banner .shock-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);
+    border-radius:999px;padding:4px 10px;font-size:11px;font-weight:700;
+    white-space:nowrap;
+  }
+  .shock-88-banner .shock-price{
+    font-family:ui-monospace,monospace;font-weight:800;font-size:1.35rem;
+    letter-spacing:-.02em;
+  }
   .app-footer{margin-top:12px;border-top:1px solid var(--line)}
   .app-footer-inner{padding:14px 22px 28px;text-align:center}
   .app-footer-ver{font-family:ui-monospace,'JetBrains Mono',monospace;font-size:11px;color:#a1a1a6;letter-spacing:.04em}
@@ -730,6 +751,23 @@
 
  <!-- LEFT -->
  <div class="space-y-6">
+
+ <!-- DOUBLE DAY 8.8 SHOCK PRICE (date-gated) -->
+ <section class="shock-88-banner" x-show="isShockPromoActive()" x-cloak>
+ <div class="flex items-center justify-between flex-wrap gap-3">
+ <div>
+ <div class="shock-title font-display" x-text="shockPromo.name"></div>
+ <div class="shock-sub" x-text="shockPromo.note + ' · ' + fmtDate(shockPromo.dateStart) + ' – ' + fmtDate(shockPromo.dateEnd)"></div>
+ </div>
+ <div class="flex items-center gap-3">
+ <div class="shock-badge">บิลแรก</div>
+ <div class="text-right">
+ <div class="text-xs opacity-80 line-through" x-text="'฿' + shockPromo.fromPrice"></div>
+ <div class="shock-price" x-text="'฿' + shockPromo.toPrice"></div>
+ </div>
+ </div>
+ </div>
+ </section>
 
  <!-- Special Combo Promotion -->
  <section class="special-combo-banner" :class="specialCombo ? 'active' : ''">
@@ -1503,6 +1541,17 @@ function lgCalculator() {
  existTiers: [ {min:1, rate:15} ]
  }
  },
+
+ // DOUBLE DAY 8.8 SHOCK PRICE — บิลแรก 149 → 88 (เฉพาะ 8–10 ส.ค. 2569)
+ // ใช้ runtime apply บน catalog ตอน init — หมดช่วงแล้วราคาคืน 149 อัตโนมัติ
+ shockPromo: {
+ name: 'DOUBLE DAY 8.8 SHOCK PRICE',
+ dateStart: '2569-08-08',
+ dateEnd: '2569-08-10',
+ fromPrice: 149,
+ toPrice: 88,
+ note: 'เฉพาะรุ่นที่บิลแรก 149 บาท · 8–10 ส.ค. 2569 เท่านั้น'
+ },
  picker: { category: '', model: '', plan: '', qty: 1 },
  modelImages: {
  'MS3032JAS.BBKPETH': 'assets/products/ms3032jas.png',
@@ -1614,7 +1663,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.07-v38',
+ buildVersion: '2026.08.08-v39',
  quoteCustomer: {
    name: '',
    address: '',
@@ -2537,6 +2586,82 @@ function lgCalculator() {
  }
  },
 
+ // --- DOUBLE DAY 8.8 SHOCK PRICE (149 first-month → 88, date-gated) ---
+ isShockPromoActive() {
+ const sp = this.shockPromo;
+ if (!sp || !sp.dateStart || !sp.dateEnd) return false;
+ const parseBE = (s) => {
+ const p = String(s).split('-').map(Number);
+ if (p.length !== 3 || p.some(n => Number.isNaN(n))) return null;
+ // พ.ศ. → ค.ศ. สำหรับเทียบ Date
+ return new Date(p[0] - 543, p[1] - 1, p[2]);
+ };
+ const start = parseBE(sp.dateStart);
+ const end = parseBE(sp.dateEnd);
+ if (!start || !end) return false;
+ end.setHours(23, 59, 59, 999);
+ const now = new Date();
+ return now >= start && now <= end;
+ },
+ isShock149FirstMonthPlan(plan) {
+ if (!plan || plan.outright || (plan.advancePayment > 0)) return false;
+ const from = (this.shockPromo && this.shockPromo.fromPrice) || 149;
+ // เฉพาะโปร "149 เดือนแรก" (promoMonths=1) — ไม่แตะ multi-month 149 (เช่น ลด 50% 8 บิล)
+ if (Number(plan.promoMonths) === 1 && Number(plan.effectiveMonthly) === from) return true;
+ const bs = plan.billSchedule;
+ if (Array.isArray(bs) && bs.length && bs[0].range === 'บิล 1' && Number(bs[0].price) === from
+ && Number(plan.promoMonths) === 1) return true;
+ return false;
+ },
+ applyShockPromoToPlan(plan) {
+ if (!plan || plan._shock88Applied) return plan;
+ if (!this.isShockPromoActive()) return plan;
+ if (!this.isShock149FirstMonthPlan(plan)) return plan;
+ const from = this.shockPromo.fromPrice;
+ const to = this.shockPromo.toPrice;
+ const delta = from - to;
+ plan.effectiveMonthly = to;
+ if (Array.isArray(plan.billSchedule)) {
+ plan.billSchedule = plan.billSchedule.map(seg => {
+ if (seg && seg.range === 'บิล 1' && Number(seg.price) === from) {
+ let note = seg.note || '';
+ note = note.replace(/ราคา 149\.-/g, 'ราคา 88.-');
+ if (note === 'ราคาพิเศษ' || !note) note = 'ราคา 88.- · 8.8 SHOCK';
+ else note = note.replace(/\b149\b/g, String(to));
+ return Object.assign({}, seg, { price: to, note: note });
+ }
+ return seg;
+ });
+ }
+ if (plan.promo) {
+ plan.promo = String(plan.promo)
+ .replace(/ราคา 149\.-/g, 'ราคา 88.-')
+ .replace(/บิลแรก 149/g, 'บิลแรก 88');
+ if (!/8\.8/.test(plan.promo)) plan.promo += ' · 8.8 SHOCK';
+ } else {
+ plan.promo = 'ราคา 88.- (1 รอบบิลแรก) · 8.8 SHOCK';
+ }
+ if (typeof plan.totalSaving === 'number') plan.totalSaving = plan.totalSaving + delta;
+ plan._shock88Applied = true;
+ return plan;
+ },
+ applyShockPromoCatalog() {
+ if (!this.isShockPromoActive()) return 0;
+ let n = 0;
+ const cats = this.catalog || {};
+ Object.keys(cats).forEach(ck => {
+ const models = cats[ck]?.models || [];
+ models.forEach(m => {
+ (m.plans || []).forEach(p => {
+ if (this.isShock149FirstMonthPlan(p)) {
+ this.applyShockPromoToPlan(p);
+ n++;
+ }
+ });
+ });
+ });
+ return n;
+ },
  init() {
  try {
  const saved = localStorage.getItem('lgPromoConfig');
@@ -2550,6 +2675,10 @@ function lgCalculator() {
  }
  }
  } catch(e) {}
+ const shockN = this.applyShockPromoCatalog();
+ if (shockN > 0) {
+ try { console.info('[8.8 SHOCK] applied to', shockN, 'plans'); } catch(e) {}
+ }
  this.refreshCategoryList();
  this.refreshModelList();
  },
@@ -2609,14 +2738,18 @@ function lgCalculator() {
  return models[Number(this.picker.model)] || null;
  },
  planToItem(category, model, plan) {
+ // clone + apply 8.8 shock (idempotent if catalog already mutated)
+ const p = this.applyShockPromoToPlan(Object.assign({}, plan, {
+ billSchedule: plan.billSchedule ? plan.billSchedule.map(s => Object.assign({}, s)) : null
+ }));
  return {
  category, code: model.code, name: model.name,
- term: plan.term, serviceType: plan.serviceType, serviceCycle: plan.serviceCycle,
- regular: plan.regular, effectiveMonthly: plan.effectiveMonthly, promoMonths: plan.promoMonths,
- postPromoPrice: plan.postPromoPrice, promo: plan.promo,
- advancePayment: plan.advancePayment || 0,
- billSchedule: plan.billSchedule || null, outright: !!plan.outright,
- totalContractMonths: plan.totalContractMonths, totalSaving: plan.totalSaving
+ term: p.term, serviceType: p.serviceType, serviceCycle: p.serviceCycle,
+ regular: p.regular, effectiveMonthly: p.effectiveMonthly, promoMonths: p.promoMonths,
+ postPromoPrice: p.postPromoPrice, promo: p.promo,
+ advancePayment: p.advancePayment || 0,
+ billSchedule: p.billSchedule || null, outright: !!p.outright,
+ totalContractMonths: p.totalContractMonths, totalSaving: p.totalSaving
  };
  },
  comparePromoLabel(plan) {
