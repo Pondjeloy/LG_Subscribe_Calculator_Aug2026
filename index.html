@@ -1445,20 +1445,20 @@
                 <strong style="color:var(--ink)">ใบเสนอราคา</strong> = มีเซ็นรับทราบ + วันที่อัตโนมัติ<br/>
                 <span x-text="validDaysHint()"></span>
               </div>
-              <!-- ยอดรวมทั้งสัญญา: แสดง / ตัดออก (จอ + ใบพิมพ์ + คัดลอก) -->
+              <!-- ยอดสุทธิ / Total ในใบสรุป-ใบเสนอ: แสดงหรือตัดออก -->
               <div class="mb-3" style="border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff">
-                <div class="text-xs font-semibold mb-1" style="color:var(--ink)">ยอดรวมทั้งสัญญา (สุทธิ)</div>
-                <div class="text-xs text-gray-500 mb-2">ตัดออกได้ทั้งบนจอ ใบพิมพ์ เซฟรูป และคัดลอกข้อความ — ยังมียอดชำระครั้งแรกอยู่</div>
+                <div class="text-xs font-semibold mb-1" style="color:var(--ink)">คอลัมน์ยอดสุทธิ + แถว Total. ในใบสรุปราคา</div>
+                <div class="text-xs text-gray-500 mb-2">ตัดออก = ไม่โชว์คอลัมน์ «ยอดสุทธิ» และแถว Total. (ยังเหลือราคาปกติ/ราคาโปรต่อเดือน + ยอดชำระครั้งแรก)</div>
                 <div class="flex gap-2 flex-wrap">
                   <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
                     :style="quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
-                    @click="setQuoteShowGrandTotal(true)">แสดงยอดรวม</button>
+                    @click="setQuoteShowGrandTotal(true)">แสดงยอดสุทธิ</button>
                   <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
                     :style="!quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
                     @click="setQuoteShowGrandTotal(false)">ตัดออก</button>
                 </div>
                 <div class="text-xs mt-1.5" :style="quoteShowGrandTotal ? 'color:#15803d' : 'color:#a50034'"
-                  x-text="quoteShowGrandTotal ? 'แสดง «ยอดรวมตลอดสัญญา» บนจอและใบพิมพ์' : 'ตัด «ยอดรวมตลอดสัญญา» ออกแล้ว (ยังมียอดชำระครั้งแรก)'"></div>
+                  x-text="quoteShowGrandTotal ? 'ใบสรุป/ใบเสนอจะมีคอลัมน์ยอดสุทธิ + แถว Total. + ยอดรวมทั้งสิ้น' : 'ตัดยอดสุทธิ/Total. ออกจากใบแล้ว (ยังมียอดชำระครั้งแรก)'"></div>
               </div>
               <!-- ปุ่มพิมพ์/เซฟ โชว์ตลอด — ไม่ต้องเปิดฟอร์ม -->
               <div class="space-y-2">
@@ -1669,13 +1669,13 @@ function lgCalculator() {
  modelList: [],
  showComparePlans: false,
  showQuoteForm: false,
- /** จอสรุป + ใบพิมพ์/คัดลอก: แสดงยอดรวมทั้งสัญญาหรือไม่ (default = แสดง · ตัดออกได้) */
+ /** ใบสรุป/ใบเสนอ: แสดงคอลัมน์ยอดสุทธิ + แถว Total. + ยอดรวมทั้งสิ้น หรือตัดออก (default = แสดง) */
  quoteShowGrandTotal: true,
  showCompareModels: false,
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.08-v40',
+ buildVersion: '2026.08.08-v41',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4438,16 +4438,18 @@ function lgCalculator() {
           descHtml += detailLines;
         }
 
+        // showGrand = แสดงคอลัมน์ยอดสุทธิ + แถว Total. · ตัดออก = เหลือแค่ราคา/เดือน (ปกติ/โปร)
+        const rowSpan = showGrand ? span : periods.length;
         const p0 = periods[0];
         itemsHtml += '<tr>';
-        itemsHtml += '<td class="c" rowspan="' + span + '">' + (i + 1) + '</td>';
-        itemsHtml += '<td class="code" rowspan="' + span + '">' + esc(it.code) + '</td>';
-        itemsHtml += '<td class="desc" rowspan="' + span + '">' + descHtml + '</td>';
-        itemsHtml += '<td class="c" rowspan="' + span + '">' + qty + '</td>';
+        itemsHtml += '<td class="c" rowspan="' + rowSpan + '">' + (i + 1) + '</td>';
+        itemsHtml += '<td class="code" rowspan="' + rowSpan + '">' + esc(it.code) + '</td>';
+        itemsHtml += '<td class="desc" rowspan="' + rowSpan + '">' + descHtml + '</td>';
+        itemsHtml += '<td class="c" rowspan="' + rowSpan + '">' + qty + '</td>';
         itemsHtml += '<td class="c">' + esc(p0.bill) + '</td>';
         itemsHtml += '<td class="num">' + (p0.regular === '' ? '—' : this.fmtBillPrice(p0.regular)) + '</td>';
         itemsHtml += '<td class="num">' + (p0.promo === '' ? '—' : this.fmtBillPrice(p0.promo)) + '</td>';
-        itemsHtml += '<td class="num">' + this.fmtMoney(p0.total) + '</td>';
+        if (showGrand) itemsHtml += '<td class="num">' + this.fmtMoney(p0.total) + '</td>';
         itemsHtml += '</tr>';
 
         for (let p = 1; p < periods.length; p++) {
@@ -4456,15 +4458,17 @@ function lgCalculator() {
           itemsHtml += '<td class="c">' + esc(pr.bill) + '</td>';
           itemsHtml += '<td class="num">' + (pr.regular === '' ? '—' : this.fmtBillPrice(pr.regular)) + '</td>';
           itemsHtml += '<td class="num">' + (pr.promo === '' ? '—' : this.fmtBillPrice(pr.promo)) + '</td>';
-          itemsHtml += '<td class="num">' + this.fmtMoney(pr.total) + '</td>';
+          if (showGrand) itemsHtml += '<td class="num">' + this.fmtMoney(pr.total) + '</td>';
           itemsHtml += '</tr>';
         }
 
-        itemsHtml += '<tr class="tot">';
-        itemsHtml += '<td class="c"><strong>Total.</strong></td>';
-        itemsHtml += '<td class="num"></td><td class="num"></td>';
-        itemsHtml += '<td class="num"><strong>' + this.fmtMoney(totalItem) + '</strong></td>';
-        itemsHtml += '</tr>';
+        if (showGrand) {
+          itemsHtml += '<tr class="tot">';
+          itemsHtml += '<td class="c"><strong>Total.</strong></td>';
+          itemsHtml += '<td class="num"></td><td class="num"></td>';
+          itemsHtml += '<td class="num"><strong>' + this.fmtMoney(totalItem) + '</strong></td>';
+          itemsHtml += '</tr>';
+        }
       });
       totalDiscountAll = Math.round(totalDiscountAll * 100) / 100;
 
@@ -4735,7 +4739,7 @@ ${'</'+'style>'}
           <th style="width:52px">รอบชำระ</th>
           <th style="width:82px">ราคาปกติ</th>
           <th style="width:92px">ราคาโปรโมชั่น</th>
-          <th style="width:84px">ยอดสุทธิ</th>
+          ${showGrand ? '<th style="width:84px">ยอดสุทธิ</th>' : ''}
         </tr>
       </thead>
       <tbody>${itemsHtml}</tbody>
