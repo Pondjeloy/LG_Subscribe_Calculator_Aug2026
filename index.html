@@ -1675,7 +1675,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.08-v44',
+ buildVersion: '2026.08.08-v45',
  quoteCustomer: {
    name: '',
    address: '',
@@ -5085,8 +5085,8 @@ ${'</'+'html>'}`;
       w.document.write(html);
       w.document.close();
       this.showToast(this.isMobileClient()
-        ? ('เปิด' + label + 'แล้ว — กดปุ่มพิมพ์/บันทึก PDF ในหน้านั้น' + (this.quoteShowGrandTotal ? '' : ' · ไม่แสดงยอดรวม'))
-        : ('เปิด' + label + 'แล้ว — กดพิมพ์หรือบันทึกเป็น PDF' + (this.quoteShowGrandTotal ? '' : ' · ไม่แสดงยอดรวม')));
+        ? ('เปิด' + label + 'แล้ว — กดปุ่มพิมพ์/บันทึก PDF ในหน้านั้น' + (this.quoteShowGrandTotal ? '' : ' · ไม่แสดงยอดสุทธิ'))
+        : ('เปิด' + label + 'แล้ว — กดพิมพ์หรือบันทึกเป็น PDF' + (this.quoteShowGrandTotal ? '' : ' · ไม่แสดงยอดสุทธิ')));
     },
 
     async loadHtml2Canvas() {
