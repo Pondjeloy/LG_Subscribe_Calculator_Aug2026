@@ -1389,9 +1389,14 @@
  <div class="text-xs text-gray-600 mt-1" x-text="promoDescription()"></div>
  </div>
 
- <!-- Grand Total ตลอดสัญญา -->
- <div class="summary-grand-box">
- <div class="text-xs uppercase tracking-wider mb-1" style="color:var(--muted)">ยอดรวมตลอดสัญญา · Total Contract Value</div>
+ <!-- Grand Total ตลอดสัญญา — ตัดออกได้ (จอ + ใบพิมพ์/คัดลอก ใช้สวิตช์เดียวกัน) -->
+ <div class="summary-grand-box" x-show="quoteShowGrandTotal">
+ <div class="flex items-start justify-between gap-2 mb-1">
+ <div class="text-xs uppercase tracking-wider" style="color:var(--muted)">ยอดรวมตลอดสัญญา · Total Contract Value</div>
+ <button type="button" class="text-xs font-semibold shrink-0"
+   style="color:rgba(255,255,255,.92);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:3px 10px;cursor:pointer"
+   @click="setQuoteShowGrandTotal(false)" title="ตัดยอดรวมทั้งสัญญาออกจากจอและใบพิมพ์">ตัดออก</button>
+ </div>
  <div class="font-display font-bold" style="color:#fff;font-size:30px;letter-spacing:0" x-text="'฿' + fmtMoney(grandTotal())"></div>
  <div class="text-xs mt-1" style="color:rgba(255,255,255,.8)">
  <span x-text="'ตลอด ' + (cart.length ? Math.max(...cart.map(it => it.totalContractMonths || 60)) : 0) + ' เดือน'"></span>
@@ -1409,7 +1414,14 @@
  </div>
  </div>
 
- <div class="summary-green-box">
+ <div class="mb-3" x-show="!quoteShowGrandTotal" style="border:1px dashed #d1d5db;border-radius:10px;padding:10px 12px;background:#fafafa">
+ <div class="flex items-center justify-between gap-2 flex-wrap">
+ <div class="text-xs text-gray-500">ยอดรวมทั้งสัญญา · <strong style="color:#a50034">ตัดออกแล้ว</strong> (จอ + ใบพิมพ์/คัดลอก)</div>
+ <button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px" @click="setQuoteShowGrandTotal(true)">แสดงอีกครั้ง</button>
+ </div>
+ </div>
+
+ <div class="summary-green-box" x-show="quoteShowGrandTotal">
  <div class="text-xs text-gray-600 uppercase tracking-wider mb-1">รวมส่วนลดทั้งสัญญา</div>
  <div class="font-display font-bold text-xl price-highlight" x-text="'฿' + totalSaving().toLocaleString()"></div>
  <div class="text-xs text-gray-500 mt-1" x-text="comboRate() > 0 ? 'ส่วนลดจากโปร + Combo เทียบราคาปกติ' : 'ส่วนลดจากโปรเทียบราคาปกติ'"></div>
@@ -1433,20 +1445,20 @@
                 <strong style="color:var(--ink)">ใบเสนอราคา</strong> = มีเซ็นรับทราบ + วันที่อัตโนมัติ<br/>
                 <span x-text="validDaysHint()"></span>
               </div>
-              <!-- เลือกแสดงยอดรวมทั้งสัญญา — มีผลกับใบพิมพ์/เซฟรูป/คัดลอก -->
+              <!-- ยอดรวมทั้งสัญญา: แสดง / ตัดออก (จอ + ใบพิมพ์ + คัดลอก) -->
               <div class="mb-3" style="border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff">
-                <div class="text-xs font-semibold mb-1" style="color:var(--ink)">ยอดรวมทั้งสิ้นในใบพิมพ์</div>
-                <div class="text-xs text-gray-500 mb-2">กดเลือกก่อน แล้วค่อยกดพิมพ์ / เซฟรูป — มีผลกับใบสรุปราคาและใบเสนอราคา</div>
+                <div class="text-xs font-semibold mb-1" style="color:var(--ink)">ยอดรวมทั้งสัญญา (สุทธิ)</div>
+                <div class="text-xs text-gray-500 mb-2">ตัดออกได้ทั้งบนจอ ใบพิมพ์ เซฟรูป และคัดลอกข้อความ — ยังมียอดชำระครั้งแรกอยู่</div>
                 <div class="flex gap-2 flex-wrap">
                   <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
                     :style="quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
-                    @click="quoteShowGrandTotal = true">แสดงยอดรวม</button>
+                    @click="setQuoteShowGrandTotal(true)">แสดงยอดรวม</button>
                   <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
                     :style="!quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
-                    @click="quoteShowGrandTotal = false">ไม่แสดงยอดรวม</button>
+                    @click="setQuoteShowGrandTotal(false)">ตัดออก</button>
                 </div>
                 <div class="text-xs mt-1.5" :style="quoteShowGrandTotal ? 'color:#15803d' : 'color:#a50034'"
-                  x-text="quoteShowGrandTotal ? 'ใบพิมพ์จะมีแถบแดง «ยอดรวมทั้งสิ้น» + ตัวอักษรบาท' : 'ใบพิมพ์จะไม่มี «ยอดรวมทั้งสิ้น» (ยังมียอดชำระครั้งแรก)'"></div>
+                  x-text="quoteShowGrandTotal ? 'แสดง «ยอดรวมตลอดสัญญา» บนจอและใบพิมพ์' : 'ตัด «ยอดรวมตลอดสัญญา» ออกแล้ว (ยังมียอดชำระครั้งแรก)'"></div>
               </div>
               <!-- ปุ่มพิมพ์/เซฟ โชว์ตลอด — ไม่ต้องเปิดฟอร์ม -->
               <div class="space-y-2">
@@ -1657,13 +1669,13 @@ function lgCalculator() {
  modelList: [],
  showComparePlans: false,
  showQuoteForm: false,
- /** ใบสรุป/ใบเสนอ/คัดลอก: แสดงยอดรวมทั้งสัญญาหรือไม่ (default = แสดง) */
+ /** จอสรุป + ใบพิมพ์/คัดลอก: แสดงยอดรวมทั้งสัญญาหรือไม่ (default = แสดง · ตัดออกได้) */
  quoteShowGrandTotal: true,
  showCompareModels: false,
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.08-v39',
+ buildVersion: '2026.08.08-v40',
  quoteCustomer: {
    name: '',
    address: '',
@@ -2675,12 +2687,22 @@ function lgCalculator() {
  }
  }
  } catch(e) {}
+ try {
+ const g = localStorage.getItem('lgQuoteShowGrandTotal');
+ if (g === '0' || g === 'false') this.quoteShowGrandTotal = false;
+ else if (g === '1' || g === 'true') this.quoteShowGrandTotal = true;
+ } catch(e) {}
  const shockN = this.applyShockPromoCatalog();
  if (shockN > 0) {
  try { console.info('[8.8 SHOCK] applied to', shockN, 'plans'); } catch(e) {}
  }
  this.refreshCategoryList();
  this.refreshModelList();
+ },
+ /** แสดง/ตัดออก ยอดรวมทั้งสัญญา — มีผลจอสรุป + ใบพิมพ์ + คัดลอก (จำค่าไว้) */
+ setQuoteShowGrandTotal(on) {
+ this.quoteShowGrandTotal = !!on;
+ try { localStorage.setItem('lgQuoteShowGrandTotal', this.quoteShowGrandTotal ? '1' : '0'); } catch(e) {}
  },
  refreshCategoryList() {
  this.categoryList = Object.keys(this.catalog || {});
