@@ -1395,7 +1395,7 @@
  <div class="text-xs uppercase tracking-wider" style="color:var(--muted)">ยอดรวมตลอดสัญญา · Total Contract Value</div>
  <button type="button" class="text-xs font-semibold shrink-0"
    style="color:rgba(255,255,255,.92);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:3px 10px;cursor:pointer"
-   @click="setQuoteShowGrandTotal(false)" title="ตัดยอดรวมทั้งสัญญาออกจากจอและใบพิมพ์">ตัดออก</button>
+   @click="setQuoteShowGrandTotal(false)" title="ไม่แสดงยอดสุทธิในจอและใบพิมพ์">ไม่แสดงยอดสุทธิ</button>
  </div>
  <div class="font-display font-bold" style="color:#fff;font-size:30px;letter-spacing:0" x-text="'฿' + fmtMoney(grandTotal())"></div>
  <div class="text-xs mt-1" style="color:rgba(255,255,255,.8)">
@@ -1416,8 +1416,8 @@
 
  <div class="mb-3" x-show="!quoteShowGrandTotal" style="border:1px dashed #d1d5db;border-radius:10px;padding:10px 12px;background:#fafafa">
  <div class="flex items-center justify-between gap-2 flex-wrap">
- <div class="text-xs text-gray-500">ยอดรวมทั้งสัญญา · <strong style="color:#a50034">ตัดออกแล้ว</strong> (จอ + ใบพิมพ์/คัดลอก)</div>
- <button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px" @click="setQuoteShowGrandTotal(true)">แสดงอีกครั้ง</button>
+ <div class="text-xs text-gray-500">ยอดรวมทั้งสัญญา · <strong style="color:#a50034">ไม่แสดงยอดสุทธิ</strong> (จอ + ใบพิมพ์/คัดลอก)</div>
+ <button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px" @click="setQuoteShowGrandTotal(true)">แสดงยอดสุทธิ</button>
  </div>
  </div>
 
@@ -1448,17 +1448,17 @@
               <!-- ยอดสุทธิ / Total ในใบสรุป-ใบเสนอ: แสดงหรือตัดออก -->
               <div class="mb-3" style="border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff">
                 <div class="text-xs font-semibold mb-1" style="color:var(--ink)">คอลัมน์ยอดสุทธิ + แถว Total. ในใบสรุปราคา</div>
-                <div class="text-xs text-gray-500 mb-2">ตัดออก = ไม่โชว์คอลัมน์ «ยอดสุทธิ» และแถว Total. (ยังเหลือราคาปกติ/ราคาโปรต่อเดือน + ยอดชำระครั้งแรก)</div>
+                <div class="text-xs text-gray-500 mb-2">ไม่แสดงยอดสุทธิ = ไม่โชว์คอลัมน์ «ยอดสุทธิ» และแถว Total. (ยังเหลือราคาปกติ/ราคาโปรต่อเดือน + ยอดชำระครั้งแรก)</div>
                 <div class="flex gap-2 flex-wrap">
                   <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
                     :style="quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
                     @click="setQuoteShowGrandTotal(true)">แสดงยอดสุทธิ</button>
                   <button type="button" class="btn-ghost" style="flex:1;min-width:120px;padding:8px 10px;font-size:12px"
                     :style="!quoteShowGrandTotal ? 'background:var(--ink);color:#fff;border-color:var(--ink)' : ''"
-                    @click="setQuoteShowGrandTotal(false)">ตัดออก</button>
+                    @click="setQuoteShowGrandTotal(false)">ไม่แสดงยอดสุทธิ</button>
                 </div>
                 <div class="text-xs mt-1.5" :style="quoteShowGrandTotal ? 'color:#15803d' : 'color:#a50034'"
-                  x-text="quoteShowGrandTotal ? 'ใบสรุป/ใบเสนอจะมีคอลัมน์ยอดสุทธิ + แถว Total. + ยอดรวมทั้งสิ้น' : 'ตัดยอดสุทธิ/Total. ออกจากใบแล้ว (ยังมียอดชำระครั้งแรก)'"></div>
+                  x-text="quoteShowGrandTotal ? 'ใบสรุป/ใบเสนอจะมีคอลัมน์ยอดสุทธิ + แถว Total. + ยอดรวมทั้งสิ้น' : 'ไม่แสดงยอดสุทธิ/Total. ในใบแล้ว (ยังมียอดชำระครั้งแรก)'"></div>
               </div>
               <!-- ปุ่มพิมพ์/เซฟ โชว์ตลอด — ไม่ต้องเปิดฟอร์ม -->
               <div class="space-y-2">
@@ -1675,7 +1675,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.08-v43',
+ buildVersion: '2026.08.08-v44',
  quoteCustomer: {
    name: '',
    address: '',
