@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.09-v58 · OLED77+S80TY รูปชุดแถม (free gift set) -->
+<!-- LG Subscribe Calculator build 2026.08.09-v59 · *ของแถมรับประกัน 1 ปี ในรายละเอียด -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -937,7 +937,8 @@
  <span x-show="isRecommendedPlan(picker.category, entry.plan)" class="tag tag-recommend">แนะนำ</span>
  </div>
  <div class="text-xs" style="color:var(--ink-2);margin-top:2px" x-show="isRecommendedPlan(picker.category, entry.plan)" x-text="planRecommendNote(picker.category, entry.plan)"></div>
- <div class="text-xs text-gray-600" x-show="entry.plan.promo" x-text="entry.plan.promo"></div>
+ <div class="text-xs text-gray-600" x-show="entry.plan.promo" x-text="planPromoDisplay(entry.plan)"></div>
+ <div class="text-xs mt-1" style="color:var(--muted)" x-show="hasFreeGift(entry.plan)" x-text="freeGiftWarrantyNote()"></div>
  <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="entry.plan.outright && entry.plan.advancePayment" x-text="'จ่ายครั้งเดียว ฿' + entry.plan.advancePayment.toLocaleString() + ' (รวมเครื่อง + บริการ 2 ปี)'"></div>
  <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="entry.plan.advancePayment && !entry.plan.outright" x-text="'จ่ายก้อนแรก ฿' + entry.plan.advancePayment.toLocaleString() + ' (ชำระล่วงหน้า 12 เดือน 50%)'"></div>
  </div>
@@ -1149,6 +1150,7 @@
  </div>
  <div class="font-mono text-xs text-gray-700" x-text="g.item.code"></div>
  <div class="text-sm" x-text="g.item.name"></div>
+ <div class="text-xs mt-0.5" style="color:var(--muted)" x-show="hasFreeGift(g.item)" x-text="freeGiftWarrantyNote()"></div>
  <div class="flex gap-2 mt-2 flex-wrap items-center">
  <span class="tag" :class="'tag-' + g.item.serviceType.toLowerCase().replace(' ','')" x-text="termYearsOnly(g.item) + ' · ' + serviceTypeTag(g.item.serviceType)"></span>
  <span class="tag tag-promo" x-show="g.item.promo">โปรโมชัน</span>
@@ -1682,7 +1684,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.09-v58',
+ buildVersion: '2026.08.09-v59',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3625,12 +3627,33 @@ function lgCalculator() {
  }
  return false;
  },
+ // ของแถม (แถมฟรี) — รับประกัน 1 ปี แสดงในรายละเอียด/ใบสรุป
+ hasFreeGift(item) {
+   if (!item) return false;
+   const promo = String(item.promo || '');
+   const name = String(item.name || '');
+   return /แถมฟรี|Free xboom|Free Sound|Free Aero|Free MS|ของแถม/i.test(promo + ' ' + name);
+ },
+ freeGiftWarrantyNote() {
+   return '*ของแถมรับประกัน 1 ปี';
+ },
+ planPromoDisplay(plan) {
+   if (!plan || !plan.promo) return '';
+   let s = String(plan.promo);
+   if (this.hasFreeGift(plan) && !s.includes('ของแถมรับประกัน')) {
+     s = s + ' · ' + this.freeGiftWarrantyNote();
+   }
+   return s;
+ },
  warrantyLineText(item, years) {
  const y = years != null ? years : Math.round((item.totalContractMonths || 60) / 12);
  let line = 'รับประกันตลอดสัญญา ' + y + ' ปี | ครอบคลุมค่าซ่อม';
  if (!this.isNoMaintenanceWarranty(item)) line += 'และบำรุงรักษา';
  if (this.isCenterRepairItem(item)) {
  line += ' · ลูกค้านำสินค้าส่งซ่อมที่ศูนย์บริการแอลจีด้วยตนเอง';
+ }
+ if (this.hasFreeGift(item)) {
+   line += ' · ' + this.freeGiftWarrantyNote();
  }
  return line;
  },
@@ -4488,6 +4511,10 @@ function lgCalculator() {
         if (pname) detailLines += '<div class="spec">' + esc(pname) + '</div>';
         detailLines += careLine;
         detailLines += '<div class="pkg">' + esc(pkgLine) + '</div>';
+        // ของแถมรับประกัน 1 ปี (ถ้าแพ็คมีแถมฟรี)
+        if (this.hasFreeGift(it)) {
+          detailLines += '<div class="spec" style="margin-top:2px;color:#6b7280">' + esc(this.freeGiftWarrantyNote()) + '</div>';
+        }
 
         let descHtml = '';
         if (imgSrc) {
