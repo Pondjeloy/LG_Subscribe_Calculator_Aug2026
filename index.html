@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.09-v59 · *ของแถมรับประกัน 1 ปี ในรายละเอียด -->
+<!-- LG Subscribe Calculator build 2026.08.09-v60 · เงื่อนไขติดตั้ง ซัก/อบ/ล้างจาน (Jump) -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -939,6 +939,7 @@
  <div class="text-xs" style="color:var(--ink-2);margin-top:2px" x-show="isRecommendedPlan(picker.category, entry.plan)" x-text="planRecommendNote(picker.category, entry.plan)"></div>
  <div class="text-xs text-gray-600" x-show="entry.plan.promo" x-text="planPromoDisplay(entry.plan)"></div>
  <div class="text-xs mt-1" style="color:var(--muted)" x-show="hasFreeGift(entry.plan)" x-text="freeGiftWarrantyNote()"></div>
+ <div class="text-xs mt-1" style="color:var(--muted);line-height:1.45" x-show="needsPlumbingInstallNote({ category: picker.category, code: currentModel() && currentModel().code, name: currentModel() && currentModel().name })" x-text="installConditionNote()"></div>
  <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="entry.plan.outright && entry.plan.advancePayment" x-text="'จ่ายครั้งเดียว ฿' + entry.plan.advancePayment.toLocaleString() + ' (รวมเครื่อง + บริการ 2 ปี)'"></div>
  <div class="text-xs" style="color:var(--ink);margin-top:4px" x-show="entry.plan.advancePayment && !entry.plan.outright" x-text="'จ่ายก้อนแรก ฿' + entry.plan.advancePayment.toLocaleString() + ' (ชำระล่วงหน้า 12 เดือน 50%)'"></div>
  </div>
@@ -1151,6 +1152,7 @@
  <div class="font-mono text-xs text-gray-700" x-text="g.item.code"></div>
  <div class="text-sm" x-text="g.item.name"></div>
  <div class="text-xs mt-0.5" style="color:var(--muted)" x-show="hasFreeGift(g.item)" x-text="freeGiftWarrantyNote()"></div>
+ <div class="text-xs mt-0.5" style="color:var(--muted);line-height:1.4" x-show="needsPlumbingInstallNote(g.item)" x-text="installConditionNote()"></div>
  <div class="flex gap-2 mt-2 flex-wrap items-center">
  <span class="tag" :class="'tag-' + g.item.serviceType.toLowerCase().replace(' ','')" x-text="termYearsOnly(g.item) + ' · ' + serviceTypeTag(g.item.serviceType)"></span>
  <span class="tag tag-promo" x-show="g.item.promo">โปรโมชัน</span>
@@ -1514,6 +1516,7 @@
  <li>ราคานี้คำนวณจากเอกสารโปรโมชั่น OBS สิงหาคม 2569 (Price list August 2026 · LGETH 2026.08.01)</li>
  <li>ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)</li>
  <li>โปรโมชั่นใช้ได้เฉพาะแบบ Subscribe</li>
+ <li>เครื่องซักผ้า · เครื่องอบผ้า · เครื่องล้างจาน: จัดส่งฟรีพร้อมติดตั้งเบื้องต้น (Jump) ไม่รวมการเดินระบบไฟฟ้าและระบบประปา ลูกค้าต้องจัดเตรียมก๊อกน้ำและจุดระบายน้ำให้พร้อมก่อนวันติดตั้ง</li>
  <li>ราคาอาจเปลี่ยนแปลงตามประกาศบริษัทฯ</li>
  </ul>
  </div>
@@ -1684,7 +1687,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.09-v59',
+ buildVersion: '2026.08.09-v60',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3637,6 +3640,28 @@ function lgCalculator() {
  freeGiftWarrantyNote() {
    return '*ของแถมรับประกัน 1 ปี';
  },
+ // เครื่องซักผ้า / อบผ้า / ล้างจาน — เงื่อนไขติดตั้ง (ทางการ)
+ needsPlumbingInstallNote(item) {
+   if (!item) return false;
+   const cat = item.category || '';
+   if (this.isWasherCategory(cat) || cat === 'Wash Tower') return true;
+   if (this.isDryerModel(item) || this.isDishwasherModel(item)) return true;
+   // รองรับ object จาก currentModel() ที่ไม่มี category
+   if (item.code) {
+     const code = String(item.code || '');
+     const name = String(item.name || '');
+     if (code.includes('DFC') || name.includes('ล้างจาน')) return true;
+     if (code.includes('RV10') || name.includes('อบผ้า')) return true;
+     if (/FV|FV1|TX|WT|F2520|DFC/i.test(code) && (name.includes('ซัก') || name.includes('Wash') || name.includes('อบ'))) return true;
+   }
+   return false;
+ },
+ installConditionNote() {
+   return '*เงื่อนไขการติดตั้ง: จัดส่งฟรีพร้อมติดตั้งเบื้องต้น (Jump) โดยไม่รวมการเดินระบบไฟฟ้าและระบบประปา ลูกค้าต้องจัดเตรียมก๊อกน้ำและจุดระบายน้ำให้พร้อมก่อนวันติดตั้ง';
+ },
+ cartHasPlumbingInstallNote() {
+   return (this.cart || []).some(it => this.needsPlumbingInstallNote(it));
+ },
  planPromoDisplay(plan) {
    if (!plan || !plan.promo) return '';
    let s = String(plan.promo);
@@ -4213,6 +4238,9 @@ function lgCalculator() {
 
         lines.push('');
         lines.push(this.warrantyLineText(it, years));
+        if (this.needsPlumbingInstallNote(it)) {
+          lines.push(this.installConditionNote());
+        }
       });
 
       // ── GRAND TOTAL (หลายรายการ) ──
@@ -4514,6 +4542,10 @@ function lgCalculator() {
         // ของแถมรับประกัน 1 ปี (ถ้าแพ็คมีแถมฟรี)
         if (this.hasFreeGift(it)) {
           detailLines += '<div class="spec" style="margin-top:2px;color:#6b7280">' + esc(this.freeGiftWarrantyNote()) + '</div>';
+        }
+        // เงื่อนไขติดตั้ง ซัก/อบ/ล้างจาน
+        if (this.needsPlumbingInstallNote(it)) {
+          detailLines += '<div class="spec" style="margin-top:2px;color:#6b7280;line-height:1.35">' + esc(this.installConditionNote()) + '</div>';
         }
 
         let descHtml = '';
@@ -4846,6 +4878,7 @@ ${'</'+'style>'}
         <ul>
           <li>${esc(remarkValid)}</li>
           <li>*ราคารวมค่าจัดส่งและค่าติดตั้งเบื้องต้นเรียบร้อยแล้ว (เงื่อนไขพื้นที่มาตรฐานตามบริษัท)</li>
+          ${this.cartHasPlumbingInstallNote() ? ('<li>' + esc(this.installConditionNote()) + '</li>') : ''}
           <li>ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง) · โปรโมชันใช้ได้เฉพาะแบบ Subscribe</li>
           <li>ยอดชำระครั้งแรก: สินค้าทั่วไป = งวดที่ 1 · TV/จอ/ลำโพง = ล่วงหน้าอย่างเดียว · ซื้อขาด = ราคาซื้อขาด</li>
           <li>*เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด ราคาอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
