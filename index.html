@@ -1689,7 +1689,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.11-v64',
+ buildVersion: '2026.08.11-v65',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3655,12 +3655,13 @@ function lgCalculator() {
  }
  return false;
  },
- // ของแถม (แถมฟรี) — รับประกัน 1 ปี แสดงในรายละเอียด/ใบสรุป
+ // ของแถม (แถมฟรี) — รับประกัน 1 ปี แสดงเฉพาะเมื่อมีของแถมจริงเท่านั้น
+ // ห้ามโชว์ *ของแถมรับประกัน 1 ปี ถ้าไม่มีแถม
  hasFreeGift(item) {
    if (!item) return false;
-   const promo = String(item.promo || '');
-   const name = String(item.name || '');
-   return /แถมฟรี|Free xboom|Free Sound|Free Aero|Free MS|ของแถม/i.test(promo + ' ' + name);
+   const t = String(item.promo || '') + ' ' + String(item.name || '');
+   // ต้องเป็นของแถมชัดเจน — อย่าจับแค่คำว่า "แถม" ลอยๆ (เช่น ซื้อ 2 แถม Aero)
+   return /แถมฟรี|ของแถม|Free\s*xboom|Free\s*Sound|Free\s*Aero|Free\s*MS|Free\s*gift|รับฟรี/i.test(t);
  },
  freeGiftWarrantyNote() {
    return '*ของแถมรับประกัน 1 ปี';
@@ -3688,12 +3689,9 @@ function lgCalculator() {
    return (this.cart || []).some(it => this.needsPlumbingInstallNote(it));
  },
  planPromoDisplay(plan) {
+   // ข้อความโปรอย่างเดียว — หมายเหตุของแถมแยกบรรทัด (x-show hasFreeGift) ไม่ผูกเข้า promo
    if (!plan || !plan.promo) return '';
-   let s = String(plan.promo);
-   if (this.hasFreeGift(plan) && !s.includes('ของแถมรับประกัน')) {
-     s = s + ' · ' + this.freeGiftWarrantyNote();
-   }
-   return s;
+   return String(plan.promo).replace(/\s*·\s*\*ของแถมรับประกัน 1 ปี/g, '').trim();
  },
  warrantyLineText(item, years) {
  const y = years != null ? years : Math.round((item.totalContractMonths || 60) / 12);
@@ -3702,9 +3700,7 @@ function lgCalculator() {
  if (this.isCenterRepairItem(item)) {
  line += ' · ลูกค้านำสินค้าส่งซ่อมที่ศูนย์บริการแอลจีด้วยตนเอง';
  }
- if (this.hasFreeGift(item)) {
-   line += ' · ' + this.freeGiftWarrantyNote();
- }
+ // ของแถม: แสดงเฉพาะมีแถมจริง — แยกบรรทัดในใบเสนอ (อย่าผูกใน warranty ทุกชิ้น)
  return line;
  },
 
@@ -4261,6 +4257,9 @@ function lgCalculator() {
 
         lines.push('');
         lines.push(this.warrantyLineText(it, years));
+        if (this.hasFreeGift(it)) {
+          lines.push(this.freeGiftWarrantyNote());
+        }
       });
 
       // ── GRAND TOTAL (หลายรายการ) ──
