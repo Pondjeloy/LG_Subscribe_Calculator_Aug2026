@@ -1689,7 +1689,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.11-v63',
+ buildVersion: '2026.08.11-v64',
  quoteCustomer: {
    name: '',
    address: '',
@@ -4368,6 +4368,7 @@ function lgCalculator() {
       return y + m + day + '-' + h + mi;
     },
     // ตะกร้ามีรุ่นที่ติดโปร 88 (บิลแรก 149→88) หรือไม่ — ไม่สนคอมโบ
+    // หมายเหตุ: หลังหมดช่วง shock แล้ว isShockPromoActive() = false · อย่าใช้ผลนี้บังคับวัน 10 ส.ค.
     cartHasShock88Promo() {
       const cart = this.cart || [];
       if (!cart.length) return false;
@@ -4389,13 +4390,14 @@ function lgCalculator() {
       });
     },
     // วันสงวนสิทธิ์บนใบสรุป/ใบเสนอ (user):
-    // · ไม่ผูกคอมโบพิเศษ — ใช้โปรเดือนปกติเสมอ
-    // · มีรุ่นโปร 88 ในตะกร้า → ถึงวันหมด 88 (10 ส.ค.) ไม่ว่าคอมโบเปิด/ปิด
-    // · ไม่มีรุ่น 88 → ถึงสิ้นโปรหลัก (31 ส.ค.)
+    // · ไม่ผูกคอมโบพิเศษ — ช่วงข้อความ "โปรเริ่ม…ถึง…" = โปรเดือนปกติเป็นหลัก
+    // · ใช้วันหมด 88 เฉพาะตอนที่โปร 88 ยัง active และตะกร้ามีรุ่น 88
+    // · หมดโปร 88 แล้ว (หลัง 10 ส.ค.) หรือไม่มีรุ่น 88 → สิ้นโปรหลัก (31 ส.ค.)
     quoteValidPromoEnd() {
       const normalEnd = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
       const shockEnd = (this.shockPromo && this.shockPromo.dateEnd) || '';
-      if (this.cartHasShock88Promo() && shockEnd) return String(shockEnd);
+      const shockLive = typeof this.isShockPromoActive === 'function' && this.isShockPromoActive();
+      if (shockLive && this.cartHasShock88Promo() && shockEnd) return String(shockEnd);
       return String(normalEnd || '');
     },
     quoteValidToDate() {
@@ -4414,10 +4416,11 @@ function lgCalculator() {
     },
     validDaysHint() {
       const d = this.quoteValidToDate();
-      const has88 = this.cartHasShock88Promo();
+      const shockLive = typeof this.isShockPromoActive === 'function' && this.isShockPromoActive();
+      const has88 = shockLive && this.cartHasShock88Promo();
       const which = has88
-        ? 'มีรุ่นโปร 88 ในตะกร้า → ถึงวันหมด 88'
-        : 'ไม่มีรุ่น 88 → ถึงสิ้นโปรหลัก';
+        ? 'มีรุ่นโปร 88 ในตะกร้า + โปร 88 ยังอยู่ → ถึงวันหมด 88'
+        : 'โปรเดือนปกติ (หมด 88 แล้ว / ไม่มีรุ่น 88) → ถึงสิ้นโปรหลัก';
       return 'ขอสงวนสิทธิ์ใบสรุปราคาไว้จนถึงวันที่ ' + this.quoteDateText(d) +
         ' · ' + which + ' (' + this.fmtDate(this.quoteValidPromoEnd() || '') + ')';
     },
