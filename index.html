@@ -1549,16 +1549,16 @@ function lgCalculator() {
  newTiers: [ {min:2, rate:10} ], // COMBO_NEW_K-HOUSE_(2 UNITS UP)
  existTiers: [ {min:1, rate:10} ] // COMBO_K-HOUSE_ADD_(1 UNIT UP)
  },
- // คอมโบ 15% — หมดวันที่ 9 ส.ค. (แยกจากโปร 88 ที่ถึงวันที่ 10)
+ // Happy Mother's Day Special Combo 12% — 11–14 ส.ค. 69 (ลูกค้าเก่า 1+ · ลูกค้าใหม่ 2+)
  special: {
- name: 'August Birthday Special',
- dateStart: '2569-07-31', dateEnd: '2569-08-09',
- newTiers: [ {min:2, rate:15} ],
- existTiers: [ {min:1, rate:15} ]
+ name: "Happy Mother's Day Special Combo",
+ dateStart: '2569-08-11', dateEnd: '2569-08-14',
+ newTiers: [ {min:2, rate:12} ],
+ existTiers: [ {min:1, rate:12} ]
  }
  },
 
- // DOUBLE DAY 8.8 SHOCK PRICE — บิลแรก 149 → 88 (ถึงวันที่ 10 ส.ค. · แยกจากคอมโบ 15% ที่หมดวันที่ 9)
+ // DOUBLE DAY 8.8 SHOCK PRICE — บิลแรก 149 → 88 (ถึงวันที่ 10 ส.ค. · แยกจากคอมโบ Mother's Day)
  // กฎ user: catalog เก็บ 149 เสมอ · ช่วงโปร runtime → 88 · หมดโปร → กลับ 149 อัตโนมัติ
  // ห้าม hardcode 88 ใน plans · ดู docs/USER_PRIORITY_AND_SHOCK88.md
  shockPromo: {
@@ -1685,7 +1685,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.09-v61',
+ buildVersion: '2026.08.11-v62',
  quoteCustomer: {
    name: '',
    address: '',
@@ -2690,8 +2690,14 @@ function lgCalculator() {
  const saved = localStorage.getItem('lgPromoConfig');
  if (saved) {
  const parsed = JSON.parse(saved);
- // ถ้าวันที่ใน localStorage ต่างจากโค้ด (เปลี่ยนเดือน) → ล้างแล้วใช้ค่าใหม่
- if (parsed?.normal?.dateStart !== this.promoConfig.normal.dateStart) {
+ // ถ้าวันที่/ชื่อโปรใน localStorage ต่างจากโค้ด (เปลี่ยนเดือนหรือ special combo) → ล้างแล้วใช้ค่าใหม่
+ const codeN = this.promoConfig.normal || {};
+ const codeS = this.promoConfig.special || {};
+ const stale = parsed?.normal?.dateStart !== codeN.dateStart
+   || parsed?.special?.dateStart !== codeS.dateStart
+   || parsed?.special?.dateEnd !== codeS.dateEnd
+   || parsed?.special?.name !== codeS.name;
+ if (stale) {
  localStorage.removeItem('lgPromoConfig');
  } else {
  this.promoConfig = parsed;
@@ -2756,12 +2762,12 @@ function lgCalculator() {
  newTiers: [ {min:2, rate:10} ],
  existTiers: [ {min:1, rate:10} ]
  },
- // คอมโบ 15% หมด 9 ส.ค. · โปร 88 ถึง 10 ส.ค. (อย่าสลับ)
+ // Happy Mother's Day 12% · 11–14 ส.ค. 69 (อย่าสลับกับคอมโบปกติ 10%)
  special: {
- name: 'August Birthday Special',
- dateStart: '2569-07-31', dateEnd: '2569-08-09',
- newTiers: [ {min:2, rate:15} ],
- existTiers: [ {min:1, rate:15} ]
+ name: "Happy Mother's Day Special Combo",
+ dateStart: '2569-08-11', dateEnd: '2569-08-14',
+ newTiers: [ {min:2, rate:12} ],
+ existTiers: [ {min:1, rate:12} ]
  }
  };
  this.showToast('รีเซ็ตเป็นค่าเริ่มต้นแล้ว');
