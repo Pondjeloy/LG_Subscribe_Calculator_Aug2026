@@ -800,7 +800,9 @@
  <div style="color:var(--ink);font-size:13px" x-html="promoConfig.special.existTiers.map(t => t.min + '+ ชิ้น → <strong>' + t.rate + '%</strong>').join(' · ')"></div>
  </div>
  </div>
- <div class="text-xs mt-2" style="color:var(--muted)" x-show="!specialCombo && !showComboSettings"> เปิดสวิตช์เพื่อใช้ส่วนลดพิเศษ · กดตั้งค่าเพื่อกำหนดชื่อโปร วันที่ และอัตราส่วนลด
+ <div class="text-xs mt-2" style="color:var(--muted)" x-show="!specialCombo && !showComboSettings"> ปิด = ใช้คอมโบเดือนปกติ · เปิด = ส่วนลดพิเศษ (เฉพาะในช่วงโปร) · ใบเสนอ/สรุปใช้ช่วงโปรเดือนปกติเสมอ
+ </div>
+ <div class="text-xs mt-2" style="color:#b45309" x-show="specialCombo && !isSpecialComboInPeriod() && !showComboSettings"> โปรพิเศษหมดช่วงแล้ว (หลัง <span x-text="fmtDate(promoConfig.special.dateEnd)"></span>) — คิดราคา/ใบเสนอเป็นคอมโบเดือนปกติอัตโนมัติ
  </div>
 
  <!-- Combo Settings Panel -->
@@ -1272,18 +1274,20 @@
  <aside>
  <div class="sticky-summary space-y-4">
 
- <div class="card p-5" :class="specialCombo ? 'promo-card-on' : ''">
- <div class="text-xs font-mono uppercase tracking-wider mb-1 promo-period-label" :style="specialCombo ? '' : 'color:var(--muted)'">PROMOTION PERIOD</div>
- <template x-if="!specialCombo">
+ <div class="card p-5" :class="isSpecialComboEffective() ? 'promo-card-on' : ''">
+ <div class="text-xs font-mono uppercase tracking-wider mb-1 promo-period-label" :style="isSpecialComboEffective() ? '' : 'color:var(--muted)'">PROMOTION PERIOD</div>
+ <template x-if="!isSpecialComboEffective()">
  <div>
  <div class="font-display font-bold text-lg" style="color:var(--ink)" x-text="promoConfig.normal.name"></div>
- <div class="text-xs mt-1" style="color:var(--muted)" x-text="fmtDate(promoConfig.normal.dateStart) + ' – ' + fmtDate(promoConfig.normal.dateEnd) + ' · โปรคอมโบปกติ'"></div>
+ <div class="text-xs mt-1" style="color:var(--muted)" x-text="fmtDate(promoConfig.normal.dateStart) + ' – ' + fmtDate(promoConfig.normal.dateEnd) + ' · โปรคอมโบปกติ (ใบเสนอ/สรุปใช้ช่วงนี้)'"></div>
+ <div class="text-xs mt-1" style="color:#b45309" x-show="specialCombo && !isSpecialComboInPeriod()">คอมโบพิเศษหมดช่วงแล้ว · ใช้คอมโบเดือนปกติอัตโนมัติ</div>
  </div>
  </template>
- <template x-if="specialCombo">
+ <template x-if="isSpecialComboEffective()">
  <div>
  <div class="font-display font-bold text-lg" x-text="promoConfig.special.name"></div>
  <div class="text-xs mt-1" x-text="fmtDate(promoConfig.special.dateStart) + ' – ' + fmtDate(promoConfig.special.dateEnd) + ' · ส่วนลดสูงสุด ' + Math.max(...promoConfig.special.newTiers.map(t=>t.rate), ...promoConfig.special.existTiers.map(t=>t.rate)) + '%'"></div>
+ <div class="text-xs mt-1" style="opacity:.85">ใบเสนอ/สรุป: วันสงวนสิทธิ์ตามโปรเดือนปกติ (ไม่ผูกวัน special)</div>
  </div>
  </template>
  </div>
@@ -1325,7 +1329,7 @@
  <div class="flex justify-between" style="color:var(--ink)" x-show="comboRate() > 0">
  <span class="font-semibold">
  <span x-text="'ส่วนลด ' + comboLabel() + ' ' + Math.round(comboRate()*100) + '%'"></span>
- <span x-show="specialCombo" class="tag tag-recommend" style="margin-left:4px">SPECIAL</span>
+ <span x-show="isSpecialComboEffective()" class="tag tag-recommend" style="margin-left:4px">SPECIAL</span>
  </span>
  <span class="font-mono font-semibold" x-text="'-฿' + comboDiscount().toLocaleString()"></span>
  </div>
@@ -1685,7 +1689,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.11-v62',
+ buildVersion: '2026.08.11-v63',
  quoteCustomer: {
    name: '',
    address: '',
@@ -2613,14 +2617,8 @@ function lgCalculator() {
  isShockPromoActive() {
  const sp = this.shockPromo;
  if (!sp || !sp.dateStart || !sp.dateEnd) return false;
- const parseBE = (s) => {
- const p = String(s).split('-').map(Number);
- if (p.length !== 3 || p.some(n => Number.isNaN(n))) return null;
- // พ.ศ. → ค.ศ. สำหรับเทียบ Date
- return new Date(p[0] - 543, p[1] - 1, p[2]);
- };
- const start = parseBE(sp.dateStart);
- const end = parseBE(sp.dateEnd);
+ const start = this.parseBEDate(sp.dateStart);
+ const end = this.parseBEDate(sp.dateEnd);
  if (!start || !end) return false;
  end.setHours(23, 59, 59, 999);
  const now = new Date();
@@ -3075,8 +3073,30 @@ function lgCalculator() {
  this.showToast(successMsg);
  },
 
+ // พ.ศ. YYYY-MM-DD → Date (ค.ศ.) เวลาท้องถิ่น
+ parseBEDate(s) {
+ const p = String(s || '').split('-').map(Number);
+ if (p.length !== 3 || p.some(n => Number.isNaN(n))) return null;
+ return new Date(p[0] - 543, p[1] - 1, p[2]);
+ },
+ // วันนี้ยังอยู่ในช่วง special combo หรือไม่ (เช่น Mother's Day 11–14 ส.ค.)
+ isSpecialComboInPeriod() {
+ const sp = this.promoConfig && this.promoConfig.special;
+ if (!sp || !sp.dateStart || !sp.dateEnd) return false;
+ const start = this.parseBEDate(sp.dateStart);
+ const end = this.parseBEDate(sp.dateEnd);
+ if (!start || !end) return false;
+ end.setHours(23, 59, 59, 999);
+ const now = new Date();
+ return now >= start && now <= end;
+ },
+ // ใช้คอมโบพิเศษจริงๆ เฉพาะเมื่อเปิดสวิตช์ + ยังไม่หมดช่วง
+ // ปิดสวิตช์ หรือหมดโปร special → คอมโบเดือนปกติ (ใบเสนอ/สรุปด้วย)
+ isSpecialComboEffective() {
+ return !!(this.specialCombo && this.isSpecialComboInPeriod());
+ },
  activePromo() {
- return this.specialCombo ? this.promoConfig.special : this.promoConfig.normal;
+ return this.isSpecialComboEffective() ? this.promoConfig.special : this.promoConfig.normal;
  },
  comboRate() {
  const n = this.cart.length;
@@ -3097,7 +3117,8 @@ function lgCalculator() {
    .replace(/"/g, '&quot;');
  },
  comboPeriod() {
- // ช่วงที่แสดงลูกค้า: เริ่มโปรหลัก · สิ้น = ตามตะกร้า (มี 88 → 10 · ไม่มี → 31)
+ // ใบเสนอ/สรุป: ช่วงโปร = คอมโบเดือนปกติ (เริ่ม–สิ้นตามตะกร้า) · ไม่ใช้วัน special
+ // เริ่มโปรหลัก · สิ้น = ตามตะกร้า (มี 88 → 10 · ไม่มี → 31)
  const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart)
    || (this.activePromo() && this.activePromo().dateStart) || '';
  const end = (typeof this.quoteValidPromoEnd === 'function' && this.quoteValidPromoEnd())
@@ -3753,13 +3774,11 @@ function lgCalculator() {
  return 'ลูกค้าใหม่ Subscribe เพิ่ม ' + newMin + ' ชิ้นขึ้นไป เริ่มลด ' + newRate + '% · ลูกค้าเก่า Subscribe เพิ่ม ' + existMin + ' ชิ้นขึ้นไป เริ่มลด ' + existRate + '%';
  },
  promoDateText() {
- // แสดงในสรุป/ใบสรุป/คัดลอก — วันสิ้นสุดตามรุ่นในตะกร้า (user):
- // มีรุ่นโปร 88 → ถึง 10 ส.ค. · ไม่มี → ถึง 31 ส.ค. (ไม่ผูกคอมโบ)
- const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart)
-   || (this.activePromo() && this.activePromo().dateStart) || '';
+ // ใบเสนอ/สรุป/คัดลอก: ช่วงโปร = คอมโบเดือนปกติ เสมอ (ไม่ใช้วัน special)
+ // วันสิ้นสุดตามรุ่นในตะกร้า: มีรุ่นโปร 88 → ถึง 10 ส.ค. · ไม่มี → ถึง 31 ส.ค.
+ const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart) || '';
  const end = (typeof this.quoteValidPromoEnd === 'function' && this.quoteValidPromoEnd())
-   || (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd)
-   || (this.activePromo() && this.activePromo().dateEnd) || '';
+   || (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
  return 'โปรเริ่ม ' + this.fmtDate(start) + ' ถึง ' + this.fmtDate(end);
  },
  promoMonthLabel() {
@@ -4001,7 +4020,7 @@ function lgCalculator() {
       let txt = '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;font-size:0.82em">';
       txt += '<span style="background:#fee2e2;color:#991b1b;padding:2px 9px;border-radius:99px;font-weight:600">' + ct + '</span>';
       txt += '<span style="background:#e0e7ff;color:#3730a3;padding:2px 9px;border-radius:99px">' + n + ' รายการ</span>';
-      if (hasCombo) txt += '<span style="background:#fef9c3;color:#92400e;padding:2px 9px;border-radius:99px">' + this.comboLabel() + ' ' + cr + '%' + (this.specialCombo ? '' : '') + '</span>';
+      if (hasCombo) txt += '<span style="background:#fef9c3;color:#92400e;padding:2px 9px;border-radius:99px">' + this.comboLabel() + ' ' + cr + '%' + (this.isSpecialComboEffective() ? ' SPECIAL' : '') + '</span>';
       txt += '<span style="background:#f0fdf4;color:#166534;padding:2px 9px;border-radius:99px">' + this.promoDateText() + '</span>';
       txt += '</div>';
 
@@ -4370,6 +4389,7 @@ function lgCalculator() {
       });
     },
     // วันสงวนสิทธิ์บนใบสรุป/ใบเสนอ (user):
+    // · ไม่ผูกคอมโบพิเศษ — ใช้โปรเดือนปกติเสมอ
     // · มีรุ่นโปร 88 ในตะกร้า → ถึงวันหมด 88 (10 ส.ค.) ไม่ว่าคอมโบเปิด/ปิด
     // · ไม่มีรุ่น 88 → ถึงสิ้นโปรหลัก (31 ส.ค.)
     quoteValidPromoEnd() {
