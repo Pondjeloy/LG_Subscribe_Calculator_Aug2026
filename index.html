@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v76 · หมายเหตุตามหมวดในตะกร้า -->
+<!-- LG Subscribe Calculator build 2026.08.16-v77 · หมายเหตุแอร์แยกบรรทัด -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1524,7 +1524,7 @@
  <li x-show="hasTvAdvance()">ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)</li>
  <li x-show="cart.length === 0 || cartHasSubscribeItem()">โปรโมชั่นใช้ได้เฉพาะแบบ Subscribe</li>
  <li>*เงื่อนไขการติดตั้ง (เครื่องซักผ้า · เครื่องอบผ้า · เครื่องล้างจาน): จัดส่งฟรีพร้อมติดตั้งเบื้องต้น (Jump) โดยไม่รวมการเดินระบบไฟฟ้าและระบบประปา ลูกค้าต้องจัดเตรียมก๊อกน้ำ ปลั๊กไฟ และจุดระบายน้ำให้พร้อมก่อนวันติดตั้ง</li>
- <li x-show="cartHasWallAcInstallNote()" x-text="acWallInstallNote()"></li>
+ <li x-show="cartHasWallAcInstallNote()" x-html="acWallInstallNoteHtml()"></li>
  <li>ราคาอาจเปลี่ยนแปลงตามประกาศบริษัทฯ</li>
  </ul>
  </div>
@@ -1697,7 +1697,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v76',
+ buildVersion: '2026.08.16-v77',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3749,8 +3749,39 @@ function lgCalculator() {
      || cat === 'เครื่องปรับอากาศ ARTCOOL'
      || cat === 'เครื่องปรับอากาศ DUAL INVERTER';
  },
- acWallInstallNote() {
-   return '*เงื่อนไขการติดตั้ง (แอร์ติดผนัง): จัดส่งฟรีพร้อมติดตั้งมาตรฐาน — รวมค่าแรง, สายไฟ/สายดิน, ท่อน้ำยา+ฉนวนหุ้มไม่เกิน 8 เมตร, ท่อน้ำทิ้ง PVC, ขาแขวนคอยล์ร้อน, น้ำยาแอร์, รางครอบท่อ · นอกมาตรฐาน (ท่อน้ำยาเกิน 8 เมตร ฯลฯ) มีค่าใช้จ่ายเพิ่ม · ลูกค้าต้องจัดเตรียมจุดติดตั้งคอยล์เย็น/คอยล์ร้อนและปลั๊กไฟให้พร้อม';
+ acWallInstallIncluded() {
+   return [
+     'ค่าแรง',
+     'สายไฟ / สายดิน',
+     'ท่อน้ำยา + ฉนวนหุ้ม ไม่เกิน 8 เมตร',
+     'ท่อน้ำทิ้ง PVC',
+     'ขาแขวนคอยล์ร้อน',
+     'น้ำยาแอร์',
+     'รางครอบท่อ',
+   ];
+ },
+ acWallInstallNoteHtml() {
+   const items = this.acWallInstallIncluded().map((t) => '<li>' + t + '</li>').join('');
+   return '<div class="ac-install-note">'
+     + '<div><strong>*เงื่อนไขการติดตั้ง (แอร์ติดผนัง)</strong></div>'
+     + '<div>จัดส่งฟรีพร้อมติดตั้งมาตรฐาน</div>'
+     + '<div style="margin-top:4px">รวมในมาตรฐาน</div>'
+     + '<ul style="margin:2px 0 6px;padding-left:18px">' + items + '</ul>'
+     + '<div>นอกมาตรฐาน (เช่น ท่อน้ำยาเกิน 8 เมตร) มีค่าใช้จ่ายเพิ่ม</div>'
+     + '<div>ลูกค้าต้องจัดเตรียมจุดติดตั้งคอยล์เย็น / คอยล์ร้อน และปลั๊กไฟ ให้พร้อมก่อนวันติดตั้ง</div>'
+     + '</div>';
+ },
+ acWallInstallNoteText() {
+   return [
+     '*เงื่อนไขการติดตั้ง (แอร์ติดผนัง)',
+     'จัดส่งฟรีพร้อมติดตั้งมาตรฐาน',
+     '',
+     'รวมในมาตรฐาน',
+     ...this.acWallInstallIncluded().map((t) => '• ' + t),
+     '',
+     'นอกมาตรฐาน (เช่น ท่อน้ำยาเกิน 8 เมตร) มีค่าใช้จ่ายเพิ่ม',
+     'ลูกค้าต้องจัดเตรียมจุดติดตั้งคอยล์เย็น / คอยล์ร้อน และปลั๊กไฟ ให้พร้อมก่อนวันติดตั้ง',
+   ].join('\n');
  },
  cartHasWallAcInstallNote() {
    return (this.cart || []).some(it => this.isWallAcItem(it));
@@ -4376,7 +4407,7 @@ function lgCalculator() {
       }
 
       if (this.cartHasPlumbingInstallNote()) lines.push('', this.installConditionNote());
-      if (this.cartHasWallAcInstallNote()) lines.push('', this.acWallInstallNote());
+      if (this.cartHasWallAcInstallNote()) lines.push('', this.acWallInstallNoteText());
       const payNotes = this.quotePaymentRemarkLines();
       if (payNotes.length) lines.push('', ...payNotes);
       this.copyText(lines.join('\n'), 'คัดลอกข้อความสรุปแล้ว');
@@ -4766,6 +4797,9 @@ function lgCalculator() {
   .remark-box { border: 1px solid #d0d0d0; padding: 6px 8px; }
   .remark-box h3 { margin: 0 0 3px; font-size: 10.5px; font-weight: 700; color: #1a1a1a; }
   .remark-box ul { margin: 0; padding-left: 14px; font-size: 9.5px; line-height: 1.4; color: #333; }
+  .remark-box .ac-install-note { line-height: 1.4; }
+  .remark-box .ac-install-note ul { margin: 2px 0 4px; padding-left: 16px; }
+  .remark-box .ac-install-note li { margin: 0; }
   .sum-box { border: 1px solid #d0d0d0; }
   .sum-box .row { display: flex; justify-content: space-between; gap: 6px; padding: 4px 8px; border-bottom: 1px solid #e8e8e8; font-size: 10.5px; color: #1a1a1a; }
   .sum-box .row:last-child { border-bottom: 0; }
@@ -4956,7 +4990,7 @@ ${'</'+'style>'}
           <li>${esc(remarkValid)}</li>
           <li>*ราคารวมค่าจัดส่งและค่าติดตั้งเบื้องต้นเรียบร้อยแล้ว (เงื่อนไขพื้นที่มาตรฐานตามบริษัท)</li>
           ${this.cartHasPlumbingInstallNote() ? ('<li>' + esc(this.installConditionNote()) + '</li>') : ''}
-          ${this.cartHasWallAcInstallNote() ? ('<li>' + esc(this.acWallInstallNote()) + '</li>') : ''}
+          ${this.cartHasWallAcInstallNote() ? ('<li>' + this.acWallInstallNoteHtml() + '</li>') : ''}
           ${this.quotePaymentRemarkLines().map(line => '<li>' + esc(line) + '</li>').join('\n          ')}
           <li>*เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด ราคาอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
         </ul>
