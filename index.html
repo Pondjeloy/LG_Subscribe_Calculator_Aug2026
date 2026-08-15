@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v77 · หมายเหตุแอร์แยกบรรทัด -->
+<!-- LG Subscribe Calculator build 2026.08.16-v78 · หมายเหตุแอร์ 3 บรรทัด -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1697,7 +1697,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v77',
+ buildVersion: '2026.08.16-v78',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3749,39 +3749,18 @@ function lgCalculator() {
      || cat === 'เครื่องปรับอากาศ ARTCOOL'
      || cat === 'เครื่องปรับอากาศ DUAL INVERTER';
  },
- acWallInstallIncluded() {
+ acWallInstallNoteLines() {
    return [
-     'ค่าแรง',
-     'สายไฟ / สายดิน',
-     'ท่อน้ำยา + ฉนวนหุ้ม ไม่เกิน 8 เมตร',
-     'ท่อน้ำทิ้ง PVC',
-     'ขาแขวนคอยล์ร้อน',
-     'น้ำยาแอร์',
-     'รางครอบท่อ',
+     '*เงื่อนไขการติดตั้ง (แอร์ติดผนัง): จัดส่งฟรีพร้อมติดตั้งมาตรฐาน (ค่าแรง, สายไฟ/สายดิน, ท่อน้ำยา+ฉนวนหุ้มไม่เกิน 8 เมตร, ท่อน้ำทิ้ง, ขาแขวนคอยล์ร้อน, น้ำยาแอร์, รางครอบท่อ)',
+     'นอกมาตรฐาน เช่น ท่อน้ำยาเกิน 8 เมตร มีค่าใช้จ่ายเพิ่ม',
+     'ลูกค้าต้องจัดเตรียมจุดติดตั้งคอยล์เย็น/คอยล์ร้อน และปลั๊กไฟ ให้พร้อมก่อนวันติดตั้ง',
    ];
  },
  acWallInstallNoteHtml() {
-   const items = this.acWallInstallIncluded().map((t) => '<li>' + t + '</li>').join('');
-   return '<div class="ac-install-note">'
-     + '<div><strong>*เงื่อนไขการติดตั้ง (แอร์ติดผนัง)</strong></div>'
-     + '<div>จัดส่งฟรีพร้อมติดตั้งมาตรฐาน</div>'
-     + '<div style="margin-top:4px">รวมในมาตรฐาน</div>'
-     + '<ul style="margin:2px 0 6px;padding-left:18px">' + items + '</ul>'
-     + '<div>นอกมาตรฐาน (เช่น ท่อน้ำยาเกิน 8 เมตร) มีค่าใช้จ่ายเพิ่ม</div>'
-     + '<div>ลูกค้าต้องจัดเตรียมจุดติดตั้งคอยล์เย็น / คอยล์ร้อน และปลั๊กไฟ ให้พร้อมก่อนวันติดตั้ง</div>'
-     + '</div>';
+   return this.acWallInstallNoteLines().join('<br>');
  },
  acWallInstallNoteText() {
-   return [
-     '*เงื่อนไขการติดตั้ง (แอร์ติดผนัง)',
-     'จัดส่งฟรีพร้อมติดตั้งมาตรฐาน',
-     '',
-     'รวมในมาตรฐาน',
-     ...this.acWallInstallIncluded().map((t) => '• ' + t),
-     '',
-     'นอกมาตรฐาน (เช่น ท่อน้ำยาเกิน 8 เมตร) มีค่าใช้จ่ายเพิ่ม',
-     'ลูกค้าต้องจัดเตรียมจุดติดตั้งคอยล์เย็น / คอยล์ร้อน และปลั๊กไฟ ให้พร้อมก่อนวันติดตั้ง',
-   ].join('\n');
+   return this.acWallInstallNoteLines().join('\n');
  },
  cartHasWallAcInstallNote() {
    return (this.cart || []).some(it => this.isWallAcItem(it));
