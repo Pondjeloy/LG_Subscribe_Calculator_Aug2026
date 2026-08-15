@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v80 · หมายเหตุติดตั้งใส่ราคา -->
+<!-- LG Subscribe Calculator build 2026.08.16-v81 · หมายเหตุทีวี ส่งประกอบ / แขวนผนัง -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1698,7 +1698,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v80',
+ buildVersion: '2026.08.16-v81',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3837,8 +3837,8 @@ function lgCalculator() {
    }
    if (has((it) => this.isTvItem(it))) {
      blocks.push([
-       '*เงื่อนไขการติดตั้ง (ทีวี): ตั้งพื้นหรือวางชั้น รวมในมาตรฐาน',
-       'กรณีติดผนัง ลูกค้าต้องจัดเตรียมขาแขวนเอง',
+       '*เงื่อนไขการติดตั้ง (ทีวี): ส่งพร้อมประกอบ (ตั้งพื้น/วางชั้น)',
+       'กรณีแขวนผนัง มีค่าบริการติดตั้ง และลูกค้าต้องเตรียมขาแขวนเอง',
      ]);
    }
    return blocks;
