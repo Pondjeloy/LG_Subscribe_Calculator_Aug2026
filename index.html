@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v78 · หมายเหตุแอร์ 3 บรรทัด -->
+<!-- LG Subscribe Calculator build 2026.08.16-v79 · หมายเหตุติดตั้งตามหมวด -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1523,8 +1523,9 @@
  <li>ราคานี้คำนวณจากเอกสารโปรโมชั่น OBS สิงหาคม 2569 (Price list August 2026 V3 · LGETH 2026.08.13)</li>
  <li x-show="hasTvAdvance()">ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)</li>
  <li x-show="cart.length === 0 || cartHasSubscribeItem()">โปรโมชั่นใช้ได้เฉพาะแบบ Subscribe</li>
- <li>*เงื่อนไขการติดตั้ง (เครื่องซักผ้า · เครื่องอบผ้า · เครื่องล้างจาน): จัดส่งฟรีพร้อมติดตั้งเบื้องต้น (Jump) โดยไม่รวมการเดินระบบไฟฟ้าและระบบประปา ลูกค้าต้องจัดเตรียมก๊อกน้ำ ปลั๊กไฟ และจุดระบายน้ำให้พร้อมก่อนวันติดตั้ง</li>
- <li x-show="cartHasWallAcInstallNote()" x-html="acWallInstallNoteHtml()"></li>
+ <template x-for="(block, bi) in installRemarkLinesForCart()" :key="'ir-' + bi">
+ <li x-html="block.join('<br>')"></li>
+ </template>
  <li>ราคาอาจเปลี่ยนแปลงตามประกาศบริษัทฯ</li>
  </ul>
  </div>
@@ -1697,7 +1698,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v78',
+ buildVersion: '2026.08.16-v79',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3765,6 +3766,83 @@ function lgCalculator() {
  cartHasWallAcInstallNote() {
    return (this.cart || []).some(it => this.isWallAcItem(it));
  },
+ isStylerItem(item) {
+   if (!item) return false;
+   return String(item.code || '').includes('S3MFC') || String(item.name || '').includes('Styler');
+ },
+ isHeavyLiftItem(item) {
+   if (!item) return false;
+   const cat = item.category || '';
+   return cat === 'ตู้เย็น Side-by-Side' || cat === 'Wash Tower' || this.isStylerItem(item);
+ },
+ isOtherFridgeItem(item) {
+   if (!item) return false;
+   const cat = item.category || '';
+   return cat === 'ตู้เย็น Multi-Door' || cat === 'ตู้เย็น Top/Bottom Freezer' || cat === 'ตู้เย็น Plumbing';
+ },
+ isSacItem(item) {
+   return !!(item && (item.category || '') === 'แอร์เชิงพาณิชย์ SAC');
+ },
+ isTvItem(item) {
+   const cat = (item && item.category) || '';
+   return cat.indexOf('โทรทัศน์') === 0;
+ },
+ installRemarkLinesForCart() {
+   const cart = this.cart || [];
+   const has = (fn) => cart.some(fn);
+   const blocks = [];
+   if (has((it) => this.needsPlumbingInstallNote(it))) {
+     blocks.push([
+       '*เงื่อนไขการติดตั้ง (เครื่องซักผ้า · เครื่องอบผ้า · เครื่องล้างจาน): จัดส่งฟรีพร้อมติดตั้งเบื้องต้น (Jump)',
+       'ไม่รวมการเดินระบบไฟฟ้าและระบบประปา',
+       'ลูกค้าต้องจัดเตรียมก๊อกน้ำ ปลั๊กไฟ และจุดระบายน้ำ ให้พร้อมก่อนวันติดตั้ง',
+     ]);
+   }
+   if (has((it) => this.isWallAcItem(it))) blocks.push(this.acWallInstallNoteLines());
+   if (has((it) => this.isSacItem(it))) {
+     blocks.push([
+       '*เงื่อนไขการติดตั้ง (แอร์เชิงพาณิชย์): ติดตั้งตามวัสดุมาตรฐานที่มากับเครื่อง',
+       'ชุดท่อน้ำยาหรือวัสดุเกินมาตรฐานมีค่าใช้จ่ายเพิ่ม',
+     ]);
+   }
+   const heavy = has((it) => this.isHeavyLiftItem(it));
+   const otherFr = has((it) => this.isOtherFridgeItem(it));
+   if (heavy && otherFr) {
+     blocks.push([
+       '*เงื่อนไขการขนย้าย: ยกสินค้าใหม่ขึ้นไม่เกินชั้น 2 ฟรี',
+       'Side by Side / Styler / Wash Tower และตู้เย็นอื่น เกินชั้น 2 มีค่าใช้จ่ายเพิ่ม',
+     ]);
+   } else if (heavy) {
+     blocks.push([
+       '*เงื่อนไขการขนย้าย (Side by Side / Styler / Wash Tower): ยกขึ้นไม่เกินชั้น 2 ฟรี',
+       'ยกขึ้นบันไดเกินชั้น 2 มีค่าใช้จ่ายเพิ่ม',
+     ]);
+   } else if (otherFr) {
+     blocks.push([
+       '*เงื่อนไขการขนย้าย (ตู้เย็น): ยกขึ้นไม่เกินชั้น 2 ฟรี',
+       'ยกขึ้นบันไดเกินชั้น 2 มีค่าใช้จ่ายเพิ่ม',
+     ]);
+   }
+   if (has((it) => (it.category || '') === 'ตู้เย็น Plumbing')) {
+     blocks.push([
+       '*เงื่อนไขการติดตั้ง (ตู้เย็นต่อท่อน้ำ): ต้องมีจุดต่อน้ำและพื้นที่ใต้ซิงก์สำหรับกล่องกรอง',
+       'แรงดันน้ำต่ำอาจมีค่าใช้จ่ายชุดปั๊มเพิ่ม · การเจาะยึดต้องได้รับความยินยอมจากลูกค้า',
+     ]);
+   }
+   if (has((it) => (it.category || '') === 'เครื่องกรองน้ำ')) {
+     blocks.push([
+       '*เงื่อนไขการติดตั้ง (เครื่องกรองน้ำ): ต้องมีหัวก๊อกน้ำ จุดระบายน้ำ และปลั๊กไฟใกล้จุดติดตั้ง',
+       'แรงดันน้ำต่ำหรือไม่มีทางน้ำทิ้ง อาจมีค่าใช้จ่ายเพิ่ม',
+     ]);
+   }
+   if (has((it) => this.isTvItem(it))) {
+     blocks.push([
+       '*เงื่อนไขการติดตั้ง (ทีวี): ตั้งพื้นหรือวางชั้น รวมในมาตรฐาน',
+       'กรณีติดผนัง ลูกค้าต้องจัดเตรียมขาแขวนเอง',
+     ]);
+   }
+   return blocks;
+ },
  planPromoDisplay(plan) {
    // ข้อความโปรอย่างเดียว — หมายเหตุของแถมแยกบรรทัด (x-show hasFreeGift) ไม่ผูกเข้า promo
    if (!plan || !plan.promo) return '';
@@ -4385,8 +4463,10 @@ function lgCalculator() {
         }
       }
 
-      if (this.cartHasPlumbingInstallNote()) lines.push('', this.installConditionNote());
-      if (this.cartHasWallAcInstallNote()) lines.push('', this.acWallInstallNoteText());
+      this.installRemarkLinesForCart().forEach((block) => {
+        lines.push('');
+        block.forEach((line) => lines.push(line));
+      });
       const payNotes = this.quotePaymentRemarkLines();
       if (payNotes.length) lines.push('', ...payNotes);
       this.copyText(lines.join('\n'), 'คัดลอกข้อความสรุปแล้ว');
@@ -4968,8 +5048,7 @@ ${'</'+'style>'}
         <ul>
           <li>${esc(remarkValid)}</li>
           <li>*ราคารวมค่าจัดส่งและค่าติดตั้งเบื้องต้นเรียบร้อยแล้ว (เงื่อนไขพื้นที่มาตรฐานตามบริษัท)</li>
-          ${this.cartHasPlumbingInstallNote() ? ('<li>' + esc(this.installConditionNote()) + '</li>') : ''}
-          ${this.cartHasWallAcInstallNote() ? ('<li>' + this.acWallInstallNoteHtml() + '</li>') : ''}
+          ${this.installRemarkLinesForCart().map((block) => '<li>' + block.map((line) => esc(line)).join('<br>') + '</li>').join('\n          ')}
           ${this.quotePaymentRemarkLines().map(line => '<li>' + esc(line) + '</li>').join('\n          ')}
           <li>*เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด ราคาอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
         </ul>
