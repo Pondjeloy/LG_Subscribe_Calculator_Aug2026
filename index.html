@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v70 · Special Birthday Combo 15% 15–23 ส.ค. 69 -->
+<!-- LG Subscribe Calculator build 2026.08.16-v71 · Birthday Combo 15% -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1691,7 +1691,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v70',
+ buildVersion: '2026.08.16-v71',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3788,8 +3788,7 @@ function lgCalculator() {
  return 'ลูกค้าใหม่ Subscribe เพิ่ม ' + newMin + ' ชิ้นขึ้นไป เริ่มลด ' + newRate + '% · ลูกค้าเก่า Subscribe เพิ่ม ' + existMin + ' ชิ้นขึ้นไป เริ่มลด ' + existRate + '%';
  },
  promoDateText() {
- // ใบเสนอ/สรุป/คัดลอก: ช่วงโปร = คอมโบเดือนปกติ เสมอ (ไม่ใช้วัน special)
- // วันสิ้นสุดตามรุ่นในตะกร้า: มีรุ่นโปร 88 → ถึง 10 ส.ค. · ไม่มี → ถึง 31 ส.ค.
+ // ใบเสนอ/สรุป: ช่วงโปรเดือนปกติ
  const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart) || '';
  const end = (typeof this.quoteValidPromoEnd === 'function' && this.quoteValidPromoEnd())
    || (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
@@ -4406,16 +4405,8 @@ function lgCalculator() {
         return false;
       });
     },
-    // วันสงวนสิทธิ์บนใบสรุป/ใบเสนอ (user):
-    // · ไม่ผูกคอมโบพิเศษ — ช่วงข้อความ "โปรเริ่ม…ถึง…" = โปรเดือนปกติเป็นหลัก
-    // · ใช้วันหมด 88 เฉพาะตอนที่โปร 88 ยัง active และตะกร้ามีรุ่น 88
-    // · หมดโปร 88 แล้ว (หลัง 10 ส.ค.) หรือไม่มีรุ่น 88 → สิ้นโปรหลัก (31 ส.ค.)
     quoteValidPromoEnd() {
-      const normalEnd = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
-      const shockEnd = (this.shockPromo && this.shockPromo.dateEnd) || '';
-      const shockLive = typeof this.isShockPromoActive === 'function' && this.isShockPromoActive();
-      if (shockLive && this.cartHasShock88Promo() && shockEnd) return String(shockEnd);
-      return String(normalEnd || '');
+      return String((this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '');
     },
     quoteValidToDate() {
       const end = this.quoteValidPromoEnd();
@@ -4433,13 +4424,7 @@ function lgCalculator() {
     },
     validDaysHint() {
       const d = this.quoteValidToDate();
-      const shockLive = typeof this.isShockPromoActive === 'function' && this.isShockPromoActive();
-      const has88 = shockLive && this.cartHasShock88Promo();
-      const which = has88
-        ? 'มีรุ่นโปร 88 ในตะกร้า + โปร 88 ยังอยู่ → ถึงวันหมด 88'
-        : 'โปรเดือนปกติ (หมด 88 แล้ว / ไม่มีรุ่น 88) → ถึงสิ้นโปรหลัก';
-      return 'ขอสงวนสิทธิ์ใบสรุปราคาไว้จนถึงวันที่ ' + this.quoteDateText(d) +
-        ' · ' + which + ' (' + this.fmtDate(this.quoteValidPromoEnd() || '') + ')';
+      return 'ขอสงวนสิทธิ์ใบสรุปราคาไว้จนถึงวันที่ ' + this.quoteDateText(d);
     },
     // รวมรายการรุ่น+สัญญาเดียวกันเป็นแถวเดียว (ใบสรุปราคา)
     quoteGroupKey(it) {
