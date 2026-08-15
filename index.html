@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v75 · หมายเหตุติดตั้งแอร์ติดผนัง -->
+<!-- LG Subscribe Calculator build 2026.08.16-v76 · หมายเหตุตามหมวดในตะกร้า -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1347,7 +1347,7 @@
  <div class="summary-first-pay-box mb-3">
  <div class="text-xs text-gray-600 uppercase tracking-wider mb-1">ยอดชำระครั้งแรกรวม · First Payment</div>
  <div class="price-highlight text-3xl" x-text="'฿' + fmtMoney(firstPaymentTotal())"></div>
- <div class="text-xs text-gray-600 mt-1">TV/จอ/ลำโพง = จ่ายล่วงหน้าอย่างเดียว · สินค้าอื่น = งวดที่ 1 · ซื้อขาด = ราคาซื้อขาด</div>
+ <div class="text-xs text-gray-600 mt-1" x-show="firstPaymentHintText()" x-text="firstPaymentHintText()"></div>
  <div class="mt-2" style="border-top:1px solid rgba(0,0,0,.08);padding-top:6px">
  <template x-for="(row, i) in firstPaymentBreakdownGrouped()" :key="'fp-' + i">
  <div class="flex justify-between text-xs gap-2" style="padding:3px 0">
@@ -1521,8 +1521,8 @@
  <p class="mb-1"><strong>หมายเหตุ:</strong></p>
  <ul style="list-style:disc;padding-left:18px;line-height:1.7">
  <li>ราคานี้คำนวณจากเอกสารโปรโมชั่น OBS สิงหาคม 2569 (Price list August 2026 V3 · LGETH 2026.08.13)</li>
- <li>ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)</li>
- <li>โปรโมชั่นใช้ได้เฉพาะแบบ Subscribe</li>
+ <li x-show="hasTvAdvance()">ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)</li>
+ <li x-show="cart.length === 0 || cartHasSubscribeItem()">โปรโมชั่นใช้ได้เฉพาะแบบ Subscribe</li>
  <li>*เงื่อนไขการติดตั้ง (เครื่องซักผ้า · เครื่องอบผ้า · เครื่องล้างจาน): จัดส่งฟรีพร้อมติดตั้งเบื้องต้น (Jump) โดยไม่รวมการเดินระบบไฟฟ้าและระบบประปา ลูกค้าต้องจัดเตรียมก๊อกน้ำ ปลั๊กไฟ และจุดระบายน้ำให้พร้อมก่อนวันติดตั้ง</li>
  <li x-show="cartHasWallAcInstallNote()" x-text="acWallInstallNote()"></li>
  <li>ราคาอาจเปลี่ยนแปลงตามประกาศบริษัทฯ</li>
@@ -1697,7 +1697,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v75',
+ buildVersion: '2026.08.16-v76',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3238,6 +3238,34 @@ function lgCalculator() {
  hasAdvance() { return this.totalAdvance() > 0; },
  hasOutright() { return this.cart.some(it => it.outright); },
  hasTvAdvance() { return this.cart.some(it => it.advancePayment > 0 && !it.outright); },
+ cartHasSubscribeItem() { return (this.cart || []).some(it => !it.outright); },
+ cartHasRegularSubscribe() { return (this.cart || []).some(it => !it.outright && !(it.advancePayment > 0)); },
+ firstPaymentHintText() {
+   const bits = [];
+   if (this.cartHasRegularSubscribe()) bits.push('สินค้าทั่วไป = งวดที่ 1');
+   if (this.hasTvAdvance()) bits.push('TV/จอ/ลำโพง = จ่ายล่วงหน้าอย่างเดียว');
+   if (this.hasOutright()) bits.push('ซื้อขาด = ราคาซื้อขาด');
+   return bits.join(' · ');
+ },
+ quotePaymentRemarkLines() {
+   const lines = [];
+   if (this.hasTvAdvance()) lines.push('ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)');
+   if (this.cartHasSubscribeItem()) lines.push('โปรโมชันใช้ได้เฉพาะแบบ Subscribe');
+   const bits = [];
+   if (this.cartHasRegularSubscribe()) bits.push('สินค้าทั่วไป = งวดที่ 1');
+   if (this.hasTvAdvance()) bits.push('TV/จอ/ลำโพง = ล่วงหน้าอย่างเดียว');
+   if (this.hasOutright()) bits.push('ซื้อขาด = ราคาซื้อขาด');
+   if (bits.length === 1 && this.cartHasRegularSubscribe() && !this.hasTvAdvance() && !this.hasOutright()) {
+     lines.push('ยอดชำระครั้งแรก = งวดที่ 1');
+   } else if (bits.length === 1 && this.hasTvAdvance() && !this.cartHasRegularSubscribe() && !this.hasOutright()) {
+     lines.push('ยอดชำระครั้งแรก = เงินล่วงหน้าอย่างเดียว');
+   } else if (bits.length === 1 && this.hasOutright() && !this.hasTvAdvance() && !this.cartHasRegularSubscribe()) {
+     lines.push('ยอดชำระครั้งแรก = ราคาซื้อขาด');
+   } else if (bits.length) {
+     lines.push('ยอดชำระครั้งแรก: ' + bits.join(' · '));
+   }
+   return lines;
+ },
  outrightItems() { return this.cart.filter(it => it.outright); },
  tvAdvanceItems() { return this.cart.filter(it => it.advancePayment > 0 && !it.outright); },
  totalOutright() { return this.outrightItems().reduce((s, it) => s + it.advancePayment, 0); },
@@ -4062,7 +4090,9 @@ function lgCalculator() {
       txt += '<div style="background:linear-gradient(135deg,#ede9fe,#f5f3ff);border:2px solid #c4b5fd;border-radius:10px;padding:12px 14px;margin-bottom:12px">';
       txt += '<div style="font-size:0.78em;color:#6d28d9;margin-bottom:2px">ยอดชำระครั้งแรกรวม</div>';
       txt += '<div style="font-size:1.5em;font-weight:700;color:#5b21b6;line-height:1.1">฿' + this.fmtMoney(this.firstPaymentTotal()) + '</div>';
-      txt += '<div style="margin-top:6px;font-size:0.8em;color:#6b7280">TV/จอ/ลำโพง = ล่วงหน้าอย่างเดียว · สินค้าอื่น = งวดที่ 1</div>';
+      if (this.firstPaymentHintText()) {
+        txt += '<div style="margin-top:6px;font-size:0.8em;color:#6b7280">' + this.firstPaymentHintText() + '</div>';
+      }
       this.firstPaymentBreakdownGrouped().forEach(row => {
         const parts = [];
         if (row.advance > 0) parts.push(row.item.outright ? 'ซื้อขาด ฿' + this.fmtMoney(row.advance) : 'ล่วงหน้า ฿' + this.fmtMoney(row.advance));
@@ -4347,6 +4377,8 @@ function lgCalculator() {
 
       if (this.cartHasPlumbingInstallNote()) lines.push('', this.installConditionNote());
       if (this.cartHasWallAcInstallNote()) lines.push('', this.acWallInstallNote());
+      const payNotes = this.quotePaymentRemarkLines();
+      if (payNotes.length) lines.push('', ...payNotes);
       this.copyText(lines.join('\n'), 'คัดลอกข้อความสรุปแล้ว');
     },
 
@@ -4925,8 +4957,7 @@ ${'</'+'style>'}
           <li>*ราคารวมค่าจัดส่งและค่าติดตั้งเบื้องต้นเรียบร้อยแล้ว (เงื่อนไขพื้นที่มาตรฐานตามบริษัท)</li>
           ${this.cartHasPlumbingInstallNote() ? ('<li>' + esc(this.installConditionNote()) + '</li>') : ''}
           ${this.cartHasWallAcInstallNote() ? ('<li>' + esc(this.acWallInstallNote()) + '</li>') : ''}
-          <li>ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง) · โปรโมชันใช้ได้เฉพาะแบบ Subscribe</li>
-          <li>ยอดชำระครั้งแรก: สินค้าทั่วไป = งวดที่ 1 · TV/จอ/ลำโพง = ล่วงหน้าอย่างเดียว · ซื้อขาด = ราคาซื้อขาด</li>
+          ${this.quotePaymentRemarkLines().map(line => '<li>' + esc(line) + '</li>').join('\n          ')}
           <li>*เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด ราคาอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
         </ul>
       </div>
