@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v74 · ใบสรุป จัดกึ่งกลางหัวข้อ -->
+<!-- LG Subscribe Calculator build 2026.08.16-v75 · หมายเหตุติดตั้งแอร์ติดผนัง -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1524,6 +1524,7 @@
  <li>ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)</li>
  <li>โปรโมชั่นใช้ได้เฉพาะแบบ Subscribe</li>
  <li>*เงื่อนไขการติดตั้ง (เครื่องซักผ้า · เครื่องอบผ้า · เครื่องล้างจาน): จัดส่งฟรีพร้อมติดตั้งเบื้องต้น (Jump) โดยไม่รวมการเดินระบบไฟฟ้าและระบบประปา ลูกค้าต้องจัดเตรียมก๊อกน้ำ ปลั๊กไฟ และจุดระบายน้ำให้พร้อมก่อนวันติดตั้ง</li>
+ <li x-show="cartHasWallAcInstallNote()" x-text="acWallInstallNote()"></li>
  <li>ราคาอาจเปลี่ยนแปลงตามประกาศบริษัทฯ</li>
  </ul>
  </div>
@@ -1696,7 +1697,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v74',
+ buildVersion: '2026.08.16-v75',
  quoteCustomer: {
    name: '',
    address: '',
@@ -3713,6 +3714,19 @@ function lgCalculator() {
  cartHasPlumbingInstallNote() {
    return (this.cart || []).some(it => this.needsPlumbingInstallNote(it));
  },
+ isWallAcItem(item) {
+   if (!item) return false;
+   const cat = item.category || this.picker.category || '';
+   return cat === 'เครื่องปรับอากาศ DUALCOOL AI'
+     || cat === 'เครื่องปรับอากาศ ARTCOOL'
+     || cat === 'เครื่องปรับอากาศ DUAL INVERTER';
+ },
+ acWallInstallNote() {
+   return '*เงื่อนไขการติดตั้ง (แอร์ติดผนัง): จัดส่งฟรีพร้อมติดตั้งมาตรฐาน — รวมค่าแรง, สายไฟ/สายดิน, ท่อน้ำยา+ฉนวนหุ้มไม่เกิน 8 เมตร, ท่อน้ำทิ้ง PVC, ขาแขวนคอยล์ร้อน, น้ำยาแอร์, รางครอบท่อ · นอกมาตรฐาน (ท่อน้ำยาเกิน 8 เมตร ฯลฯ) มีค่าใช้จ่ายเพิ่ม · ลูกค้าต้องจัดเตรียมจุดติดตั้งคอยล์เย็น/คอยล์ร้อนและปลั๊กไฟให้พร้อม';
+ },
+ cartHasWallAcInstallNote() {
+   return (this.cart || []).some(it => this.isWallAcItem(it));
+ },
  planPromoDisplay(plan) {
    // ข้อความโปรอย่างเดียว — หมายเหตุของแถมแยกบรรทัด (x-show hasFreeGift) ไม่ผูกเข้า promo
    if (!plan || !plan.promo) return '';
@@ -4331,6 +4345,8 @@ function lgCalculator() {
         }
       }
 
+      if (this.cartHasPlumbingInstallNote()) lines.push('', this.installConditionNote());
+      if (this.cartHasWallAcInstallNote()) lines.push('', this.acWallInstallNote());
       this.copyText(lines.join('\n'), 'คัดลอกข้อความสรุปแล้ว');
     },
 
@@ -4908,6 +4924,7 @@ ${'</'+'style>'}
           <li>${esc(remarkValid)}</li>
           <li>*ราคารวมค่าจัดส่งและค่าติดตั้งเบื้องต้นเรียบร้อยแล้ว (เงื่อนไขพื้นที่มาตรฐานตามบริษัท)</li>
           ${this.cartHasPlumbingInstallNote() ? ('<li>' + esc(this.installConditionNote()) + '</li>') : ''}
+          ${this.cartHasWallAcInstallNote() ? ('<li>' + esc(this.acWallInstallNote()) + '</li>') : ''}
           <li>ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง) · โปรโมชันใช้ได้เฉพาะแบบ Subscribe</li>
           <li>ยอดชำระครั้งแรก: สินค้าทั่วไป = งวดที่ 1 · TV/จอ/ลำโพง = ล่วงหน้าอย่างเดียว · ซื้อขาด = ราคาซื้อขาด</li>
           <li>*เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด ราคาอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
