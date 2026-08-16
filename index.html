@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.16-v83 · หมายเหตุซักผ้าไม่ใส่เรทก๊อก -->
+<!-- LG Subscribe Calculator build 2026.08.17-v84 · หมายเหตุ + วันหมดคอมโบ 25 ส.ค. -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -804,7 +804,7 @@
  <div style="color:var(--ink);font-size:13px" x-html="promoConfig.special.existTiers.map(t => t.min + '+ ชิ้น → <strong>' + t.rate + '%</strong>').join(' · ')"></div>
  </div>
  </div>
- <div class="text-xs mt-2" style="color:var(--muted)" x-show="!specialCombo && !showComboSettings"> ปิด = ใช้คอมโบเดือนปกติ · เปิด = ส่วนลดพิเศษ (เฉพาะในช่วงโปร) · ใบเสนอ/สรุปใช้ช่วงโปรเดือนปกติเสมอ
+ <div class="text-xs mt-2" style="color:var(--muted)" x-show="!specialCombo && !showComboSettings"> ปิด = คอมโบเดือนปกติ · ใบเสนอ/สรุปถึงวันหมดโปรเดือน · เปิด = ส่วนลดพิเศษ และใบเสนอ/สรุปถึงวันหมดคอมโบ
  </div>
  <div class="text-xs mt-2" style="color:#b45309" x-show="specialCombo && !isSpecialComboInPeriod() && !showComboSettings"> โปรพิเศษหมดช่วงแล้ว (หลัง <span x-text="fmtDate(promoConfig.special.dateEnd)"></span>) — คิดราคา/ใบเสนอเป็นคอมโบเดือนปกติอัตโนมัติ
  </div>
@@ -1284,7 +1284,7 @@
  <template x-if="!isSpecialComboEffective()">
  <div>
  <div class="font-display font-bold text-lg" style="color:var(--ink)" x-text="promoConfig.normal.name"></div>
- <div class="text-xs mt-1" style="color:var(--muted)" x-text="fmtDate(promoConfig.normal.dateStart) + ' – ' + fmtDate(promoConfig.normal.dateEnd) + ' · โปรคอมโบปกติ (ใบเสนอ/สรุปใช้ช่วงนี้)'"></div>
+ <div class="text-xs mt-1" style="color:var(--muted)" x-text="fmtDate(promoConfig.normal.dateStart) + ' – ' + fmtDate(promoConfig.normal.dateEnd) + ' · โปรคอมโบเดือนปกติ'"></div>
  <div class="text-xs mt-1" style="color:#b45309" x-show="specialCombo && !isSpecialComboInPeriod()">คอมโบพิเศษหมดช่วงแล้ว · ใช้คอมโบเดือนปกติอัตโนมัติ</div>
  </div>
  </template>
@@ -1292,7 +1292,7 @@
  <div>
  <div class="font-display font-bold text-lg" x-text="promoConfig.special.name"></div>
  <div class="text-xs mt-1" x-text="fmtDate(promoConfig.special.dateStart) + ' – ' + fmtDate(promoConfig.special.dateEnd) + ' · ส่วนลดสูงสุด ' + Math.max(...promoConfig.special.newTiers.map(t=>t.rate), ...promoConfig.special.existTiers.map(t=>t.rate)) + '%'"></div>
- <div class="text-xs mt-1" style="opacity:.85">ใบเสนอ/สรุป: วันสงวนสิทธิ์ตามโปรเดือนปกติ (ไม่ผูกวัน special)</div>
+ <div class="text-xs mt-1" style="opacity:.85">ใบเสนอ/สรุป: สงวนสิทธิ์ถึงวันหมดคอมโบพิเศษ</div>
  </div>
  </template>
  </div>
@@ -1519,15 +1519,17 @@
 
  <div class="text-xs text-gray-500 leading-relaxed px-2">
  <p class="mb-1"><strong>หมายเหตุ:</strong></p>
- <ul style="list-style:disc;padding-left:18px;line-height:1.7">
+ <ol style="list-style:decimal;padding-left:18px;line-height:1.7">
  <li>ราคานี้คำนวณจากเอกสารโปรโมชั่น OBS สิงหาคม 2569 (Price list August 2026 V3 · LGETH 2026.08.13)</li>
+ <li x-show="isSpecialComboEffective()" x-text="'โปร ' + (promoConfig.special.name || 'Combo') + ' มีผลถึง ' + fmtDate(promoConfig.special.dateEnd)"></li>
+ <li x-show="!isSpecialComboEffective()" x-text="'โปรเดือนปกติมีผลถึง ' + fmtDate(promoConfig.normal.dateEnd)"></li>
  <li x-show="hasTvAdvance()">ชำระล่วงหน้า 12 เดือน 50% (TV/จอ/ลำโพง)</li>
  <li x-show="cart.length === 0 || cartHasSubscribeItem()">โปรโมชั่นใช้ได้เฉพาะแบบ Subscribe</li>
  <template x-for="(block, bi) in installRemarkLinesForCart()" :key="'ir-' + bi">
  <li x-html="block.join('<br>')"></li>
  </template>
- <li>ราคาอาจเปลี่ยนแปลงตามประกาศบริษัทฯ</li>
- </ul>
+ <li>เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด และราคาอาจเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
+ </ol>
  </div>
  </div>
  </aside>
@@ -1560,10 +1562,10 @@ function lgCalculator() {
  newTiers: [ {min:2, rate:10} ], // COMBO_NEW_K-HOUSE_(2 UNITS UP)
  existTiers: [ {min:1, rate:10} ] // COMBO_K-HOUSE_ADD_(1 UNIT UP)
  },
- // LG Special Birthday Combo 15% — 15–23 ส.ค. 69 (ลูกค้าเก่า 1+ · ลูกค้าใหม่ 2+)
+ // LG Special Birthday Combo 15% — 15–25 ส.ค. 69 (ลูกค้าเก่า 1+ · ลูกค้าใหม่ 2+)
  special: {
  name: 'LG Special Birthday Combo Promotion',
- dateStart: '2569-08-15', dateEnd: '2569-08-23',
+ dateStart: '2569-08-15', dateEnd: '2569-08-25',
  newTiers: [ {min:2, rate:15} ],
  existTiers: [ {min:1, rate:15} ]
  }
@@ -1698,7 +1700,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.16-v83',
+ buildVersion: '2026.08.17-v84',
  quoteCustomer: {
    name: '',
    address: '',
@@ -2787,10 +2789,10 @@ function lgCalculator() {
  newTiers: [ {min:2, rate:10} ],
  existTiers: [ {min:1, rate:10} ]
  },
- // LG Special Birthday Combo 15% · 15–23 ส.ค. 69 (อย่าสลับกับคอมโบปกติ 10%)
+ // LG Special Birthday Combo 15% · 15–25 ส.ค. 69 (อย่าสลับกับคอมโบปกติ 10%)
  special: {
  name: 'LG Special Birthday Combo Promotion',
- dateStart: '2569-08-15', dateEnd: '2569-08-23',
+ dateStart: '2569-08-15', dateEnd: '2569-08-25',
  newTiers: [ {min:2, rate:15} ],
  existTiers: [ {min:1, rate:15} ]
  }
@@ -3106,7 +3108,7 @@ function lgCalculator() {
  if (p.length !== 3 || p.some(n => Number.isNaN(n))) return null;
  return new Date(p[0] - 543, p[1] - 1, p[2]);
  },
- // วันนี้ยังอยู่ในช่วง special combo หรือไม่ (เช่น Birthday Combo 15–23 ส.ค.)
+ // วันนี้ยังอยู่ในช่วง special combo หรือไม่ (เช่น Birthday Combo 15–25 ส.ค.)
  isSpecialComboInPeriod() {
  const sp = this.promoConfig && this.promoConfig.special;
  if (!sp || !sp.dateStart || !sp.dateEnd) return false;
@@ -3144,13 +3146,12 @@ function lgCalculator() {
    .replace(/"/g, '&quot;');
  },
  comboPeriod() {
- // ใบเสนอ/สรุป: ช่วงโปร = คอมโบเดือนปกติ (เริ่ม–สิ้นตามตะกร้า) · ไม่ใช้วัน special
- // เริ่มโปรหลัก · สิ้น = ตามตะกร้า (มี 88 → 10 · ไม่มี → 31)
- const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart)
-   || (this.activePromo() && this.activePromo().dateStart) || '';
+ const promo = this.isSpecialComboEffective()
+   ? (this.promoConfig && this.promoConfig.special)
+   : (this.promoConfig && this.promoConfig.normal);
+ const start = (promo && promo.dateStart) || '';
  const end = (typeof this.quoteValidPromoEnd === 'function' && this.quoteValidPromoEnd())
-   || (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd)
-   || (this.activePromo() && this.activePromo().dateEnd) || '';
+   || (promo && promo.dateEnd) || '';
  return this.fmtDate(start) + ' – ' + this.fmtDate(end);
  },
  fmtDate(d) {
@@ -3924,10 +3925,12 @@ function lgCalculator() {
  return 'ลูกค้าใหม่ Subscribe เพิ่ม ' + newMin + ' ชิ้นขึ้นไป เริ่มลด ' + newRate + '% · ลูกค้าเก่า Subscribe เพิ่ม ' + existMin + ' ชิ้นขึ้นไป เริ่มลด ' + existRate + '%';
  },
  promoDateText() {
- // ใบเสนอ/สรุป: ช่วงโปรเดือนปกติ
- const start = (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateStart) || '';
+ const promo = this.isSpecialComboEffective()
+   ? (this.promoConfig && this.promoConfig.special)
+   : (this.promoConfig && this.promoConfig.normal);
+ const start = (promo && promo.dateStart) || '';
  const end = (typeof this.quoteValidPromoEnd === 'function' && this.quoteValidPromoEnd())
-   || (this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '';
+   || (promo && promo.dateEnd) || '';
  return 'โปรเริ่ม ' + this.fmtDate(start) + ' ถึง ' + this.fmtDate(end);
  },
  promoMonthLabel() {
@@ -4462,12 +4465,19 @@ function lgCalculator() {
         }
       }
 
-      this.installRemarkLinesForCart().forEach((block) => {
-        lines.push('');
-        block.forEach((line) => lines.push(line));
-      });
-      const payNotes = this.quotePaymentRemarkLines();
-      if (payNotes.length) lines.push('', ...payNotes);
+      const remarkItems = this.quoteRemarkItems('ใบสรุปราคา');
+      if (remarkItems.length) {
+        lines.push('', 'หมายเหตุ');
+        remarkItems.forEach((it, idx) => {
+          if (it.type === 'block') {
+            it.lines.forEach((line, li) => {
+              lines.push(li === 0 ? ((idx + 1) + ') ' + line) : ('   ' + line));
+            });
+          } else {
+            lines.push((idx + 1) + ') ' + it.text);
+          }
+        });
+      }
       this.copyText(lines.join('\n'), 'คัดลอกข้อความสรุปแล้ว');
     },
 
@@ -4550,7 +4560,43 @@ function lgCalculator() {
       });
     },
     quoteValidPromoEnd() {
+      // เปิดคอมโบพิเศษอยู่ → วันหมดคอมโบ · ปิด/หมดช่วง → วันหมดโปรเดือนปกติ
+      if (this.isSpecialComboEffective()) {
+        const sp = this.promoConfig && this.promoConfig.special;
+        if (sp && sp.dateEnd) return String(sp.dateEnd);
+      }
       return String((this.promoConfig && this.promoConfig.normal && this.promoConfig.normal.dateEnd) || '');
+    },
+    quoteValidityLine(titleTh) {
+      const dateTxt = this.quoteDateText(this.quoteValidToDate());
+      if (this.isSpecialComboEffective()) {
+        const name = (this.promoConfig && this.promoConfig.special && this.promoConfig.special.name) || 'Combo';
+        return 'สงวนสิทธิ์' + titleTh + 'ตามโปร ' + name + ' ไว้จนถึงวันที่ ' + dateTxt;
+      }
+      return 'สงวนสิทธิ์' + titleTh + 'ไว้จนถึงวันที่ ' + dateTxt;
+    },
+    quoteRemarkItems(titleTh) {
+      const items = [];
+      items.push({ type: 'text', text: this.quoteValidityLine(titleTh) });
+      items.push({ type: 'text', text: 'ราคารวมค่าจัดส่งและค่าติดตั้งเบื้องต้นเรียบร้อยแล้ว (พื้นที่มาตรฐานตามบริษัท)' });
+      (this.installRemarkLinesForCart() || []).forEach((block) => {
+        if (block && block.length) items.push({ type: 'block', lines: block });
+      });
+      (this.quotePaymentRemarkLines() || []).forEach((line) => {
+        if (line) items.push({ type: 'text', text: line });
+      });
+      items.push({ type: 'text', text: 'เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด และราคาอาจเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า' });
+      return items;
+    },
+    quoteRemarkHtml(titleTh) {
+      const esc = (s) => String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      return this.quoteRemarkItems(titleTh || 'ใบสรุปราคา').map((it) => {
+        if (it.type === 'block') {
+          return '<li>' + it.lines.map((line) => esc(line)).join('<br>') + '</li>';
+        }
+        return '<li>' + esc(it.text) + '</li>';
+      }).join('\n          ');
     },
     quoteValidToDate() {
       const end = this.quoteValidPromoEnd();
@@ -4567,8 +4613,7 @@ function lgCalculator() {
       return fallback;
     },
     validDaysHint() {
-      const d = this.quoteValidToDate();
-      return 'ขอสงวนสิทธิ์ใบสรุปราคาไว้จนถึงวันที่ ' + this.quoteDateText(d);
+      return this.quoteValidityLine('ใบสรุปราคา');
     },
     // รวมรายการรุ่น+สัญญาเดียวกันเป็นแถวเดียว (ใบสรุปราคา)
     quoteGroupKey(it) {
@@ -4764,7 +4809,7 @@ function lgCalculator() {
       const sellerLine = hasVal(q.sellerLine) ? esc(String(q.sellerLine).trim()) : '';
       const sellerTitle = hasVal(q.sellerTitle) ? esc(String(q.sellerTitle).trim()) : '';
       const sellerEmail = hasVal(q.sellerEmail) ? esc(String(q.sellerEmail).trim()) : '';
-      const remarkValid = 'ขอสงวนสิทธิ์' + titleTh + 'ไว้จนถึงวันที่ ' + this.quoteDateText(validTo);
+      const remarkList = this.quoteRemarkHtml(titleTh);
 
       // ข้อมูลลูกค้า — แสดงเฉพาะช่องที่มีค่า
       let custRows = '';
@@ -4852,9 +4897,11 @@ function lgCalculator() {
   table.items .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; vertical-align: middle; }
   table.items .code { font-family: Consolas,"Courier New",monospace; font-size: 9.5px; font-weight: 700; color: #1a1a1a; white-space: nowrap; vertical-align: top; }
   .bottom { display: grid; grid-template-columns: 1.2fr .9fr; gap: 8px; margin-top: 6px; align-items: start; }
-  .remark-box { border: 1px solid #d0d0d0; padding: 6px 8px; }
-  .remark-box h3 { margin: 0 0 3px; font-size: 10.5px; font-weight: 700; color: #1a1a1a; }
-  .remark-box ul { margin: 0; padding-left: 14px; font-size: 9.5px; line-height: 1.4; color: #333; }
+  .remark-box { border: 1px solid #d0d0d0; padding: 0; overflow: hidden; }
+  .remark-box h3 { margin: 0; padding: 5px 8px; font-size: 10.5px; font-weight: 700; color: #1a1a1a; background: #e8e8e8; border-bottom: 1px solid #d0d0d0; }
+  .remark-box ol { margin: 6px 8px 7px; padding-left: 16px; font-size: 9.5px; line-height: 1.45; color: #333; }
+  .remark-box li { margin: 0 0 3px; padding-left: 1px; }
+  .remark-box li:last-child { margin-bottom: 0; }
   .remark-box .ac-install-note { line-height: 1.4; }
   .remark-box .ac-install-note ul { margin: 2px 0 4px; padding-left: 16px; }
   .remark-box .ac-install-note li { margin: 0; }
@@ -4927,9 +4974,9 @@ function lgCalculator() {
   .sheet.density-compact table.items td.desc .pkg { font-size: 8px; margin: 0; }
   .sheet.density-compact table.items .code { font-size: 8.5px; }
   .sheet.density-compact .bottom { gap: 5px; margin-top: 4px; }
-  .sheet.density-compact .remark-box { padding: 4px 6px; }
-  .sheet.density-compact .remark-box h3 { font-size: 9.5px; margin: 0 0 2px; }
-  .sheet.density-compact .remark-box ul { font-size: 8px; line-height: 1.3; padding-left: 12px; }
+  .sheet.density-compact .remark-box { padding: 0; }
+  .sheet.density-compact .remark-box h3 { font-size: 9.5px; padding: 4px 6px; }
+  .sheet.density-compact .remark-box ol { font-size: 8.5px; line-height: 1.35; padding-left: 14px; margin: 5px 6px 6px; }
   .sheet.density-compact .sum-box .row { padding: 3px 6px; font-size: 9.5px; }
   .sheet.density-compact .sum-box .row.grand { font-size: 11px; }
   .sheet.density-compact .sum-box .baht { padding: 3px 6px; font-size: 9px; }
@@ -4964,10 +5011,10 @@ function lgCalculator() {
   .sheet.density-dense table.items td.desc .pkg { font-size: 7px; margin: 0; line-height: 1.2; }
   .sheet.density-dense table.items .code { font-size: 7.5px; }
   .sheet.density-dense .bottom { gap: 4px; margin-top: 3px; grid-template-columns: 1fr 1fr; }
-  .sheet.density-dense .remark-box { padding: 3px 5px; }
-  .sheet.density-dense .remark-box h3 { font-size: 8.5px; margin: 0 0 1px; }
-  .sheet.density-dense .remark-box ul { font-size: 7px; line-height: 1.25; padding-left: 10px; margin: 0; }
-  .sheet.density-dense .remark-box li { margin: 0; }
+  .sheet.density-dense .remark-box { padding: 0; }
+  .sheet.density-dense .remark-box h3 { font-size: 8.5px; padding: 3px 5px; }
+  .sheet.density-dense .remark-box ol { font-size: 7.5px; line-height: 1.3; padding-left: 12px; margin: 4px 5px 5px; }
+  .sheet.density-dense .remark-box li { margin: 0 0 2px; }
   .sheet.density-dense .sum-box .row { padding: 2px 5px; font-size: 8.5px; }
   .sheet.density-dense .sum-box .row.grand { font-size: 10px; }
   .sheet.density-dense .sum-box .baht { padding: 2px 5px; font-size: 8px; line-height: 1.25; }
@@ -5044,13 +5091,9 @@ ${'</'+'style>'}
     <div class="bottom">
       <div class="remark-box">
         <h3>หมายเหตุ (Remark)</h3>
-        <ul>
-          <li>${esc(remarkValid)}</li>
-          <li>*ราคารวมค่าจัดส่งและค่าติดตั้งเบื้องต้นเรียบร้อยแล้ว (เงื่อนไขพื้นที่มาตรฐานตามบริษัท)</li>
-          ${this.installRemarkLinesForCart().map((block) => '<li>' + block.map((line) => esc(line)).join('<br>') + '</li>').join('\n          ')}
-          ${this.quotePaymentRemarkLines().map(line => '<li>' + esc(line) + '</li>').join('\n          ')}
-          <li>*เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด ราคาอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</li>
-        </ul>
+        <ol>
+          ${remarkList}
+        </ol>
       </div>
       <div class="sum-box">
         <div class="row highlight"><span>ยอดชำระครั้งแรกรวม</span><span>฿${this.fmtMoney(firstPay)}</span></div>
