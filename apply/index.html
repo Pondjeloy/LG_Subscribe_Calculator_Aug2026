@@ -29,19 +29,61 @@
   img{max-width:100%;display:block}
   .wrap{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
 
-  /* nav — Coway-like thin bar */
+  /* header — โครงเดียวกับเว็บ subscription แบบ Coway */
+  .topbar{
+    background:#f3f3f3; border-bottom:1px solid var(--line);
+    font-size:12px; color:#555;
+  }
+  .topbar-in{display:flex; justify-content:flex-end; gap:22px; min-height:34px; align-items:center}
+  .topbar a{color:#555}
+  .topbar a:hover{color:var(--lg)}
   .nav{
     position:sticky; top:0; z-index:50;
     background:#fff; border-bottom:1px solid var(--line);
   }
-  .nav-in{display:flex; align-items:center; gap:16px; min-height:64px}
-  .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em}
-  .brand b{color:var(--lg); font-size:20px}
-  .brand span{font-size:13px; font-weight:600; color:#555}
-  .nav-links{margin-left:auto; display:flex; align-items:center; gap:8px}
-  .nav-links a, .nav-links button{
-    border:0; background:transparent; color:#333; font-size:13px; font-weight:600;
-    padding:8px 10px; cursor:pointer;
+  .nav-in{display:flex; align-items:center; gap:18px; min-height:72px}
+  .brand{display:flex; align-items:center; gap:8px; font-weight:700}
+  .brand b{color:var(--lg); font-size:22px; letter-spacing:-.03em}
+  .brand span{font-size:13px; font-weight:500; color:#444}
+  .nav-menus{display:flex; align-items:center; gap:2px; margin-left:8px; flex:1}
+  .nav-item{position:relative}
+  .nav-item > button{
+    border:0; background:transparent; color:#222; font-size:14px; font-weight:500;
+    padding:22px 12px; cursor:pointer; white-space:nowrap;
+  }
+  .nav-item > button:hover, .nav-item.open > button{color:var(--lg)}
+  .nav-item.open > button{box-shadow:inset 0 -2px 0 var(--lg)}
+  .mega{
+    display:none; position:absolute; left:0; top:100%;
+    min-width:320px; background:#fff; border:1px solid var(--line);
+    box-shadow:0 16px 40px rgba(0,0,0,.08); padding:18px 8px 14px;
+  }
+  .nav-item.open .mega{display:block}
+  .mega a, .mega button{
+    display:block; width:100%; text-align:left; border:0; background:transparent;
+    padding:8px 16px; font-size:13px; color:#333; cursor:pointer; font-weight:400;
+  }
+  .mega a:hover, .mega button:hover{color:var(--lg); background:#fafafa}
+  .mega .g{font-size:11px; color:#999; padding:8px 16px 4px; font-weight:600}
+  .nav-right{margin-left:auto; display:flex; align-items:center; gap:4px}
+  .ico{
+    width:40px; height:40px; border:0; background:transparent; cursor:pointer;
+    display:grid; place-items:center; color:#222; position:relative;
+  }
+  .ico svg{width:20px; height:20px}
+  .ico .dot{
+    position:absolute; top:6px; right:6px; min-width:16px; height:16px; padding:0 4px;
+    background:var(--lg); color:#fff; border-radius:99px; font-size:10px; font-weight:700;
+    display:grid; place-items:center;
+  }
+  .ham{display:none}
+  .mob-draw{
+    display:none; border-top:1px solid var(--line); background:#fff; padding:8px 0 16px;
+  }
+  .mob-draw.open{display:block}
+  .mob-draw a, .mob-draw button{
+    display:block; width:100%; text-align:left; border:0; background:#fff;
+    padding:12px 20px; font-size:15px; font-weight:500; cursor:pointer;
   }
   .btn{
     display:inline-flex; align-items:center; justify-content:center;
@@ -195,28 +237,112 @@
     .bar{display:block}
     .hero{padding:48px 0 80px}
     .strips{margin-top:-28px}
+    .topbar{display:none}
+    .nav-menus{display:none}
+    .ham{display:grid}
+    .nav-in{min-height:60px}
+    footer .wrap{grid-template-columns:1fr !important}
   }
   @media (max-width:560px){
     .wrap{width:calc(100% - 28px)}
     .row2,.cust{grid-template-columns:1fr}
     .grid{grid-template-columns:1fr 1fr}
     .card-img{height:130px}
-    .nav-in{min-height:56px}
   }
 </style>
 </head>
 <body x-data="lgApply()" x-init="init()">
 
-<header class="nav">
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <a href="#apply">ชำระเงินค่าสินค้า / สมัคร Subscribe</a>
+    <a href="#support">ค้นหาสาขา / ติดต่อเรา</a>
+  </div>
+</div>
+<header class="nav" @mouseleave="menu=null">
   <div class="wrap nav-in">
     <a class="brand" href="#top">
       <b>LG</b><span>Subscribe</span>
     </a>
-    <div class="nav-links">
-      <a href="#combo">จัดชุดสินค้า</a>
-      <a href="#apply">สมัคร</a>
-      <button type="button" @click="goApply()">ตะกร้า <span x-text="cartCount()"></span></button>
+    <nav class="nav-menus" aria-label="เมนูหลัก">
+      <div class="nav-item" :class="menu==='shop' && 'open'" @mouseenter="menu='shop'">
+        <button type="button" @click="go('#combo')">ซื้อสินค้า</button>
+        <div class="mega">
+          <div class="g">เลือกตามประเภท</div>
+          <button type="button" @click="pickCat('')">สินค้าทั้งหมด</button>
+          <template x-for="c in categories" :key="'m-'+c">
+            <button type="button" @click="pickCat(c)" x-text="shortCat(c)"></button>
+          </template>
+        </div>
+      </div>
+      <div class="nav-item" :class="menu==='promo' && 'open'" @mouseenter="menu='promo'">
+        <button type="button" @click="go('#promo')">โปรโมชัน</button>
+        <div class="mega">
+          <div class="g">ข้อเสนอเดือนนี้</div>
+          <a href="#promo">Birthday Combo 15%</a>
+          <a href="#promo">คอมโบเดือนปกติ 10%</a>
+          <a href="#combo">โปรโมชันจัดชุดสินค้า</a>
+          <a href="#apply">ตรวจสอบสิทธิ์คอมโบในตะกร้า</a>
+        </div>
+      </div>
+      <div class="nav-item" :class="menu==='service' && 'open'" @mouseenter="menu='service'">
+        <button type="button" @click="go('#service')">บริการ</button>
+        <div class="mega">
+          <div class="g">บริการ Subscribe</div>
+          <a href="#service">Care Service ช่างถึงบ้าน</a>
+          <a href="#service">ติดตั้งมาตรฐาน</a>
+          <a href="#service">รับประกันตลอดสัญญา</a>
+          <a href="#support">แจ้งซ่อม / ติดต่อ</a>
+        </div>
+      </div>
+      <div class="nav-item" :class="menu==='campaign' && 'open'" @mouseenter="menu='campaign'">
+        <button type="button" @click="go('#campaign')">แคมเปญ &amp; กิจกรรม</button>
+        <div class="mega">
+          <div class="g">กำลังจัดอยู่</div>
+          <a href="#campaign">Birthday Combo 15–25 ส.ค.</a>
+          <a href="#combo">จัดชุดสินค้าเอง</a>
+        </div>
+      </div>
+      <div class="nav-item" :class="menu==='story' && 'open'" @mouseenter="menu='story'">
+        <button type="button" @click="go('#story')">เรื่องราวของเรา</button>
+        <div class="mega">
+          <a href="#story">LG Subscribe คืออะไร</a>
+          <a href="#story">จ่ายรายเดือน ไม่ต้องซื้อขาด</a>
+          <a href="#story">Epromoter POND</a>
+        </div>
+      </div>
+      <div class="nav-item" :class="menu==='support' && 'open'" @mouseenter="menu='support'">
+        <button type="button" @click="go('#support')">สนับสนุน</button>
+        <div class="mega">
+          <a href="#support">คำถามที่พบบ่อย</a>
+          <a :href="lineUrl" target="_blank" rel="noopener">แชท LINE</a>
+          <a href="tel:020575757">ฝ่ายบริการลูกค้า 02-057-5757</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-right">
+      <button class="ico" type="button" title="ค้นหา" @click="go('#combo'); $nextTick(() => $refs.q && $refs.q.focus())">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.4-3.4"/></svg>
+      </button>
+      <button class="ico" type="button" title="ตะกร้า" @click="goApply()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 7h15l-1.5 9h-12z"/><path d="M6 7L5 4H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+        <span class="dot" x-show="cartCount()>0" x-text="cartCount()"></span>
+      </button>
+      <button class="ico" type="button" title="สมัคร" @click="go('#apply')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c.8-3.2 3.4-5 7-5s6.2 1.8 7 5"/></svg>
+      </button>
+      <button class="ico ham" type="button" @click="mobOpen=!mobOpen" :aria-expanded="mobOpen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
+  </div>
+  <div class="mob-draw" :class="mobOpen && 'open'">
+    <a href="#combo" @click="mobOpen=false">ซื้อสินค้า</a>
+    <a href="#promo" @click="mobOpen=false">โปรโมชัน</a>
+    <a href="#service" @click="mobOpen=false">บริการ</a>
+    <a href="#campaign" @click="mobOpen=false">แคมเปญ &amp; กิจกรรม</a>
+    <a href="#story" @click="mobOpen=false">เรื่องราวของเรา</a>
+    <a href="#support" @click="mobOpen=false">สนับสนุน</a>
   </div>
 </header>
 
@@ -255,15 +381,34 @@
   </div>
 </div>
 
+<section class="wrap sec" id="promo">
+  <h2>โปรโมชัน</h2>
+  <p class="lead">ส่วนลด และข้อเสนอสุดพิเศษของ LG Subscribe เดือนนี้</p>
+  <div class="strips" style="margin:0">
+    <div class="strip">
+      <strong>Birthday Combo 15%</strong>
+      <span>15–25 ส.ค. 2569 · ลูกค้าใหม่ 2 ชิ้นขึ้นไป · ลูกค้าเก่า 1 ชิ้นขึ้นไป</span>
+    </div>
+    <div class="strip">
+      <strong>คอมโบเดือนปกติ 10%</strong>
+      <span>ใช้เมื่อปิดคอมโบพิเศษ หรือหลัง 25 ส.ค. · ทั้งเดือนถึง 31 ส.ค.</span>
+    </div>
+    <div class="strip">
+      <strong>จัดชุดสินค้าเอง</strong>
+      <span>เลือกสินค้าด้านล่าง ระบบคิดส่วนลดคอมโบให้อัตโนมัติ</span>
+    </div>
+  </div>
+</section>
+
 <main class="wrap sec" id="combo">
-  <h2>เลือกความคุ้มแบบคุณ</h2>
+  <h2>ซื้อสินค้า</h2>
   <p class="lead">เลือกสินค้าตามต้องการ แล้วกรอกข้อมูลสมัครด้านขวา · ราคาจากโปรเดือนนี้ในเครื่องคิดเลข</p>
 
   <div class="load" x-show="!ready">กำลังโหลดสินค้า…</div>
 
   <div class="builder" x-show="ready" x-cloak>
     <div>
-      <input class="search" type="search" placeholder="ค้นหารุ่น / ชื่อสินค้า" x-model="q"/>
+      <input class="search" type="search" placeholder="ค้นหารุ่น / ชื่อสินค้า" x-model="q" x-ref="q"/>
       <div class="cats">
         <button class="chip" :class="cat==='' && 'active'" @click="cat=''">ทั้งหมด</button>
         <template x-for="c in categories" :key="c">
@@ -371,8 +516,42 @@
   </div>
 </main>
 
-<section class="wrap sec faq">
-  <h2>คำถามที่พบบ่อย</h2>
+<section class="wrap sec" id="service">
+  <h2>บริการ</h2>
+  <p class="lead">บริการที่มากับสัญญา LG Subscribe</p>
+  <div class="strips" style="margin:0">
+    <div class="strip"><strong>Care Service</strong><span>ช่างผู้เชี่ยวชาญถึงบ้าน หรือรับอะไหล่เปลี่ยนเอง ตามแพ็คที่เลือก</span></div>
+    <div class="strip"><strong>ติดตั้งมาตรฐาน</strong><span>ส่งพร้อมติดตั้งเบื้องต้นในพื้นที่มาตรฐานของบริษัท</span></div>
+    <div class="strip"><strong>รับประกันตลอดสัญญา</strong><span>ครอบคลุมค่าซ่อมตามเงื่อนไข LG Subscribe</span></div>
+  </div>
+</section>
+
+<section class="wrap sec" id="campaign">
+  <h2>แคมเปญ &amp; กิจกรรม</h2>
+  <p class="lead">กำลังจัดอยู่</p>
+  <div class="strips" style="margin:0">
+    <div class="strip">
+      <strong>Birthday Combo</strong>
+      <span>ลด 15% ถึง 25 ส.ค. 2569 เมื่อจัดชุดตามเงื่อนไขลูกค้าใหม่/ลูกค้าเก่า</span>
+    </div>
+    <div class="strip">
+      <strong>จัดชุดเองบนเว็บนี้</strong>
+      <span>ลูกค้ากรอกชื่อ นามสกุล เบอร์ ที่อยู่ติดตั้ง แล้วส่งใบสมัครเอง</span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" id="story">
+  <h2>เรื่องราวของเรา</h2>
+  <p class="lead">LG Subscribe คือการเป็นเจ้าของเครื่องใช้ไฟฟ้า LG แบบจ่ายรายเดือน พร้อมบริการดูแลตลอดสัญญา</p>
+  <div class="strips" style="margin:0">
+    <div class="strip"><strong>ไม่ต้องซื้อขาด</strong><span>จ่ายเป็นรายเดือน เลือกสัญญา 5–7 ปี ตามรุ่น</span></div>
+    <div class="strip"><strong>Epromoter POND</strong><span>หน้านี้เป็นลิงก์สมัครของทีมงาน เพื่อส่งใบสมัครไปทำรายการต่อในระบบบริษัท</span></div>
+  </div>
+</section>
+
+<section class="wrap sec faq" id="support">
+  <h2>สนับสนุน</h2>
   <details open>
     <summary>หน้านี้สมัครสัญญาให้เสร็จเองหรือไม่</summary>
     <p>หน้านี้ให้คุณเลือกสินค้าและกรอกข้อมูลสมัครเองได้ ใบสมัครจะส่งมาที่แอดมิน จากนั้นทีมงานทำรายการในระบบบริษัทต่อให้</p>
@@ -388,7 +567,25 @@
 </section>
 
 <footer>
-  <div class="wrap">
+  <div class="wrap" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px 16px">
+    <div>
+      <strong style="color:#111">ซื้อสินค้า</strong>
+      <div style="margin-top:8px"><a href="#combo">สินค้าทั้งหมด</a></div>
+      <div><a href="#apply">สมัคร Subscribe</a></div>
+    </div>
+    <div>
+      <strong style="color:#111">โปรโมชัน / แคมเปญ</strong>
+      <div style="margin-top:8px"><a href="#promo">Birthday Combo 15%</a></div>
+      <div><a href="#campaign">แคมเปญ &amp; กิจกรรม</a></div>
+    </div>
+    <div>
+      <strong style="color:#111">สนับสนุน</strong>
+      <div style="margin-top:8px"><a href="#support">คำถามที่พบบ่อย</a></div>
+      <div><a href="tel:020575757">02-057-5757</a></div>
+      <div><a :href="lineUrl" target="_blank" rel="noopener">LINE</a></div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:22px">
     LG Subscribe · Epromoter <span x-text="epName || 'POND'"></span>
     · โปร <span x-text="promoLabel()"></span>
     · <span x-text="buildVersion"></span>
@@ -442,6 +639,8 @@ function lgApply(){
     lineUrl:'https://lin.ee/RIw7X1w',
     epId:'', epName:'',
     q:'', cat:'',
+    menu:null,
+    mobOpen:false,
     customerType:'new',
     pdp:null, planIdx:0,
     cart:[],
@@ -632,7 +831,17 @@ function lgApply(){
     },
     cartFirstTotal(){ return this.cart.reduce((s,x)=> s + this.firstPay(x)*(x.qty||0), 0); },
     save(){ try{ localStorage.setItem('lgApplyCart', JSON.stringify(this.cart)); }catch(_){ } },
-    goApply(){ document.getElementById('apply')?.scrollIntoView({behavior:'smooth', block:'start'}); },
+    go(id){
+      this.menu = null;
+      this.mobOpen = false;
+      const el = document.querySelector(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    },
+    pickCat(c){
+      this.cat = c || '';
+      this.go('#combo');
+    },
+    goApply(){ this.go('#apply'); },
     showToast(msg){
       this.toast = {show:true, msg};
       setTimeout(()=>{ this.toast.show=false; }, 2200);
