@@ -14,6 +14,7 @@
   :root{
     --ink:#111; --muted:#6b6b6b; --line:#e8e8e8; --bg:#fff; --soft:#f5f5f5;
     --lg:#A50034; --lg2:#C8102E; --dark:#111;
+    --cw:#00A8E1;
     --max:1180px;
   }
   *{box-sizing:border-box}
@@ -36,7 +37,7 @@
   }
   .topbar-in{display:flex; justify-content:flex-end; gap:22px; min-height:34px; align-items:center}
   .topbar a{color:#555}
-  .topbar a:hover{color:var(--lg)}
+  .topbar a:hover{color:var(--cw)}
   .nav{
     position:sticky; top:0; z-index:50;
     background:#fff; border-bottom:1px solid var(--line);
@@ -51,8 +52,8 @@
     border:0; background:transparent; color:#222; font-size:14px; font-weight:500;
     padding:22px 12px; cursor:pointer; white-space:nowrap;
   }
-  .nav-item > button:hover, .nav-item.open > button{color:var(--lg)}
-  .nav-item.open > button{box-shadow:inset 0 -2px 0 var(--lg)}
+  .nav-item > button:hover, .nav-item.open > button{color:var(--cw)}
+  .nav-item.open > button{box-shadow:inset 0 -2px 0 var(--cw)}
   .mega{
     display:none; position:absolute; left:0; top:100%;
     min-width:320px; background:#fff; border:1px solid var(--line);
@@ -63,7 +64,7 @@
     display:block; width:100%; text-align:left; border:0; background:transparent;
     padding:8px 16px; font-size:13px; color:#333; cursor:pointer; font-weight:400;
   }
-  .mega a:hover, .mega button:hover{color:var(--lg); background:#fafafa}
+  .mega a:hover, .mega button:hover{color:var(--cw); background:#fafafa}
   .mega .g{font-size:11px; color:#999; padding:8px 16px 4px; font-weight:600}
   .nav-right{margin-left:auto; display:flex; align-items:center; gap:4px}
   .ico{
@@ -97,33 +98,56 @@
   .btn-ghost{background:#fff; color:#111; border:1px solid #111}
   .btn:disabled{opacity:.4; cursor:not-allowed}
 
-  /* hero */
-  .hero{
-    background:#111; color:#fff; overflow:hidden;
-    padding:72px 0 64px;
-    position:relative;
-  }
-  .hero::after{
-    content:""; position:absolute; inset:auto -10% -40% 40%; height:80%;
-    background:radial-gradient(circle, rgba(165,0,52,.45), transparent 62%);
-    pointer-events:none;
-  }
-  .hero .wrap{position:relative; z-index:1}
-  .eyebrow{font-size:12px; letter-spacing:.18em; text-transform:uppercase; opacity:.7; margin:0 0 12px}
+  .cl-blue{color:var(--cw)}
   h1,h2,h3,h4,.brand,.btn,.chip,.card-name,.price{
     font-family:"Mitr","Noto Sans Thai",system-ui,sans-serif;
   }
-  .hero h1{
-    margin:0 0 12px; font-size:clamp(32px, 6vw, 64px);
-    line-height:1.15; letter-spacing:0; font-weight:700; max-width:16ch;
+
+  /* หน้าแรกแบบ Coway home: ขาว + ฟ้า + สินค้าลอย */
+  .home-hero{
+    background:linear-gradient(180deg,#d9f3fb 0%,#f4fbfe 42%,#fff 100%);
+    padding:36px 0 10px; overflow:hidden;
   }
-  .hero p{margin:0 0 28px; font-size:18px; opacity:.82; max-width:40ch; line-height:1.55}
-  .count{display:flex; gap:10px; margin:0 0 28px; flex-wrap:wrap}
+  .home-hero .stage{
+    display:grid; grid-template-columns:1fr 1.1fr; gap:24px; align-items:center;
+    min-height:420px;
+  }
+  .home-hero h1{
+    margin:0 0 14px; font-size:clamp(32px, 5vw, 52px);
+    line-height:1.2; font-weight:500;
+  }
+  .home-hero p{margin:0 0 22px; font-size:16px; color:#555; max-width:36ch; line-height:1.6}
+  .btn-view{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--cw); font-weight:600; font-size:15px;
+  }
+  .hero-prods{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; align-items:end}
+  .hero-prods button{border:0; background:transparent; cursor:pointer; padding:8px}
+  .hero-prods img{height:160px; width:auto; margin:0 auto; object-fit:contain; filter:drop-shadow(0 18px 18px rgba(0,80,120,.12))}
+
+  .cate-home{padding:28px 0 10px}
+  .cate-title{margin:0 0 18px; font-size:clamp(26px, 3.4vw, 36px); font-weight:500; text-align:center}
+  .tier{display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:14px}
+  .tier .lab{font-size:14px; color:#666}
+  .tab{
+    border:0; background:transparent; color:#888; font-size:15px; font-weight:500;
+    padding:8px 14px; cursor:pointer; box-shadow:inset 0 -2px 0 transparent;
+  }
+  .tab.on{color:#111; box-shadow:inset 0 -2px 0 var(--cw)}
+  .hr{border:0; border-top:1px solid var(--line); margin:0 0 18px}
+  .life-tabs{display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:18px}
+  .life-tabs button{
+    border:1px solid var(--line); background:#fff; padding:10px 14px; cursor:pointer; font-size:13px;
+  }
+  .life-tabs button.on{border-color:var(--cw); color:var(--cw)}
+
+  .eyebrow{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--cw); margin:0 0 12px}
+  .count{display:flex; gap:10px; margin:0 0 22px; flex-wrap:wrap}
   .count b{
-    min-width:68px; background:#fff; color:#111; text-align:center;
-    padding:10px 8px 8px; border-radius:4px;
+    min-width:64px; background:#fff; color:#111; text-align:center;
+    padding:10px 8px 8px; border-radius:8px; border:1px solid #d7eef6;
   }
-  .count b em{display:block; font-style:normal; font-size:22px; font-weight:800; line-height:1}
+  .count b em{display:block; font-style:normal; font-size:22px; font-weight:700; line-height:1; color:var(--cw)}
   .count b small{font-size:10px; letter-spacing:.08em; color:#666}
   .hero-cta{display:flex; gap:10px; flex-wrap:wrap}
 
@@ -145,7 +169,7 @@
     flex:0 0 auto; border:1px solid var(--line); background:#fff; color:#333;
     padding:8px 14px; border-radius:999px; font-size:13px; font-weight:600; cursor:pointer;
   }
-  .chip.active{background:#111; color:#fff; border-color:#111}
+  .chip.active{background:var(--cw); color:#fff; border-color:var(--cw)}
   .search{
     width:100%; height:46px; border:1px solid var(--line); padding:0 14px; margin-bottom:16px;
     outline:none;
@@ -235,8 +259,8 @@
     .grid{grid-template-columns:repeat(2,1fr)}
     .rail{position:static}
     .bar{display:block}
-    .hero{padding:48px 0 80px}
-    .strips{margin-top:-28px}
+    .home-hero .stage{grid-template-columns:1fr; min-height:0}
+    .hero-prods img{height:110px}
     .topbar{display:none}
     .nav-menus{display:none}
     .ham{display:grid}
@@ -346,44 +370,56 @@
   </div>
 </header>
 
-<section class="hero" id="top">
-  <div class="wrap">
-    <p class="eyebrow">Combo Promotion</p>
-    <h1>จัดชุดสินค้า ในราคาพิเศษ</h1>
-    <p x-text="heroLine()">เลือกสินค้าเอง กรอกชื่อ นามสกุล เบอร์ และที่อยู่ติดตั้ง แล้วส่งใบสมัครได้เลย</p>
-    <div class="count" x-show="specialOn()">
-      <b><em x-text="cd.d">00</em><small>DAY</small></b>
-      <b><em x-text="cd.h">00</em><small>HOURS</small></b>
-      <b><em x-text="cd.m">00</em><small>MINUTES</small></b>
-      <b><em x-text="cd.s">00</em><small>SECONDS</small></b>
+<section class="home-hero" id="top">
+  <div class="wrap stage">
+    <div>
+      <h1>เติมเต็มครบ <span class="cl-blue">ทุกการ Subscribe</span></h1>
+      <p x-text="heroLine()">เลือกสินค้าเอง กรอกชื่อ นามสกุล เบอร์ และที่อยู่ติดตั้ง แล้วส่งใบสมัครได้เลย</p>
+      <div class="count" x-show="specialOn()">
+        <b><em x-text="cd.d">00</em><small>DAY</small></b>
+        <b><em x-text="cd.h">00</em><small>HOURS</small></b>
+        <b><em x-text="cd.m">00</em><small>MINUTES</small></b>
+        <b><em x-text="cd.s">00</em><small>SECONDS</small></b>
+      </div>
+      <a class="btn-view" href="#combo">ดูสินค้าทั้งหมด →</a>
     </div>
-    <div class="hero-cta">
-      <a class="btn btn-dark" href="#combo">จัดชุดสินค้าที่ใช่เลย</a>
-      <a class="btn btn-ghost" href="#apply" style="background:transparent;color:#fff;border-color:#fff">กรอกใบสมัคร</a>
+    <div class="hero-prods">
+      <template x-for="p in featured()" :key="'f-'+p.code">
+        <button type="button" @click="openProduct(p)">
+          <img :src="imgUrl(p)" :alt="p.code" @error="$el.style.display='none'"/>
+        </button>
+      </template>
     </div>
   </div>
 </section>
 
-<div class="wrap">
-  <div class="strips">
-    <div class="strip">
-      <strong>ลูกค้าใหม่ 2 ชิ้นขึ้นไป</strong>
-      <span x-text="specialOn() ? 'รับส่วนลดคอมโบ 15% ตลอดสัญญา' : 'รับส่วนลดคอมโบ 10% ตลอดสัญญา'"></span>
+<section class="cate-home">
+  <div class="wrap">
+    <h2 class="cate-title">เติมเต็มครบ <span class="cl-blue">ทุกความต้องการ</span></h2>
+    <div class="tier">
+      <span class="lab">เลือกสินค้าตาม</span>
+      <button type="button" class="tab" :class="homeTab==='product' && 'on'" @click="homeTab='product'">ประเภทสินค้า</button>
+      <button type="button" class="tab" :class="homeTab==='life' && 'on'" @click="homeTab='life'">ไลฟ์สไตล์</button>
     </div>
-    <div class="strip">
-      <strong>ลูกค้าเก่า 1 ชิ้นขึ้นไป</strong>
-      <span x-text="specialOn() ? 'รับส่วนลดคอมโบ 15% เมื่อเพิ่มเครื่อง' : 'รับส่วนลดคอมโบ 10% เมื่อเพิ่มเครื่อง'"></span>
+    <hr class="hr"/>
+    <div x-show="homeTab==='product'" class="cats" style="justify-content:center">
+      <button class="chip" :class="cat==='' && 'active'" @click="pickCat('')">ทั้งหมด</button>
+      <template x-for="c in categories" :key="'hc-'+c">
+        <button class="chip" :class="cat===c && 'active'" @click="pickCat(c)" x-text="shortCat(c)"></button>
+      </template>
     </div>
-    <div class="strip">
-      <strong>กรอกสมัครเอง</strong>
-      <span>ชื่อ นามสกุล เบอร์โทร ที่อยู่ติดตั้ง — ไม่ต้องรอให้สร้างลิงก์ให้</span>
+    <div x-show="homeTab==='life'" class="life-tabs">
+      <button type="button" :class="life==='home' && 'on'" @click="setLife('home')">บ้าน</button>
+      <button type="button" :class="life==='condo' && 'on'" @click="setLife('condo')">คนเดียว / คอนโด</button>
+      <button type="button" :class="life==='family' && 'on'" @click="setLife('family')">ครอบครัวใหญ่</button>
+      <button type="button" :class="life==='office' && 'on'" @click="setLife('office')">บริษัท / ออฟฟิศ</button>
     </div>
   </div>
-</div>
+</section>
 
 <section class="wrap sec" id="promo">
-  <h2>โปรโมชัน</h2>
-  <p class="lead">ส่วนลด และข้อเสนอสุดพิเศษของ LG Subscribe เดือนนี้</p>
+  <h2><span class="cl-blue">โปรโมชัน</span> ส่วนลด และข้อเสนอสุดพิเศษ ให้คุณคนสำคัญ</h2>
+  <p class="lead">ข้อเสนอ LG Subscribe เดือนนี้</p>
   <div class="strips" style="margin:0">
     <div class="strip">
       <strong>Birthday Combo 15%</strong>
@@ -639,6 +675,8 @@ function lgApply(){
     lineUrl:'https://lin.ee/RIw7X1w',
     epId:'', epName:'',
     q:'', cat:'',
+    homeTab:'product',
+    life:'',
     menu:null,
     mobOpen:false,
     customerType:'new',
@@ -766,9 +804,33 @@ function lgApply(){
       if(!plans.length) return 0;
       return Math.min(...plans.map(x => Number(x.regular)||0));
     },
+    featured(){
+      const want = ['เครื่องกรองน้ำ','ตู้เย็น Side-by-Side','เครื่องซักผ้า Front Load','เครื่องปรับอากาศ DUALCOOL AI','โทรทัศน์ Life Style / OLED / QNED / NANO','Wash Tower'];
+      const out = [];
+      want.forEach(c => {
+        const p = this.products.find(x => x.category === c && x.image);
+        if(p) out.push(p);
+      });
+      return out.slice(0, 6);
+    },
+    lifeCats(){
+      if(this.life==='home') return ['ตู้เย็น Side-by-Side','ตู้เย็น Multi-Door','เครื่องซักผ้า Front Load','เครื่องซักผ้า Top Load','เครื่องกรองน้ำ','เครื่องฟอกอากาศ'];
+      if(this.life==='condo') return ['เครื่องปรับอากาศ DUALCOOL AI','เครื่องปรับอากาศ ARTCOOL','ไมโครเวฟ','เครื่องดูดฝุ่น','เครื่องลดความชื้น'];
+      if(this.life==='family') return ['Wash Tower','ตู้เย็น Multi-Door','เครื่องอบผ้า / Styler / ล้างจาน','โทรทัศน์ Life Style / OLED / QNED / NANO'];
+      if(this.life==='office') return ['แอร์เชิงพาณิชย์ SAC','มอนิเตอร์','ลำโพง / ซาวด์บาร์'];
+      return [];
+    },
+    setLife(key){
+      this.life = key;
+      this.cat = '';
+      this.homeTab = 'life';
+      this.go('#combo');
+    },
     filtered(){
       const q = this.q.trim().toLowerCase();
+      const life = this.homeTab==='life' ? this.lifeCats() : [];
       return this.products.filter(p => {
+        if(this.homeTab==='life' && life.length && !life.includes(p.category)) return false;
         if(this.cat && p.category !== this.cat) return false;
         if(!q) return true;
         return [p.code,p.name,p.category].join(' ').toLowerCase().includes(q);
@@ -839,6 +901,8 @@ function lgApply(){
     },
     pickCat(c){
       this.cat = c || '';
+      this.homeTab = 'product';
+      this.life = '';
       this.go('#combo');
     },
     goApply(){ this.go('#apply'); },
