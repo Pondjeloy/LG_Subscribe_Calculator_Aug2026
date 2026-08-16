@@ -1,9 +1,9 @@
 {
   "version": "2026.07",
   "promo": {
-    "name": "K-HOUSE Combo",
-    "dateStart": "2569-07-01",
-    "dateEnd": "2569-07-31"
+    "name": "August Combo",
+    "dateStart": "2569-08-01",
+    "dateEnd": "2569-08-31"
   },
   "lineUrl": "https://lin.ee/RIw7X1w",
   "lineLabel": "LINE · LG Subscribe",
@@ -295,12 +295,12 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-60",
               "price": 849,
-              "note": "ราคาปกติ"
+              "note": ""
             }
           ]
         },
@@ -321,12 +321,12 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-72",
               "price": 749,
-              "note": "ราคาปกติ"
+              "note": ""
             }
           ]
         }
@@ -625,12 +625,12 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-60",
               "price": 999,
-              "note": "ราคาปกติ"
+              "note": ""
             }
           ]
         },
@@ -651,11 +651,81 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-72",
               "price": 949,
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "ตู้เย็น Multi-Door",
+      "code": "GC-B48FPGAM.ADBPLMT",
+      "name": "Multi-Door · 17.4 คิว / 502 ลิตร · Black Glass (New Aug)",
+      "image": "assets/products/gc-b48fpgam.png",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 24 เดือน",
+          "regular": 799,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 799,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (399) จากนั้น 799/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 1450,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 399,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 799,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 24 เดือน",
+          "regular": 699,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 699,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 1250,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 349,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-72",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -877,7 +947,7 @@
           "promoMonths": 1,
           "postPromoPrice": 1249,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (624) จากนั้น 1,249/เดือน · แถมฟรีไมโครเวฟ MS2032 (ออเดอร์ตั้งแต่ 7 ก.ค. ส่งพร้อมสินค้าหลัก · รหัสชุด PTOL24FFCBB.APTO)",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (624) จากนั้น 1,249/เดือน · แถมฟรีไมโครเวฟ MS2032",
           "totalContractMonths": 60,
           "totalSaving": 2350,
           "outright": false,
@@ -908,7 +978,7 @@
           "promoMonths": 1,
           "postPromoPrice": 1049,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (524) จากนั้น 1,049/เดือน · แถมฟรีไมโครเวฟ MS2032 (ออเดอร์ตั้งแต่ 7 ก.ค. ส่งพร้อมสินค้าหลัก · รหัสชุด PTOL24FFCBB.APTO)",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (524) จากนั้น 1,049/เดือน",
           "totalContractMonths": 72,
           "totalSaving": 1950,
           "outright": false,
@@ -947,7 +1017,7 @@
           "promoMonths": 1,
           "postPromoPrice": 1449,
           "advancePayment": 0,
-          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 1,449/เดือน",
+          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 1,449/เดือน · PTOX257CMHW.APTO",
           "totalContractMonths": 60,
           "totalSaving": 1300,
           "outright": false,
@@ -955,12 +1025,12 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-60",
               "price": 1449,
-              "note": "ราคาปกติ"
+              "note": ""
             }
           ]
         },
@@ -981,12 +1051,12 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-72",
               "price": 1249,
-              "note": "ราคาปกติ"
+              "note": ""
             }
           ]
         }
@@ -1000,37 +1070,6 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 1499,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 1499,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (749) จากนั้น 1,499/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 6600,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 749,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-60",
-              "price": 1499,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 1599,
@@ -1038,9 +1077,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1599,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (799) จากนั้น 1,599/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (799) จากนั้น 1,599/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 7050,
+          "totalSaving": 10250,
           "outright": false,
           "billSchedule": [
             {
@@ -1049,29 +1088,29 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 799,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-60",
+              "range": "บิล 13-60",
               "price": 1599,
               "note": "ราคาปกติ"
             }
           ]
         },
         {
-          "term": "6Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 1299,
+          "regular": 1499,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 1299,
+          "postPromoPrice": 1499,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (649) จากนั้น 1,299/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 5700,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (749) จากนั้น 1,499/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 9600,
           "outright": false,
           "billSchedule": [
             {
@@ -1080,13 +1119,13 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
-              "price": 649,
+              "range": "บิล 2-12",
+              "price": 749,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
-              "price": 1299,
+              "range": "บิล 13-60",
+              "price": 1499,
               "note": "ราคาปกติ"
             }
           ]
@@ -1100,9 +1139,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1399,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (699) จากนั้น 1,399/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (699) จากนั้น 1,399/เดือน",
           "totalContractMonths": 72,
-          "totalSaving": 6150,
+          "totalSaving": 8950,
           "outright": false,
           "billSchedule": [
             {
@@ -1111,13 +1150,44 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 699,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
+              "range": "บิล 13-72",
               "price": 1399,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 1299,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 1299,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (649) จากนั้น 1,299/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 8300,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 649,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-72",
+              "price": 1299,
               "note": "ราคาปกติ"
             }
           ]
@@ -1132,37 +1202,6 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 1499,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 1499,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (749) จากนั้น 1,499/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 6600,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 749,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-60",
-              "price": 1499,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 1599,
@@ -1170,9 +1209,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1599,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (799) จากนั้น 1,599/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (799) จากนั้น 1,599/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 7050,
+          "totalSaving": 10250,
           "outright": false,
           "billSchedule": [
             {
@@ -1181,29 +1220,29 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 799,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-60",
+              "range": "บิล 13-60",
               "price": 1599,
               "note": "ราคาปกติ"
             }
           ]
         },
         {
-          "term": "6Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 1299,
+          "regular": 1499,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 1299,
+          "postPromoPrice": 1499,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (649) จากนั้น 1,299/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 5700,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (749) จากนั้น 1,499/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 9600,
           "outright": false,
           "billSchedule": [
             {
@@ -1212,13 +1251,13 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
-              "price": 649,
+              "range": "บิล 2-12",
+              "price": 749,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
-              "price": 1299,
+              "range": "บิล 13-60",
+              "price": 1499,
               "note": "ราคาปกติ"
             }
           ]
@@ -1232,9 +1271,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1399,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (699) จากนั้น 1,399/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (699) จากนั้น 1,399/เดือน",
           "totalContractMonths": 72,
-          "totalSaving": 6150,
+          "totalSaving": 8950,
           "outright": false,
           "billSchedule": [
             {
@@ -1243,13 +1282,44 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 699,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
+              "range": "บิล 13-72",
               "price": 1399,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 1299,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 1299,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (649) จากนั้น 1,299/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 8300,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 649,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-72",
+              "price": 1299,
               "note": "ราคาปกติ"
             }
           ]
@@ -1264,37 +1334,6 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 1899,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 1899,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (949) จากนั้น 1,899/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 8400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 949,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-60",
-              "price": 1899,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 1999,
@@ -1302,9 +1341,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1999,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (999) จากนั้น 1,999/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (999) จากนั้น 1,999/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 8850,
+          "totalSaving": 12850,
           "outright": false,
           "billSchedule": [
             {
@@ -1313,29 +1352,29 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 999,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-60",
+              "range": "บิล 13-60",
               "price": 1999,
               "note": "ราคาปกติ"
             }
           ]
         },
         {
-          "term": "6Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 1649,
+          "regular": 1899,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 1649,
+          "postPromoPrice": 1899,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (824) จากนั้น 1,649/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 7275,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (949) จากนั้น 1,899/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 12200,
           "outright": false,
           "billSchedule": [
             {
@@ -1344,13 +1383,13 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
-              "price": 824,
+              "range": "บิล 2-12",
+              "price": 949,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
-              "price": 1649,
+              "range": "บิล 13-60",
+              "price": 1899,
               "note": "ราคาปกติ"
             }
           ]
@@ -1364,9 +1403,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1749,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (874) จากนั้น 1,749/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (874) จากนั้น 1,749/เดือน",
           "totalContractMonths": 72,
-          "totalSaving": 7725,
+          "totalSaving": 11225,
           "outright": false,
           "billSchedule": [
             {
@@ -1375,13 +1414,44 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 874,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
+              "range": "บิล 13-72",
               "price": 1749,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 1649,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 1649,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (824) จากนั้น 1,649/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 10575,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 824,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-72",
+              "price": 1649,
               "note": "ราคาปกติ"
             }
           ]
@@ -1396,37 +1466,6 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 2199,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 2199,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (1,099) จากนั้น 2,199/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 9750,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 1099,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-60",
-              "price": 2199,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 2399,
@@ -1434,9 +1473,9 @@
           "promoMonths": 1,
           "postPromoPrice": 2399,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (1,199) จากนั้น 2,399/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (1199) จากนั้น 2,399/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 10650,
+          "totalSaving": 15450,
           "outright": false,
           "billSchedule": [
             {
@@ -1445,13 +1484,75 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 1199,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-60",
+              "range": "บิล 13-60",
               "price": 2399,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 2199,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 2199,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (1099) จากนั้น 2,199/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 14150,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 1099,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-60",
+              "price": 2199,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 2199,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 2199,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (1099) จากนั้น 2,199/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 14150,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 1099,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-72",
+              "price": 2199,
               "note": "ราคาปกติ"
             }
           ]
@@ -1465,9 +1566,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1999,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (999) จากนั้น 1,999/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (999) จากนั้น 1,999/เดือน",
           "totalContractMonths": 72,
-          "totalSaving": 8850,
+          "totalSaving": 12850,
           "outright": false,
           "billSchedule": [
             {
@@ -1476,44 +1577,13 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 999,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
+              "range": "บิล 13-72",
               "price": 1999,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 2199,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 2199,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (1,099) จากนั้น 2,199/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 9750,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 1099,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-72",
-              "price": 2199,
               "note": "ราคาปกติ"
             }
           ]
@@ -1528,37 +1598,6 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 2199,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 2199,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (1,099) จากนั้น 2,199/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 9750,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 1099,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-60",
-              "price": 2199,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 2399,
@@ -1566,9 +1605,9 @@
           "promoMonths": 1,
           "postPromoPrice": 2399,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (1,199) จากนั้น 2,399/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (1199) จากนั้น 2,399/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 10650,
+          "totalSaving": 15450,
           "outright": false,
           "billSchedule": [
             {
@@ -1577,13 +1616,75 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 1199,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-60",
+              "range": "บิล 13-60",
               "price": 2399,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 2199,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 2199,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (1099) จากนั้น 2,199/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 14150,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 1099,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-60",
+              "price": 2199,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 2199,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 2199,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (1099) จากนั้น 2,199/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 14150,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 1099,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-72",
+              "price": 2199,
               "note": "ราคาปกติ"
             }
           ]
@@ -1597,9 +1698,9 @@
           "promoMonths": 1,
           "postPromoPrice": 1999,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (999) จากนั้น 1,999/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (999) จากนั้น 1,999/เดือน",
           "totalContractMonths": 72,
-          "totalSaving": 8850,
+          "totalSaving": 12850,
           "outright": false,
           "billSchedule": [
             {
@@ -1608,44 +1709,13 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-8",
+              "range": "บิล 2-12",
               "price": 999,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
+              "range": "บิล 13-72",
               "price": 1999,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 2199,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 2199,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (1,099) จากนั้น 2,199/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 9750,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 1099,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-72",
-              "price": 2199,
               "note": "ราคาปกติ"
             }
           ]
@@ -1658,6 +1728,37 @@
       "name": "ซัก 20 กก. / อบ 10 กก.",
       "image": "assets/products/f2520rntb.png",
       "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 899,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 899,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (449) จากนั้น 899/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 3900,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-8",
+              "price": 449,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 9-60",
+              "price": 899,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
         {
           "term": "5Y",
           "serviceType": "Self",
@@ -1690,17 +1791,17 @@
           ]
         },
         {
-          "term": "5Y",
+          "term": "6Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 899,
+          "regular": 849,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 899,
+          "postPromoPrice": 849,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (449) จากนั้น 899/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 3900,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (424) จากนั้น 849/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 3675,
           "outright": false,
           "billSchedule": [
             {
@@ -1710,12 +1811,12 @@
             },
             {
               "range": "บิล 2-8",
-              "price": 449,
+              "price": 424,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-60",
-              "price": 899,
+              "range": "บิล 9-72",
+              "price": 849,
               "note": "ราคาปกติ"
             }
           ]
@@ -1750,37 +1851,6 @@
               "note": "ราคาปกติ"
             }
           ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 849,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 849,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (424) จากนั้น 849/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 3675,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 424,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-72",
-              "price": 849,
-              "note": "ราคาปกติ"
-            }
-          ]
         }
       ]
     },
@@ -1792,52 +1862,78 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
+          "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 349,
-          "effectiveMonthly": 174,
-          "promoMonths": 3,
-          "postPromoPrice": 349,
+          "regular": 399,
+          "effectiveMonthly": 199,
+          "promoMonths": 8,
+          "postPromoPrice": 399,
           "advancePayment": 0,
-          "promo": "ลด 50% 3 บิลแรก (174) จากนั้น 349/เดือน",
+          "promo": "ลด 50% 8 บิลแรก (199) จากนั้น 399/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 525,
+          "totalSaving": 1600,
           "outright": false,
           "billSchedule": [
             {
-              "range": "บิล 1-3",
-              "price": 174,
+              "range": "บิล 1-8",
+              "price": 199,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 4-60",
-              "price": 349,
+              "range": "บิล 9-60",
+              "price": 399,
               "note": ""
             }
           ]
         },
         {
           "term": "5Y",
-          "serviceType": "Visit",
+          "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 399,
-          "effectiveMonthly": 199,
-          "promoMonths": 3,
-          "postPromoPrice": 399,
+          "regular": 349,
+          "effectiveMonthly": 174,
+          "promoMonths": 8,
+          "postPromoPrice": 349,
           "advancePayment": 0,
-          "promo": "ลด 50% 3 บิลแรก (199) จากนั้น 399/เดือน",
+          "promo": "ลด 50% 8 บิลแรก (174) จากนั้น 349/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 600,
+          "totalSaving": 1400,
           "outright": false,
           "billSchedule": [
             {
-              "range": "บิล 1-3",
-              "price": 199,
+              "range": "บิล 1-8",
+              "price": 174,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 4-60",
-              "price": 399,
+              "range": "บิล 9-60",
+              "price": 349,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 349,
+          "effectiveMonthly": 174,
+          "promoMonths": 8,
+          "postPromoPrice": 349,
+          "advancePayment": 0,
+          "promo": "ลด 50% 8 บิลแรก (174) จากนั้น 349/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 1400,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1-8",
+              "price": 174,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 9-72",
+              "price": 349,
               "note": ""
             }
           ]
@@ -1848,48 +1944,22 @@
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 299,
           "effectiveMonthly": 149,
-          "promoMonths": 3,
+          "promoMonths": 8,
           "postPromoPrice": 299,
           "advancePayment": 0,
-          "promo": "ลด 50% 3 บิลแรก (149) จากนั้น 299/เดือน",
+          "promo": "ลด 50% 8 บิลแรก (149) จากนั้น 299/เดือน",
           "totalContractMonths": 72,
-          "totalSaving": 450,
+          "totalSaving": 1200,
           "outright": false,
           "billSchedule": [
             {
-              "range": "บิล 1-3",
+              "range": "บิล 1-8",
               "price": 149,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 4-72",
+              "range": "บิล 9-72",
               "price": 299,
-              "note": ""
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 349,
-          "effectiveMonthly": 174,
-          "promoMonths": 3,
-          "postPromoPrice": 349,
-          "advancePayment": 0,
-          "promo": "ลด 50% 3 บิลแรก (174) จากนั้น 349/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 525,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1-3",
-              "price": 174,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-72",
-              "price": 349,
               "note": ""
             }
           ]
@@ -1904,37 +1974,6 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 649,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 649,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (324) จากนั้น 649/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 1150,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 324,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 649,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 749,
@@ -1942,9 +1981,9 @@
           "promoMonths": 1,
           "postPromoPrice": 749,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (374) จากนั้น 749/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 1350,
+          "totalSaving": 3225,
           "outright": false,
           "billSchedule": [
             {
@@ -1953,13 +1992,75 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-3",
+              "range": "บิล 2-8",
               "price": 374,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 4-60",
+              "range": "บิล 9-60",
               "price": 749,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 649,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 649,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 2775,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-8",
+              "price": 324,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 9-60",
+              "price": 649,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 649,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 649,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 2775,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-8",
+              "price": 324,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 9-72",
+              "price": 649,
               "note": "ราคาปกติ"
             }
           ]
@@ -1973,9 +2074,9 @@
           "promoMonths": 1,
           "postPromoPrice": 599,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (299) จากนั้น 599/เดือน",
           "totalContractMonths": 72,
-          "totalSaving": 1050,
+          "totalSaving": 2550,
           "outright": false,
           "billSchedule": [
             {
@@ -1984,44 +2085,13 @@
               "note": "ราคาพิเศษ"
             },
             {
-              "range": "บิล 2-3",
+              "range": "บิล 2-8",
               "price": 299,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 4-72",
+              "range": "บิล 9-72",
               "price": 599,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 649,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 649,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (324) จากนั้น 649/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 1150,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 324,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-72",
-              "price": 649,
               "note": "ราคาปกติ"
             }
           ]
@@ -2034,37 +2104,6 @@
       "name": "ซัก 13 กก.",
       "image": "assets/products/fv1413s4m.png",
       "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 599,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 599,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 1050,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 299,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 599,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
         {
           "term": "5Y",
           "serviceType": "Visit",
@@ -2097,188 +2136,6 @@
           ]
         },
         {
-          "term": "6Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 549,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 549,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 950,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 274,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-72",
-              "price": 549,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 599,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 599,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 1050,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 299,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-72",
-              "price": 599,
-              "note": "ราคาปกติ"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "เครื่องซักผ้า Top Load",
-      "code": "TX2315DT5G.DEGPETH",
-      "name": "ซัก 15 กก.",
-      "image": "assets/products/tx2315dt5g.png",
-      "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 449,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 449,
-          "advancePayment": 0,
-          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 449/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 300,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-60",
-              "price": 449,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 549,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 549,
-          "advancePayment": 0,
-          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 549/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-60",
-              "price": 549,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 399,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 399,
-          "advancePayment": 0,
-          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 399/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 250,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-72",
-              "price": 399,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 499,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 499,
-          "advancePayment": 0,
-          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 499/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 350,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-72",
-              "price": 499,
-              "note": "ราคาปกติ"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "เครื่องซักผ้า Top Load",
-      "code": "TX2723ST5J.APBPETH",
-      "name": "ซัก 23 กก.",
-      "image": "assets/products/tx2723st5j.png",
-      "plans": [
-        {
           "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
@@ -2309,6 +2166,188 @@
             }
           ]
         },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 599,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 599,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 1050,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 299,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-72",
+              "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 549,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 549,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 950,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 274,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-72",
+              "price": 549,
+              "note": "ราคาปกติ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "เครื่องซักผ้า Top Load",
+      "code": "TX2315DT5G.DEGPETH",
+      "name": "ซัก 15 กก.",
+      "image": "assets/products/tx2315dt5g.png",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 549,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 549,
+          "advancePayment": 0,
+          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 549/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 400,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคา 149.-"
+            },
+            {
+              "range": "บิล 2-60",
+              "price": 549,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 449,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 449,
+          "advancePayment": 0,
+          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 449/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 300,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคา 149.-"
+            },
+            {
+              "range": "บิล 2-60",
+              "price": 449,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 499,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 499,
+          "advancePayment": 0,
+          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 499/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 350,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคา 149.-"
+            },
+            {
+              "range": "บิล 2-72",
+              "price": 499,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 399,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 399,
+          "advancePayment": 0,
+          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 399/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 250,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคา 149.-"
+            },
+            {
+              "range": "บิล 2-72",
+              "price": 399,
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "เครื่องซักผ้า Top Load",
+      "code": "TX2723ST5J.APBPETH",
+      "name": "ซัก 23 กก.",
+      "image": "assets/products/tx2723st5j.png",
+      "plans": [
         {
           "term": "5Y",
           "serviceType": "Visit",
@@ -2341,17 +2380,17 @@
           ]
         },
         {
-          "term": "6Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 549,
+          "regular": 599,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 549,
+          "postPromoPrice": 599,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 950,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 1050,
           "outright": false,
           "billSchedule": [
             {
@@ -2361,12 +2400,12 @@
             },
             {
               "range": "บิล 2-3",
-              "price": 274,
+              "price": 299,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 4-72",
-              "price": 549,
+              "range": "บิล 4-60",
+              "price": 599,
               "note": "ราคาปกติ"
             }
           ]
@@ -2401,6 +2440,169 @@
               "note": "ราคาปกติ"
             }
           ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 549,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 549,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 950,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 274,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-72",
+              "price": 549,
+              "note": "ราคาปกติ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "เครื่องซักผ้า Top Load",
+      "code": "TX2523AT7G.AEGPETH",
+      "name": "Top Load V+ · 23 กก. (New Aug)",
+      "image": "",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 649,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 649,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (324) จากนั้น 649/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 1150,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 324,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 649,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 599,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 599,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 1050,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 299,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 599,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 599,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 1050,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 299,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-72",
+              "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 549,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 549,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 950,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 274,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-72",
+              "price": 549,
+              "note": "ราคาปกติ"
+            }
+          ]
         }
       ]
     },
@@ -2410,6 +2612,32 @@
       "name": "Top Load · 25 กก. · AI DD Inverter",
       "image": "assets/products/tx2725at9g.png",
       "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 649,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 649,
+          "advancePayment": 0,
+          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 649/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 500,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคา 149.-"
+            },
+            {
+              "range": "บิล 2-60",
+              "price": 649,
+              "note": ""
+            }
+          ]
+        },
         {
           "term": "5Y",
           "serviceType": "Self",
@@ -2437,17 +2665,17 @@
           ]
         },
         {
-          "term": "5Y",
+          "term": "6Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 649,
+          "regular": 599,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 649,
+          "postPromoPrice": 599,
           "advancePayment": 0,
-          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 649/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 500,
+          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 599/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 450,
           "outright": false,
           "billSchedule": [
             {
@@ -2456,8 +2684,8 @@
               "note": "ราคา 149.-"
             },
             {
-              "range": "บิล 2-60",
-              "price": 649,
+              "range": "บิล 2-72",
+              "price": 599,
               "note": ""
             }
           ]
@@ -2487,32 +2715,6 @@
               "note": ""
             }
           ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 599,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 599,
-          "advancePayment": 0,
-          "promo": "ราคา 149.- (1 รอบบิลแรก) จากนั้น 599/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 450,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคา 149.-"
-            },
-            {
-              "range": "บิล 2-72",
-              "price": 599,
-              "note": ""
-            }
-          ]
         }
       ]
     },
@@ -2522,37 +2724,6 @@
       "name": "เครื่องล้างจาน · สีดำ",
       "image": "assets/products/dfc335hm.png",
       "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 849,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 849,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (424) จากนั้น 849/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 3675,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 424,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-60",
-              "price": 849,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
         {
           "term": "5Y",
           "serviceType": "Visit",
@@ -2585,17 +2756,17 @@
           ]
         },
         {
-          "term": "6Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 749,
+          "regular": 849,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 749,
+          "postPromoPrice": 849,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 3225,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (424) จากนั้น 849/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 3675,
           "outright": false,
           "billSchedule": [
             {
@@ -2605,12 +2776,12 @@
             },
             {
               "range": "บิล 2-8",
-              "price": 374,
+              "price": 424,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
-              "price": 749,
+              "range": "บิล 9-60",
+              "price": 849,
               "note": "ราคาปกติ"
             }
           ]
@@ -2645,6 +2816,37 @@
               "note": "ราคาปกติ"
             }
           ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 749,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 749,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 3225,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-8",
+              "price": 374,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 9-72",
+              "price": 749,
+              "note": "ราคาปกติ"
+            }
+          ]
         }
       ]
     },
@@ -2656,6 +2858,37 @@
       "plans": [
         {
           "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 749,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 749,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน · แถมฟรีไมโครเวฟ MS2032",
+          "totalContractMonths": 60,
+          "totalSaving": 3225,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-8",
+              "price": 374,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 9-60",
+              "price": 749,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 699,
@@ -2663,7 +2896,7 @@
           "promoMonths": 1,
           "postPromoPrice": 699,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (349) จากนั้น 699/เดือน · แถมฟรีไมโครเวฟ MS2032 (โปร 7–31 ก.ค. ส่งพร้อมสินค้าหลัก · รหัสชุด PTODFC553FV.APTO)",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (349) จากนั้น 699/เดือน",
           "totalContractMonths": 60,
           "totalSaving": 3000,
           "outright": false,
@@ -2686,68 +2919,6 @@
           ]
         },
         {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 749,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 749,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน · แถมฟรีไมโครเวฟ MS2032 (โปร 7–31 ก.ค. ส่งพร้อมสินค้าหลัก · รหัสชุด PTODFC553FV.APTO)",
-          "totalContractMonths": 60,
-          "totalSaving": 3225,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 374,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-60",
-              "price": 749,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "6Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 599,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 599,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (299) จากนั้น 599/เดือน · แถมฟรีไมโครเวฟ MS2032 (โปร 7–31 ก.ค. ส่งพร้อมสินค้าหลัก · รหัสชุด PTODFC553FV.APTO)",
-          "totalContractMonths": 72,
-          "totalSaving": 2550,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-8",
-              "price": 299,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 9-72",
-              "price": 599,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
           "term": "6Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
@@ -2756,7 +2927,7 @@
           "promoMonths": 1,
           "postPromoPrice": 649,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน · แถมฟรีไมโครเวฟ MS2032 (โปร 7–31 ก.ค. ส่งพร้อมสินค้าหลัก · รหัสชุด PTODFC553FV.APTO)",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน",
           "totalContractMonths": 72,
           "totalSaving": 2775,
           "outright": false,
@@ -2777,27 +2948,19 @@
               "note": "ราคาปกติ"
             }
           ]
-        }
-      ]
-    },
-    {
-      "category": "เครื่องอบผ้า / Styler / ล้างจาน",
-      "code": "RV10VHP4B.BMBPETH",
-      "name": "อบ 10 กก.",
-      "image": "assets/products/rv10vhp4b.png",
-      "plans": [
+        },
         {
-          "term": "5Y",
+          "term": "6Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 749,
+          "regular": 599,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 749,
+          "postPromoPrice": 599,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 3225,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (299) จากนั้น 599/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 2550,
           "outright": false,
           "billSchedule": [
             {
@@ -2807,16 +2970,24 @@
             },
             {
               "range": "บิล 2-8",
-              "price": 374,
+              "price": 299,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-60",
-              "price": 749,
+              "range": "บิล 9-72",
+              "price": 599,
               "note": "ราคาปกติ"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "category": "เครื่องอบผ้า / Styler / ล้างจาน",
+      "code": "RV10VHP2B.BBLPETH",
+      "name": "เครื่องอบผ้า Heat Pump · 10 กก. · สีดำ",
+      "image": "assets/products/rv10vhp2b.png",
+      "plans": [
         {
           "term": "5Y",
           "serviceType": "Visit",
@@ -2849,17 +3020,17 @@
           ]
         },
         {
-          "term": "6Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 12 เดือน",
-          "regular": 649,
+          "regular": 749,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 649,
+          "postPromoPrice": 749,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน",
-          "totalContractMonths": 72,
-          "totalSaving": 2775,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (374) จากนั้น 749/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 3225,
           "outright": false,
           "billSchedule": [
             {
@@ -2869,12 +3040,12 @@
             },
             {
               "range": "บิล 2-8",
-              "price": 324,
+              "price": 374,
               "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 9-72",
-              "price": 649,
+              "range": "บิล 9-60",
+              "price": 749,
               "note": "ราคาปกติ"
             }
           ]
@@ -2906,6 +3077,37 @@
             {
               "range": "บิล 9-72",
               "price": 749,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "6Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 649,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 649,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (324) จากนั้น 649/เดือน",
+          "totalContractMonths": 72,
+          "totalSaving": 2775,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-8",
+              "price": 324,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 9-72",
+              "price": 649,
               "note": "ราคาปกติ"
             }
           ]
@@ -3006,73 +3208,34 @@
       ]
     },
     {
+      "category": "ไมโครเวฟ",
+      "code": "MS3032JAS.BBKPETH",
+      "name": "ขนาด 30 ลิตร สีดำ",
+      "image": "assets/products/ms3032jas.png",
+      "plans": [
+        {
+          "term": "6Y",
+          "serviceType": "No Service",
+          "serviceCycle": "ไม่มีบริการ",
+          "regular": 89,
+          "effectiveMonthly": 89,
+          "promoMonths": 0,
+          "postPromoPrice": 89,
+          "advancePayment": 0,
+          "promo": "",
+          "totalContractMonths": 72,
+          "totalSaving": 0,
+          "outright": false,
+          "billSchedule": null
+        }
+      ]
+    },
+    {
       "category": "เครื่องฟอกอากาศ",
       "code": "AS10GDBY0.ABAE",
       "name": "Alpha Pet 104",
       "image": "assets/products/as10gdby0.png",
       "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 1099,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 1099,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (549) จากนั้น 1,099/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 2050,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 549,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 1099,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 1149,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 1149,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (574) จากนั้น 1,149/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 2150,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 574,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 1149,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
         {
           "term": "5Y",
           "serviceType": "Visit",
@@ -3100,6 +3263,37 @@
             {
               "range": "บิล 4-60",
               "price": 1149,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 1099,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 1099,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (549) จากนั้น 1,099/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 2050,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 549,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 1099,
               "note": "ราคาปกติ"
             }
           ]
@@ -3134,27 +3328,19 @@
               "note": "ราคาปกติ"
             }
           ]
-        }
-      ]
-    },
-    {
-      "category": "เครื่องฟอกอากาศ",
-      "code": "AS25GCBY0.ABAE",
-      "name": "AeroCat",
-      "image": "assets/products/as25gcby0.png",
-      "plans": [
+        },
         {
           "term": "5Y",
           "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 549,
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 1149,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 549,
+          "postPromoPrice": 1149,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (574) จากนั้น 1,149/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 950,
+          "totalSaving": 2150,
           "outright": false,
           "billSchedule": [
             {
@@ -3164,16 +3350,24 @@
             },
             {
               "range": "บิล 2-3",
-              "price": 274,
+              "price": 574,
               "note": "โปรลด 50%"
             },
             {
               "range": "บิล 4-60",
-              "price": 549,
+              "price": 1149,
               "note": "ราคาปกติ"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "category": "เครื่องฟอกอากาศ",
+      "code": "AS25GCBY0.ABAE",
+      "name": "AeroCat",
+      "image": "assets/products/as25gcby0.png",
+      "plans": [
         {
           "term": "5Y",
           "serviceType": "Visit",
@@ -3204,6 +3398,37 @@
               "note": "ราคาปกติ"
             }
           ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 549,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 549,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 950,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 274,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 549,
+              "note": "ราคาปกติ"
+            }
+          ]
         }
       ]
     },
@@ -3213,6 +3438,21 @@
       "name": "AeroHit 35",
       "image": "assets/products/as35ggw10.png",
       "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 249,
+          "effectiveMonthly": 249,
+          "promoMonths": 0,
+          "postPromoPrice": 249,
+          "advancePayment": 0,
+          "promo": "",
+          "totalContractMonths": 60,
+          "totalSaving": 0,
+          "outright": false,
+          "billSchedule": null
+        },
         {
           "term": "5Y",
           "serviceType": "Self",
@@ -3227,32 +3467,6 @@
           "totalSaving": 0,
           "outright": false,
           "billSchedule": null
-        },
-        {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 249,
-          "effectiveMonthly": 124,
-          "promoMonths": 3,
-          "postPromoPrice": 249,
-          "advancePayment": 0,
-          "promo": "ลด 50% 3 บิลแรก (124) จากนั้น 249/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 375,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1-3",
-              "price": 124,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 249,
-              "note": "ราคาปกติ"
-            }
-          ]
         }
       ]
     },
@@ -3262,6 +3476,37 @@
       "name": "AeroHit 60",
       "image": "assets/products/as60ghwg0.png",
       "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 449,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 449,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (224) จากนั้น 449/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 750,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 224,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 449,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
         {
           "term": "5Y",
           "serviceType": "Self",
@@ -3289,68 +3534,6 @@
             {
               "range": "บิล 4-60",
               "price": 399,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 449,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 449,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (224) จากนั้น 449/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 750,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 224,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 449,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 449,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 449,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (224) จากนั้น 449/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 750,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 224,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 449,
               "note": "ราคาปกติ"
             }
           ]
@@ -3385,6 +3568,37 @@
               "note": "ราคาปกติ"
             }
           ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 449,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 449,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (224) จากนั้น 449/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 750,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 224,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 449,
+              "note": "ราคาปกติ"
+            }
+          ]
         }
       ]
     },
@@ -3394,68 +3608,6 @@
       "name": "Alpha Pet 65",
       "image": "assets/products/as65gdby0.png",
       "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 699,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 699,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (349) จากนั้น 699/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 1250,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 349,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 699,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 749,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 749,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (374) จากนั้น 749/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 1350,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-3",
-              "price": 374,
-              "note": "โปรลด 50%"
-            },
-            {
-              "range": "บิล 4-60",
-              "price": 749,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
         {
           "term": "5Y",
           "serviceType": "Visit",
@@ -3483,6 +3635,37 @@
             {
               "range": "บิล 4-60",
               "price": 749,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 699,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 699,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 1250,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 349,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -3517,6 +3700,37 @@
               "note": "ราคาปกติ"
             }
           ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 749,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 749,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (374) จากนั้น 749/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 1350,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 374,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 749,
+              "note": "ราคาปกติ"
+            }
+          ]
         }
       ]
     },
@@ -3524,37 +3738,129 @@
       "category": "เครื่องลดความชื้น",
       "code": "MD19GQGA1.ATH",
       "name": "Dehumidifier 19 ลิตร",
-      "image": "",
+      "image": "assets/products/md19gqga1.png",
       "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 12 เดือน",
-          "regular": 399,
-          "effectiveMonthly": 399,
-          "promoMonths": 0,
-          "postPromoPrice": 399,
-          "advancePayment": 0,
-          "promo": "",
-          "totalContractMonths": 60,
-          "totalSaving": 0,
-          "outright": false,
-          "billSchedule": null
-        },
         {
           "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 12 เดือน",
           "regular": 449,
-          "effectiveMonthly": 449,
-          "promoMonths": 0,
+          "effectiveMonthly": 224,
+          "promoMonths": 3,
           "postPromoPrice": 449,
           "advancePayment": 0,
-          "promo": "",
+          "promo": "ลด 50% 3 บิลแรก (224) จากนั้น 449/เดือน",
           "totalContractMonths": 60,
-          "totalSaving": 0,
+          "totalSaving": 675,
           "outright": false,
-          "billSchedule": null
+          "billSchedule": [
+            {
+              "range": "บิล 1-3",
+              "price": 224,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 449,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 399,
+          "effectiveMonthly": 199,
+          "promoMonths": 3,
+          "postPromoPrice": 399,
+          "advancePayment": 0,
+          "promo": "ลด 50% 3 บิลแรก (199) จากนั้น 399/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 600,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1-3",
+              "price": 199,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 399,
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "เครื่องลดความชื้น",
+      "code": "DD23GMWE1.ATH",
+      "name": "เครื่องลดความชื้น · แถมฟรี Aero Mini",
+      "image": "assets/products/dd23gmwe1.png",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 599,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 599,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (299) จากนั้น 599/เดือน · Free Aero Mini",
+          "totalContractMonths": 60,
+          "totalSaving": 1050,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 299,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "5Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 12 เดือน",
+          "regular": 549,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 549,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 2 รอบบิล (274) จากนั้น 549/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 950,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-3",
+              "price": 274,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 4-60",
+              "price": 549,
+              "note": "ราคาปกติ"
+            }
+          ]
         }
       ]
     },
@@ -3562,7 +3868,7 @@
       "category": "เครื่องลดความชื้น",
       "code": "DD23GMWE1S.ATH",
       "name": "Dehumidifier 23 ลิตร · แถมฟรี AeroMini AS30GGW10",
-      "image": "",
+      "image": "assets/products/dd23gmwe1.png",
       "plans": [
         {
           "term": "5Y",
@@ -3643,7 +3949,7 @@
           "promoMonths": 1,
           "postPromoPrice": 799,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (399) จากนั้น 799/เดือน",
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 7 รอบบิล (399) จากนั้น 799/เดือน · ซื้อแอร์ 2 เครื่องขึ้นไป แถม Aero Hit AS35 1 เครื่อง",
           "totalContractMonths": 60,
           "totalSaving": 3450,
           "outright": false,
@@ -4570,77 +4876,8 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q12GULA0.EWGHATH",
-      "name": "Round Cassette · 12 HP",
-      "image": "",
-      "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 4 เดือน",
-          "regular": 1499,
-          "effectiveMonthly": 1499,
-          "promoMonths": 0,
-          "postPromoPrice": 1499,
-          "advancePayment": 0,
-          "promo": "",
-          "totalContractMonths": 60,
-          "totalSaving": 0,
-          "outright": false,
-          "billSchedule": null
-        }
-      ]
-    },
-    {
-      "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q18GPLE0.EWGHATH",
-      "name": "Ceiling Suspended · 18 HP",
-      "image": "",
-      "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 4 เดือน",
-          "regular": 1949,
-          "effectiveMonthly": 1949,
-          "promoMonths": 0,
-          "postPromoPrice": 1949,
-          "advancePayment": 0,
-          "promo": "",
-          "totalContractMonths": 60,
-          "totalSaving": 0,
-          "outright": false,
-          "billSchedule": null
-        }
-      ]
-    },
-    {
-      "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q18GTLA0.EWGHATH",
-      "name": "ZT-Q18GTLA0.EWGHATH",
-      "image": "",
-      "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 4 เดือน",
-          "regular": 1599,
-          "effectiveMonthly": 1599,
-          "promoMonths": 0,
-          "postPromoPrice": 1599,
-          "advancePayment": 0,
-          "promo": "",
-          "totalContractMonths": 60,
-          "totalSaving": 0,
-          "outright": false,
-          "billSchedule": null
-        }
-      ]
-    },
-    {
-      "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q24GPLA0.EWGHATH",
-      "name": "ZT-Q24GPLA0.EWGHATH",
+      "code": "ZT4Q18GPLA1.EWGHATH",
+      "name": "Cassette 4-Way · 18k BTU (New Aug)",
       "image": "",
       "plans": [
         {
@@ -4662,18 +4899,18 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q24GTLA0.EWGHATH",
-      "name": "ZT-Q24GTLA0.EWGHATH",
+      "code": "ZT4Q24GPLA1.EWGHATH",
+      "name": "Cassette 4-Way · 24k BTU (New Aug)",
       "image": "",
       "plans": [
         {
           "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 4 เดือน",
-          "regular": 1799,
-          "effectiveMonthly": 1799,
+          "regular": 1949,
+          "effectiveMonthly": 1949,
           "promoMonths": 0,
-          "postPromoPrice": 1799,
+          "postPromoPrice": 1949,
           "advancePayment": 0,
           "promo": "",
           "totalContractMonths": 60,
@@ -4685,8 +4922,8 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q36GNLA0.EWGHATH",
-      "name": "ZT-Q36GNLA0.EWGHATH",
+      "code": "ZT4Q36GNLA1.EWGHATH",
+      "name": "Cassette 4-Way · 36k BTU (New Aug)",
       "image": "",
       "plans": [
         {
@@ -4708,31 +4945,8 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q36GYLA0.EWGHATH",
-      "name": "ZT-Q36GYLA0.EWGHATH",
-      "image": "",
-      "plans": [
-        {
-          "term": "5Y",
-          "serviceType": "Visit",
-          "serviceCycle": "ทุก 4 เดือน",
-          "regular": 2599,
-          "effectiveMonthly": 2599,
-          "promoMonths": 0,
-          "postPromoPrice": 2599,
-          "advancePayment": 0,
-          "promo": "",
-          "totalContractMonths": 60,
-          "totalSaving": 0,
-          "outright": false,
-          "billSchedule": null
-        }
-      ]
-    },
-    {
-      "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q48GMLA0.EWGHATH",
-      "name": "ZT-Q48GMLA0.EWGHATH",
+      "code": "ZT4Q48GMLA1.EWGHATH",
+      "name": "Cassette 4-Way · 48k BTU (New Aug)",
       "image": "",
       "plans": [
         {
@@ -4754,18 +4968,18 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZT-Q48GYLA0.EWGHATH",
-      "name": "Ceiling Suspended · 48 HP",
+      "code": "ZT1Q12GULA1.EWGHATH",
+      "name": "Cassette 1-Way · 12k BTU (New Aug)",
       "image": "",
       "plans": [
         {
           "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 4 เดือน",
-          "regular": 2799,
-          "effectiveMonthly": 2799,
+          "regular": 1499,
+          "effectiveMonthly": 1499,
           "promoMonths": 0,
-          "postPromoPrice": 2799,
+          "postPromoPrice": 1499,
           "advancePayment": 0,
           "promo": "",
           "totalContractMonths": 60,
@@ -4777,8 +4991,8 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZV-Q18GM1E0.EWGHATH",
-      "name": "1 Way Cassette · 18 HP",
+      "code": "ZT1Q18GTLA1.EWGHATH",
+      "name": "Cassette 1-Way · 18k BTU (New Aug)",
       "image": "",
       "plans": [
         {
@@ -4800,18 +5014,18 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZV-Q24GM1E0.EWGHATH",
-      "name": "ZV-Q24GM1E0.EWGHATH",
+      "code": "ZT1Q24GTLA1.EWGHATH",
+      "name": "Cassette 1-Way · 24k BTU (New Aug)",
       "image": "",
       "plans": [
         {
           "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 4 เดือน",
-          "regular": 1699,
-          "effectiveMonthly": 1699,
+          "regular": 1799,
+          "effectiveMonthly": 1799,
           "promoMonths": 0,
-          "postPromoPrice": 1699,
+          "postPromoPrice": 1799,
           "advancePayment": 0,
           "promo": "",
           "totalContractMonths": 60,
@@ -4823,24 +5037,86 @@
     },
     {
       "category": "แอร์เชิงพาณิชย์ SAC",
-      "code": "ZV-Q36GM2E0.EWGHATH",
-      "name": "ZV-Q36GM2E0.EWGHATH",
+      "code": "ZTRQ36GYLA1.EWGHATH",
+      "name": "Cassette Round · 36k BTU (New Aug)",
       "image": "",
       "plans": [
         {
           "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 4 เดือน",
-          "regular": 1849,
-          "effectiveMonthly": 1849,
+          "regular": 2599,
+          "effectiveMonthly": 2599,
           "promoMonths": 0,
-          "postPromoPrice": 1849,
+          "postPromoPrice": 2599,
           "advancePayment": 0,
           "promo": "",
           "totalContractMonths": 60,
           "totalSaving": 0,
           "outright": false,
           "billSchedule": null
+        }
+      ]
+    },
+    {
+      "category": "แอร์เชิงพาณิชย์ SAC",
+      "code": "ZTRQ48GYLA1.EWGHATH",
+      "name": "Cassette Round · 48k BTU (New Aug)",
+      "image": "",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "Visit",
+          "serviceCycle": "ทุก 4 เดือน",
+          "regular": 2799,
+          "effectiveMonthly": 2799,
+          "promoMonths": 0,
+          "postPromoPrice": 2799,
+          "advancePayment": 0,
+          "promo": "",
+          "totalContractMonths": 60,
+          "totalSaving": 0,
+          "outright": false,
+          "billSchedule": null
+        }
+      ]
+    },
+    {
+      "category": "โทรทัศน์ Life Style / OLED / QNED / NANO",
+      "code": "100MRGB96BS.ATM",
+      "name": "LG Micro RGB evo AI 100\" · 4K 2026",
+      "image": "assets/products/100mrgb96bs.png",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "No Service",
+          "serviceCycle": "ไม่มีบริการ",
+          "regular": 4499,
+          "effectiveMonthly": 2249.5,
+          "promoMonths": 8,
+          "postPromoPrice": 4499,
+          "advancePayment": 26994,
+          "promo": "บิล 1-12: ฿2249.5 → บิล 13-20: ฿2249 → บิล 21-60: ฿4499",
+          "totalContractMonths": 60,
+          "totalSaving": 18000,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1-12",
+              "price": 2249.5,
+              "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
+            },
+            {
+              "range": "บิล 13-20",
+              "price": 2249,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 21-60",
+              "price": 4499,
+              "note": "ราคาปกติ"
+            }
+          ]
         }
       ]
     },
@@ -4882,7 +5158,7 @@
       "category": "โทรทัศน์ Life Style / OLED / QNED / NANO",
       "code": "27LX6TDGA.GRAB",
       "name": "StanbyME 2 + GRAB",
-      "image": "assets/products/27lx6tdga.png",
+      "image": "assets/products/27lx6tdga-grab.png",
       "plans": [
         {
           "term": "5Y",
@@ -4890,12 +5166,12 @@
           "serviceCycle": "ไม่มีบริการ",
           "regular": 749,
           "effectiveMonthly": 374.5,
-          "promoMonths": 12,
+          "promoMonths": 3,
           "postPromoPrice": 749,
           "advancePayment": 4494,
-          "promo": "บิล 1-12: ฿374.5 → บิล 13-24: ฿374 → บิล 25-60: ฿749",
+          "promo": "แถมฟรี xboom GRAB · บิล 1-12: ฿374.5 → บิล 13-15: ฿374 → บิล 16-60: ฿749",
           "totalContractMonths": 60,
-          "totalSaving": 4500,
+          "totalSaving": 1125,
           "outright": false,
           "billSchedule": [
             {
@@ -4904,12 +5180,51 @@
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
             },
             {
-              "range": "บิล 13-24",
+              "range": "บิล 13-15",
               "price": 374,
-              "note": "โปรลด 50% รายเดือน"
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 25-60",
+              "range": "บิล 16-60",
+              "price": 749,
+              "note": "ราคาปกติ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "โทรทัศน์ Life Style / OLED / QNED / NANO",
+      "code": "27LX6TDGA.ATM",
+      "name": "StanbyME 2",
+      "image": "assets/products/27lx6tdga.png",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "No Service",
+          "serviceCycle": "ไม่มีบริการ",
+          "regular": 749,
+          "effectiveMonthly": 374.5,
+          "promoMonths": 8,
+          "postPromoPrice": 749,
+          "advancePayment": 4494,
+          "promo": "บิล 1-12: ฿374.5 → บิล 13-20: ฿374 → บิล 21-60: ฿749",
+          "totalContractMonths": 60,
+          "totalSaving": 3000,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1-12",
+              "price": 374.5,
+              "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
+            },
+            {
+              "range": "บิล 13-20",
+              "price": 374,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 21-60",
               "price": 749,
               "note": "ราคาปกติ"
             }
@@ -4929,12 +5244,12 @@
           "serviceCycle": "ไม่มีบริการ",
           "regular": 849,
           "effectiveMonthly": 424.5,
-          "promoMonths": 12,
+          "promoMonths": 8,
           "postPromoPrice": 849,
           "advancePayment": 5094,
-          "promo": "บิล 1-12: ฿424.5 → บิล 13-24: ฿424 → บิล 25-60: ฿849 (โปร 7–31 ก.ค.)",
+          "promo": "บิล 1-12: ฿424.5 → บิล 13-20: ฿424 → บิล 21-60: ฿849",
           "totalContractMonths": 60,
-          "totalSaving": 5100,
+          "totalSaving": 3400,
           "outright": false,
           "billSchedule": [
             {
@@ -4943,12 +5258,12 @@
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
             },
             {
-              "range": "บิล 13-24",
+              "range": "บิล 13-20",
               "price": 424,
-              "note": "โปรลด 50% รายเดือน"
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 25-60",
+              "range": "บิล 21-60",
               "price": 849,
               "note": "ราคาปกติ"
             }
@@ -5102,24 +5417,24 @@
           "term": "5Y",
           "serviceType": "No Service",
           "serviceCycle": "ไม่มีบริการ",
-          "regular": 849,
-          "effectiveMonthly": 424.5,
+          "regular": 899,
+          "effectiveMonthly": 449.5,
           "promoMonths": 0,
-          "postPromoPrice": 849,
-          "advancePayment": 5094,
-          "promo": "บิล 1-12: ฿424.5 → บิล 13-60: ฿849",
+          "postPromoPrice": 899,
+          "advancePayment": 5394,
+          "promo": "บิล 1-12: ฿449.5 → บิล 13-60: ฿899",
           "totalContractMonths": 60,
           "totalSaving": 0,
           "outright": false,
           "billSchedule": [
             {
               "range": "บิล 1-12",
-              "price": 424.5,
+              "price": 449.5,
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
             },
             {
               "range": "บิล 13-60",
-              "price": 849,
+              "price": 899,
               "note": "ราคาปกติ"
             }
           ]
@@ -5170,29 +5485,29 @@
           "term": "5Y",
           "serviceType": "No Service",
           "serviceCycle": "ไม่มีบริการ",
-          "regular": 699,
-          "effectiveMonthly": 349.5,
+          "regular": 749,
+          "effectiveMonthly": 374.5,
           "promoMonths": 8,
-          "postPromoPrice": 699,
-          "advancePayment": 4194,
-          "promo": "บิล 1-12: ฿349.5 → บิล 13-20: ฿349 → บิล 21-60: ฿699",
+          "postPromoPrice": 749,
+          "advancePayment": 4494,
+          "promo": "บิล 1-12: ฿374.5 → บิล 13-20: ฿374 → บิล 21-60: ฿749",
           "totalContractMonths": 60,
-          "totalSaving": 2800,
+          "totalSaving": 3000,
           "outright": false,
           "billSchedule": [
             {
               "range": "บิล 1-12",
-              "price": 349.5,
+              "price": 374.5,
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
             },
             {
               "range": "บิล 13-20",
-              "price": 349,
-              "note": "โปรลด 50% รายเดือน"
+              "price": 374,
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 21-60",
-              "price": 699,
+              "price": 749,
               "note": "ราคาปกติ"
             }
           ]
@@ -5203,35 +5518,35 @@
       "category": "โทรทัศน์ Life Style / OLED / QNED / NANO",
       "code": "OLED48C6PSA.BOUNCE",
       "name": "LG OLED C6 48\" + BOUNCE",
-      "image": "assets/products/oled48c6psa.png",
+      "image": "assets/products/oled55c6psa-bounce.png",
       "plans": [
         {
           "term": "5Y",
           "serviceType": "No Service",
           "serviceCycle": "ไม่มีบริการ",
-          "regular": 699,
-          "effectiveMonthly": 349.5,
+          "regular": 749,
+          "effectiveMonthly": 374.5,
           "promoMonths": 3,
-          "postPromoPrice": 699,
-          "advancePayment": 4194,
-          "promo": "บิล 1-12: ฿349.5 → บิล 13-15: ฿349 → บิล 16-60: ฿699",
+          "postPromoPrice": 749,
+          "advancePayment": 4494,
+          "promo": "แถมฟรี xboom BOUNCE · บิล 1-12: ฿374.5 → บิล 13-15: ฿374 → บิล 16-60: ฿749",
           "totalContractMonths": 60,
-          "totalSaving": 1050,
+          "totalSaving": 1125,
           "outright": false,
           "billSchedule": [
             {
               "range": "บิล 1-12",
-              "price": 349.5,
+              "price": 374.5,
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
             },
             {
               "range": "บิล 13-15",
-              "price": 349,
-              "note": "โปรลด 50% รายเดือน"
+              "price": 374,
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 16-60",
-              "price": 699,
+              "price": 749,
               "note": "ราคาปกติ"
             }
           ]
@@ -5253,7 +5568,7 @@
           "promoMonths": 8,
           "postPromoPrice": 1099,
           "advancePayment": 6594,
-          "promo": "บิล 1-12: ฿549.5 → บิล 13-20: ฿549.0 → บิล 21-60: ฿1099.0",
+          "promo": "บิล 1-12: ฿549.5 → บิล 13-20: ฿549 → บิล 21-60: ฿1099",
           "totalContractMonths": 60,
           "totalSaving": 4400,
           "outright": false,
@@ -5281,7 +5596,7 @@
       "category": "โทรทัศน์ Life Style / OLED / QNED / NANO",
       "code": "OLED55C6PSA.S30A",
       "name": "LG OLED C6 55\" + Soundbar",
-      "image": "assets/products/oled55c6psa.png",
+      "image": "assets/products/oled55g6psa-s80ty.png",
       "plans": [
         {
           "term": "5Y",
@@ -5292,7 +5607,7 @@
           "promoMonths": 3,
           "postPromoPrice": 1099,
           "advancePayment": 6594,
-          "promo": "บิล 1-12: ฿549.5 → บิล 13-15: ฿549.0 → บิล 16-60: ฿1099.0",
+          "promo": "แถมฟรี Soundbar S30A · บิล 1-12: ฿549.5 → บิล 13-15: ฿549 → บิล 16-60: ฿1099",
           "totalContractMonths": 60,
           "totalSaving": 1650,
           "outright": false,
@@ -5344,7 +5659,7 @@
             {
               "range": "บิล 13-20",
               "price": 649,
-              "note": "โปรลด 50% รายเดือน"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 21-60",
@@ -5359,7 +5674,7 @@
       "category": "โทรทัศน์ Life Style / OLED / QNED / NANO",
       "code": "OLED65C6PSA.S80TY",
       "name": "LG OLED C6 65\" + Soundbar",
-      "image": "assets/products/oled65c6psa.png",
+      "image": "assets/products/oled65g6psa-s80ty.png",
       "plans": [
         {
           "term": "5Y",
@@ -5370,7 +5685,7 @@
           "promoMonths": 3,
           "postPromoPrice": 1299,
           "advancePayment": 7794,
-          "promo": "บิล 1-12: ฿649.5 → บิล 13-15: ฿649.0 → บิล 16-60: ฿1299.0",
+          "promo": "แถมฟรี Soundbar S80TY · บิล 1-12: ฿649.5 → บิล 13-15: ฿649 → บิล 16-60: ฿1299",
           "totalContractMonths": 60,
           "totalSaving": 1950,
           "outright": false,
@@ -5409,7 +5724,7 @@
           "promoMonths": 8,
           "postPromoPrice": 1999,
           "advancePayment": 11994,
-          "promo": "บิล 1-12: ฿999.5 → บิล 13-20: ฿999.0 → บิล 21-60: ฿1999.0",
+          "promo": "บิล 1-12: ฿999.5 → บิล 13-20: ฿999 → บิล 21-60: ฿1999",
           "totalContractMonths": 60,
           "totalSaving": 8000,
           "outright": false,
@@ -5437,7 +5752,7 @@
       "category": "โทรทัศน์ Life Style / OLED / QNED / NANO",
       "code": "OLED77C6PSA.S80TY",
       "name": "LG OLED C6 77\" + Soundbar",
-      "image": "assets/products/oled77c6psa.png",
+      "image": "assets/products/oled77g6psa-s80ty.png",
       "plans": [
         {
           "term": "5Y",
@@ -5448,7 +5763,7 @@
           "promoMonths": 3,
           "postPromoPrice": 1999,
           "advancePayment": 11994,
-          "promo": "บิล 1-12: ฿999.5 → บิล 13-15: ฿999.0 → บิล 16-60: ฿1999.0",
+          "promo": "แถมฟรี Soundbar S80TY · บิล 1-12: ฿999.5 → บิล 13-15: ฿999 → บิล 16-60: ฿1999",
           "totalContractMonths": 60,
           "totalSaving": 3000,
           "outright": false,
@@ -5482,29 +5797,29 @@
           "term": "5Y",
           "serviceType": "No Service",
           "serviceCycle": "ไม่มีบริการ",
-          "regular": 349,
-          "effectiveMonthly": 174.5,
+          "regular": 399,
+          "effectiveMonthly": 199.5,
           "promoMonths": 3,
-          "postPromoPrice": 349,
-          "advancePayment": 2094,
-          "promo": "บิล 1-12: ฿174.5 → บิล 13-15: ฿174 → บิล 16-60: ฿349",
+          "postPromoPrice": 399,
+          "advancePayment": 2394,
+          "promo": "บิล 1-12: ฿199.5 → บิล 13-15: ฿199 → บิล 16-60: ฿399",
           "totalContractMonths": 60,
-          "totalSaving": 525,
+          "totalSaving": 600,
           "outright": false,
           "billSchedule": [
             {
               "range": "บิล 1-12",
-              "price": 174.5,
+              "price": 199.5,
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
             },
             {
               "range": "บิล 13-15",
-              "price": 174,
-              "note": "โปรลด 50% รายเดือน"
+              "price": 199,
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 16-60",
-              "price": 349,
+              "price": 399,
               "note": "ราคาปกติ"
             }
           ]
@@ -5523,12 +5838,12 @@
           "serviceCycle": "ไม่มีบริการ",
           "regular": 699,
           "effectiveMonthly": 349.5,
-          "promoMonths": 12,
+          "promoMonths": 8,
           "postPromoPrice": 699,
           "advancePayment": 4194,
-          "promo": "บิล 1-12: ฿349.5 → บิล 13-24: ฿349 → บิล 25-60: ฿699",
+          "promo": "บิล 1-12: ฿349.5 → บิล 13-20: ฿349 → บิล 21-60: ฿699",
           "totalContractMonths": 60,
-          "totalSaving": 4200,
+          "totalSaving": 2800,
           "outright": false,
           "billSchedule": [
             {
@@ -5537,12 +5852,51 @@
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
             },
             {
-              "range": "บิล 13-24",
+              "range": "บิล 13-20",
               "price": 349,
-              "note": "โปรลด 50% รายเดือน"
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 25-60",
+              "range": "บิล 21-60",
+              "price": 699,
+              "note": "ราคาปกติ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "มอนิเตอร์",
+      "code": "32U889.GRAB",
+      "name": "UltraFine 32\" + GRAB",
+      "image": "assets/products/32u889sa-w.png",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "No Service",
+          "serviceCycle": "ไม่มีบริการ",
+          "regular": 699,
+          "effectiveMonthly": 349.5,
+          "promoMonths": 3,
+          "postPromoPrice": 699,
+          "advancePayment": 4194,
+          "promo": "แถม xboom Grab · บิล 1-12: ฿349.5 → บิล 13-15: ฿349 → บิล 16-60: ฿699",
+          "totalContractMonths": 60,
+          "totalSaving": 1050,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1-12",
+              "price": 349.5,
+              "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
+            },
+            {
+              "range": "บิล 13-15",
+              "price": 349,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 16-60",
               "price": 699,
               "note": "ราคาปกติ"
             }
@@ -5554,7 +5908,7 @@
       "category": "มอนิเตอร์",
       "code": "34U650A-B.ATM",
       "name": "UltraWide 34\"",
-      "image": "",
+      "image": "assets/products/34u650a-b.png",
       "plans": [
         {
           "term": "5Y",
@@ -5701,7 +6055,7 @@
           "promoMonths": 0,
           "postPromoPrice": 139,
           "advancePayment": 834,
-          "promo": "บิล 1-12: ฿69.5 → บิล 13-60: ฿139.0",
+          "promo": "บิล 1-12: ฿69.5 → บิล 13-60: ฿139",
           "totalContractMonths": 60,
           "totalSaving": 0,
           "outright": false,
@@ -5735,7 +6089,7 @@
           "promoMonths": 0,
           "postPromoPrice": 109,
           "advancePayment": 654,
-          "promo": "บิล 1-12: ฿54.5 → บิล 13-60: ฿109.0",
+          "promo": "บิล 1-12: ฿54.5 → บิล 13-60: ฿109",
           "totalContractMonths": 60,
           "totalSaving": 0,
           "outright": false,
@@ -5769,7 +6123,7 @@
           "promoMonths": 0,
           "postPromoPrice": 189,
           "advancePayment": 1134,
-          "promo": "บิล 1-12: ฿94.5",
+          "promo": "บิล 1-12: ฿94.5 → บิล 13-60: ฿189",
           "totalContractMonths": 60,
           "totalSaving": 0,
           "outright": false,
@@ -5778,6 +6132,11 @@
               "range": "บิล 1-12",
               "price": 94.5,
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
+            },
+            {
+              "range": "บิล 13-60",
+              "price": 189,
+              "note": "ราคาปกติ"
             }
           ]
         }
@@ -5798,7 +6157,7 @@
           "promoMonths": 0,
           "postPromoPrice": 449,
           "advancePayment": 2694,
-          "promo": "บิล 1-12: ฿224.5 → บิล 13-60: ฿449.0",
+          "promo": "บิล 1-12: ฿224.5 → บิล 13-60: ฿449",
           "totalContractMonths": 60,
           "totalSaving": 0,
           "outright": false,
@@ -5832,7 +6191,7 @@
           "promoMonths": 0,
           "postPromoPrice": 299,
           "advancePayment": 1794,
-          "promo": "บิล 1-12: ฿149.5",
+          "promo": "บิล 1-12: ฿149.5 → บิล 13-60: ฿299",
           "totalContractMonths": 60,
           "totalSaving": 0,
           "outright": false,
@@ -5841,6 +6200,45 @@
               "range": "บิล 1-12",
               "price": 149.5,
               "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
+            },
+            {
+              "range": "บิล 13-60",
+              "price": 299,
+              "note": "ราคาปกติ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "ลำโพง / ซาวด์บาร์",
+      "code": "STAGE501.ATHALBK",
+      "name": "LG xboom STAGE501 (New Aug)",
+      "image": "assets/products/stage501.png",
+      "plans": [
+        {
+          "term": "5Y",
+          "serviceType": "No Service",
+          "serviceCycle": "ไม่มีบริการ",
+          "regular": 399,
+          "effectiveMonthly": 199.5,
+          "promoMonths": 0,
+          "postPromoPrice": 399,
+          "advancePayment": 2394,
+          "promo": "บิล 1-12: ฿199.5 → บิล 13-60: ฿399",
+          "totalContractMonths": 60,
+          "totalSaving": 0,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1-12",
+              "price": 199.5,
+              "note": "ครึ่งราคา (จ่ายล่วงหน้าแล้ว)"
+            },
+            {
+              "range": "บิล 13-60",
+              "price": 399,
+              "note": "ราคาปกติ"
             }
           ]
         }
@@ -5869,12 +6267,12 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-60",
               "price": 649,
-              "note": "ราคาปกติ"
+              "note": ""
             }
           ]
         }
@@ -5903,12 +6301,12 @@
             {
               "range": "บิล 1",
               "price": 149,
-              "note": "ราคาพิเศษ"
+              "note": "ราคา 149.-"
             },
             {
               "range": "บิล 2-60",
               "price": 549,
-              "note": "ราคาปกติ"
+              "note": ""
             }
           ]
         }
@@ -5961,37 +6359,6 @@
       "plans": [
         {
           "term": "5Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 499,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 499,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 3100,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-12",
-              "price": 249,
-              "note": "ลด 50%"
-            },
-            {
-              "range": "บิล 13-60",
-              "price": 499,
-              "note": "ราคาปกติ"
-            }
-          ]
-        },
-        {
-          "term": "5Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 6 เดือน",
           "regular": 549,
@@ -6012,7 +6379,7 @@
             {
               "range": "บิล 2-12",
               "price": 274,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-60",
@@ -6022,17 +6389,17 @@
           ]
         },
         {
-          "term": "7Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 399,
+          "regular": 499,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 399,
+          "postPromoPrice": 499,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (199) จากนั้น 399/เดือน",
-          "totalContractMonths": 84,
-          "totalSaving": 2450,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 3100,
           "outright": false,
           "billSchedule": [
             {
@@ -6042,12 +6409,12 @@
             },
             {
               "range": "บิล 2-12",
-              "price": 199,
-              "note": "ลด 50%"
+              "price": 249,
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 13-84",
-              "price": 399,
+              "range": "บิล 13-60",
+              "price": 499,
               "note": "ราคาปกติ"
             }
           ]
@@ -6074,11 +6441,42 @@
             {
               "range": "บิล 2-12",
               "price": 224,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-84",
               "price": 449,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "7Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 399,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 399,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (199) จากนั้น 399/เดือน",
+          "totalContractMonths": 84,
+          "totalSaving": 2450,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 199,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-84",
+              "price": 399,
               "note": "ราคาปกติ"
             }
           ]
@@ -6093,21 +6491,6 @@
       "plans": [
         {
           "term": "2Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 34900,
-          "effectiveMonthly": 0,
-          "promoMonths": 0,
-          "postPromoPrice": 0,
-          "advancePayment": 31410,
-          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
-          "totalContractMonths": 24,
-          "totalSaving": 3490,
-          "outright": true,
-          "billSchedule": null
-        },
-        {
-          "term": "2Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 6 เดือน",
           "regular": 37900,
@@ -6122,35 +6505,19 @@
           "billSchedule": null
         },
         {
-          "term": "5Y",
+          "term": "2Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 699,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 699,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 4400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-12",
-              "price": 349,
-              "note": "ลด 50%"
-            },
-            {
-              "range": "บิล 13-60",
-              "price": 699,
-              "note": "ราคาปกติ"
-            }
-          ]
+          "regular": 34900,
+          "effectiveMonthly": 0,
+          "promoMonths": 0,
+          "postPromoPrice": 0,
+          "advancePayment": 31410,
+          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
+          "totalContractMonths": 24,
+          "totalSaving": 3490,
+          "outright": true,
+          "billSchedule": null
         },
         {
           "term": "5Y",
@@ -6174,7 +6541,7 @@
             {
               "range": "บิล 2-12",
               "price": 399,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-60",
@@ -6184,17 +6551,17 @@
           ]
         },
         {
-          "term": "7Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 499,
+          "regular": 699,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 499,
+          "postPromoPrice": 699,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
-          "totalContractMonths": 84,
-          "totalSaving": 3100,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 4400,
           "outright": false,
           "billSchedule": [
             {
@@ -6204,12 +6571,12 @@
             },
             {
               "range": "บิล 2-12",
-              "price": 249,
-              "note": "ลด 50%"
+              "price": 349,
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 13-84",
-              "price": 499,
+              "range": "บิล 13-60",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -6236,11 +6603,42 @@
             {
               "range": "บิล 2-12",
               "price": 299,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-84",
               "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "7Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 499,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 499,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
+          "totalContractMonths": 84,
+          "totalSaving": 3100,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 249,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-84",
+              "price": 499,
               "note": "ราคาปกติ"
             }
           ]
@@ -6255,21 +6653,6 @@
       "plans": [
         {
           "term": "2Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 34900,
-          "effectiveMonthly": 0,
-          "promoMonths": 0,
-          "postPromoPrice": 0,
-          "advancePayment": 31410,
-          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
-          "totalContractMonths": 24,
-          "totalSaving": 3490,
-          "outright": true,
-          "billSchedule": null
-        },
-        {
-          "term": "2Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 6 เดือน",
           "regular": 37900,
@@ -6284,35 +6667,19 @@
           "billSchedule": null
         },
         {
-          "term": "5Y",
+          "term": "2Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 699,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 699,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 4400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-12",
-              "price": 349,
-              "note": "ลด 50%"
-            },
-            {
-              "range": "บิล 13-60",
-              "price": 699,
-              "note": "ราคาปกติ"
-            }
-          ]
+          "regular": 34900,
+          "effectiveMonthly": 0,
+          "promoMonths": 0,
+          "postPromoPrice": 0,
+          "advancePayment": 31410,
+          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
+          "totalContractMonths": 24,
+          "totalSaving": 3490,
+          "outright": true,
+          "billSchedule": null
         },
         {
           "term": "5Y",
@@ -6336,7 +6703,7 @@
             {
               "range": "บิล 2-12",
               "price": 399,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-60",
@@ -6346,17 +6713,17 @@
           ]
         },
         {
-          "term": "7Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 499,
+          "regular": 699,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 499,
+          "postPromoPrice": 699,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
-          "totalContractMonths": 84,
-          "totalSaving": 3100,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 4400,
           "outright": false,
           "billSchedule": [
             {
@@ -6366,12 +6733,12 @@
             },
             {
               "range": "บิล 2-12",
-              "price": 249,
-              "note": "ลด 50%"
+              "price": 349,
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 13-84",
-              "price": 499,
+              "range": "บิล 13-60",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -6398,11 +6765,42 @@
             {
               "range": "บิล 2-12",
               "price": 299,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-84",
               "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "7Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 499,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 499,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
+          "totalContractMonths": 84,
+          "totalSaving": 3100,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 249,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-84",
+              "price": 499,
               "note": "ราคาปกติ"
             }
           ]
@@ -6417,21 +6815,6 @@
       "plans": [
         {
           "term": "2Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 34900,
-          "effectiveMonthly": 0,
-          "promoMonths": 0,
-          "postPromoPrice": 0,
-          "advancePayment": 31410,
-          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
-          "totalContractMonths": 24,
-          "totalSaving": 3490,
-          "outright": true,
-          "billSchedule": null
-        },
-        {
-          "term": "2Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 6 เดือน",
           "regular": 37900,
@@ -6446,35 +6829,19 @@
           "billSchedule": null
         },
         {
-          "term": "5Y",
+          "term": "2Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 699,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 699,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 4400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-12",
-              "price": 349,
-              "note": "ลด 50%"
-            },
-            {
-              "range": "บิล 13-60",
-              "price": 699,
-              "note": "ราคาปกติ"
-            }
-          ]
+          "regular": 34900,
+          "effectiveMonthly": 0,
+          "promoMonths": 0,
+          "postPromoPrice": 0,
+          "advancePayment": 31410,
+          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
+          "totalContractMonths": 24,
+          "totalSaving": 3490,
+          "outright": true,
+          "billSchedule": null
         },
         {
           "term": "5Y",
@@ -6498,7 +6865,7 @@
             {
               "range": "บิล 2-12",
               "price": 399,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-60",
@@ -6508,17 +6875,17 @@
           ]
         },
         {
-          "term": "7Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 499,
+          "regular": 699,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 499,
+          "postPromoPrice": 699,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
-          "totalContractMonths": 84,
-          "totalSaving": 3100,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 4400,
           "outright": false,
           "billSchedule": [
             {
@@ -6528,12 +6895,12 @@
             },
             {
               "range": "บิล 2-12",
-              "price": 249,
-              "note": "ลด 50%"
+              "price": 349,
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 13-84",
-              "price": 499,
+              "range": "บิล 13-60",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -6560,11 +6927,42 @@
             {
               "range": "บิล 2-12",
               "price": 299,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-84",
               "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "7Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 499,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 499,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
+          "totalContractMonths": 84,
+          "totalSaving": 3100,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 249,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-84",
+              "price": 499,
               "note": "ราคาปกติ"
             }
           ]
@@ -6579,21 +6977,6 @@
       "plans": [
         {
           "term": "2Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 34900,
-          "effectiveMonthly": 0,
-          "promoMonths": 0,
-          "postPromoPrice": 0,
-          "advancePayment": 31410,
-          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
-          "totalContractMonths": 24,
-          "totalSaving": 3490,
-          "outright": true,
-          "billSchedule": null
-        },
-        {
-          "term": "2Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 6 เดือน",
           "regular": 37900,
@@ -6608,35 +6991,19 @@
           "billSchedule": null
         },
         {
-          "term": "5Y",
+          "term": "2Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 699,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 699,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 4400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-12",
-              "price": 349,
-              "note": "ลด 50%"
-            },
-            {
-              "range": "บิล 13-60",
-              "price": 699,
-              "note": "ราคาปกติ"
-            }
-          ]
+          "regular": 34900,
+          "effectiveMonthly": 0,
+          "promoMonths": 0,
+          "postPromoPrice": 0,
+          "advancePayment": 31410,
+          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
+          "totalContractMonths": 24,
+          "totalSaving": 3490,
+          "outright": true,
+          "billSchedule": null
         },
         {
           "term": "5Y",
@@ -6660,7 +7027,7 @@
             {
               "range": "บิล 2-12",
               "price": 399,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-60",
@@ -6670,17 +7037,17 @@
           ]
         },
         {
-          "term": "7Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 499,
+          "regular": 699,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 499,
+          "postPromoPrice": 699,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
-          "totalContractMonths": 84,
-          "totalSaving": 3100,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 4400,
           "outright": false,
           "billSchedule": [
             {
@@ -6690,12 +7057,12 @@
             },
             {
               "range": "บิล 2-12",
-              "price": 249,
-              "note": "ลด 50%"
+              "price": 349,
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 13-84",
-              "price": 499,
+              "range": "บิล 13-60",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -6722,11 +7089,42 @@
             {
               "range": "บิล 2-12",
               "price": 299,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-84",
               "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "7Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 499,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 499,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
+          "totalContractMonths": 84,
+          "totalSaving": 3100,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 249,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-84",
+              "price": 499,
               "note": "ราคาปกติ"
             }
           ]
@@ -6741,21 +7139,6 @@
       "plans": [
         {
           "term": "2Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 34900,
-          "effectiveMonthly": 0,
-          "promoMonths": 0,
-          "postPromoPrice": 0,
-          "advancePayment": 31410,
-          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
-          "totalContractMonths": 24,
-          "totalSaving": 3490,
-          "outright": true,
-          "billSchedule": null
-        },
-        {
-          "term": "2Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 6 เดือน",
           "regular": 37900,
@@ -6770,35 +7153,19 @@
           "billSchedule": null
         },
         {
-          "term": "5Y",
+          "term": "2Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 699,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 699,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 4400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-12",
-              "price": 349,
-              "note": "ลด 50%"
-            },
-            {
-              "range": "บิล 13-60",
-              "price": 699,
-              "note": "ราคาปกติ"
-            }
-          ]
+          "regular": 34900,
+          "effectiveMonthly": 0,
+          "promoMonths": 0,
+          "postPromoPrice": 0,
+          "advancePayment": 31410,
+          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
+          "totalContractMonths": 24,
+          "totalSaving": 3490,
+          "outright": true,
+          "billSchedule": null
         },
         {
           "term": "5Y",
@@ -6822,7 +7189,7 @@
             {
               "range": "บิล 2-12",
               "price": 399,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-60",
@@ -6832,17 +7199,17 @@
           ]
         },
         {
-          "term": "7Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 499,
+          "regular": 699,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 499,
+          "postPromoPrice": 699,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
-          "totalContractMonths": 84,
-          "totalSaving": 3100,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 4400,
           "outright": false,
           "billSchedule": [
             {
@@ -6852,12 +7219,12 @@
             },
             {
               "range": "บิล 2-12",
-              "price": 249,
-              "note": "ลด 50%"
+              "price": 349,
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 13-84",
-              "price": 499,
+              "range": "บิล 13-60",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -6884,11 +7251,42 @@
             {
               "range": "บิล 2-12",
               "price": 299,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-84",
               "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "7Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 499,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 499,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
+          "totalContractMonths": 84,
+          "totalSaving": 3100,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 249,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-84",
+              "price": 499,
               "note": "ราคาปกติ"
             }
           ]
@@ -6903,21 +7301,6 @@
       "plans": [
         {
           "term": "2Y",
-          "serviceType": "Self",
-          "serviceCycle": "ทุก 6 เดือน",
-          "regular": 34900,
-          "effectiveMonthly": 0,
-          "promoMonths": 0,
-          "postPromoPrice": 0,
-          "advancePayment": 31410,
-          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
-          "totalContractMonths": 24,
-          "totalSaving": 3490,
-          "outright": true,
-          "billSchedule": null
-        },
-        {
-          "term": "2Y",
           "serviceType": "Visit",
           "serviceCycle": "ทุก 6 เดือน",
           "regular": 37900,
@@ -6932,35 +7315,19 @@
           "billSchedule": null
         },
         {
-          "term": "5Y",
+          "term": "2Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 699,
-          "effectiveMonthly": 149,
-          "promoMonths": 1,
-          "postPromoPrice": 699,
-          "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
-          "totalContractMonths": 60,
-          "totalSaving": 4400,
-          "outright": false,
-          "billSchedule": [
-            {
-              "range": "บิล 1",
-              "price": 149,
-              "note": "ราคาพิเศษ"
-            },
-            {
-              "range": "บิล 2-12",
-              "price": 349,
-              "note": "ลด 50%"
-            },
-            {
-              "range": "บิล 13-60",
-              "price": 699,
-              "note": "ราคาปกติ"
-            }
-          ]
+          "regular": 34900,
+          "effectiveMonthly": 0,
+          "promoMonths": 0,
+          "postPromoPrice": 0,
+          "advancePayment": 31410,
+          "promo": "ซื้อขาด + บริการ 2 ปี · ลด 10% จาก 34,900 → 31,410",
+          "totalContractMonths": 24,
+          "totalSaving": 3490,
+          "outright": true,
+          "billSchedule": null
         },
         {
           "term": "5Y",
@@ -6984,7 +7351,7 @@
             {
               "range": "บิล 2-12",
               "price": 399,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-60",
@@ -6994,17 +7361,17 @@
           ]
         },
         {
-          "term": "7Y",
+          "term": "5Y",
           "serviceType": "Self",
           "serviceCycle": "ทุก 6 เดือน",
-          "regular": 499,
+          "regular": 699,
           "effectiveMonthly": 149,
           "promoMonths": 1,
-          "postPromoPrice": 499,
+          "postPromoPrice": 699,
           "advancePayment": 0,
-          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
-          "totalContractMonths": 84,
-          "totalSaving": 3100,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (349) จากนั้น 699/เดือน",
+          "totalContractMonths": 60,
+          "totalSaving": 4400,
           "outright": false,
           "billSchedule": [
             {
@@ -7014,12 +7381,12 @@
             },
             {
               "range": "บิล 2-12",
-              "price": 249,
-              "note": "ลด 50%"
+              "price": 349,
+              "note": "โปรลด 50%"
             },
             {
-              "range": "บิล 13-84",
-              "price": 499,
+              "range": "บิล 13-60",
+              "price": 699,
               "note": "ราคาปกติ"
             }
           ]
@@ -7046,11 +7413,42 @@
             {
               "range": "บิล 2-12",
               "price": 299,
-              "note": "ลด 50%"
+              "note": "โปรลด 50%"
             },
             {
               "range": "บิล 13-84",
               "price": 599,
+              "note": "ราคาปกติ"
+            }
+          ]
+        },
+        {
+          "term": "7Y",
+          "serviceType": "Self",
+          "serviceCycle": "ทุก 6 เดือน",
+          "regular": 499,
+          "effectiveMonthly": 149,
+          "promoMonths": 1,
+          "postPromoPrice": 499,
+          "advancePayment": 0,
+          "promo": "บิลแรก 149 ต่อด้วยลด 50% 11 รอบบิล (249) จากนั้น 499/เดือน",
+          "totalContractMonths": 84,
+          "totalSaving": 3100,
+          "outright": false,
+          "billSchedule": [
+            {
+              "range": "บิล 1",
+              "price": 149,
+              "note": "ราคาพิเศษ"
+            },
+            {
+              "range": "บิล 2-12",
+              "price": 249,
+              "note": "โปรลด 50%"
+            },
+            {
+              "range": "บิล 13-84",
+              "price": 499,
               "note": "ราคาปกติ"
             }
           ]
