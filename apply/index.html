@@ -15,22 +15,28 @@
     --ink:#111; --muted:#6b6b6b; --line:#e8e8e8; --bg:#fff; --soft:#f5f5f5;
     --lg:#A50034; --lg2:#C8102E; --dark:#111;
     --cw:#00A8E1;
-    --max:1180px;
+    --max:100%;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth; overflow-x:hidden; max-width:100%}
+  html{scroll-behavior:smooth; overflow-x:hidden; width:100%; max-width:100%; height:100%}
   body{
     margin:0; color:var(--ink); background:var(--bg);
     font-family:"Anuphan","Noto Sans Thai",system-ui,sans-serif;
     font-weight:400;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden; max-width:100%;
+    overflow-x:hidden; width:100%; max-width:100%; min-height:100dvh;
   }
   [x-cloak]{display:none!important}
   a{color:inherit;text-decoration:none}
   button,input,select,textarea{font:inherit}
   img{max-width:100%;display:block}
-  .wrap{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
+  .wrap{width:100%; max-width:none; margin:0 auto; padding-left:clamp(16px, 3.2vw, 48px); padding-right:clamp(16px, 3.2vw, 48px)}
+  a[href^="tel"], .tel{
+    color:var(--lg); font-weight:700; letter-spacing:.02em;
+  }
+  a[href^="tel"]:hover, .tel:hover{color:var(--lg2)}
+  .topbar .tel{font-size:13px}
+  .nav-tel{font-size:15px; white-space:nowrap; padding:0 10px}
 
   /* header — โครงเดียวกับเว็บ subscription แบบ Coway */
   .topbar{
@@ -40,6 +46,8 @@
   .topbar-in{display:flex; justify-content:flex-end; gap:22px; min-height:34px; align-items:center}
   .topbar a{color:#555}
   .topbar a:hover{color:var(--cw)}
+  .topbar a.tel, .topbar a[href^="tel"]{color:var(--lg)}
+  .topbar a.tel:hover, .topbar a[href^="tel"]:hover{color:var(--lg2)}
   .nav{
     position:sticky; top:0; z-index:50;
     background:#fff; border-bottom:1px solid var(--line);
@@ -109,8 +117,10 @@
 
   .home-hero{
     position:relative;
+    width:100%;
     height:calc(100dvh - 106px);
-    min-height:460px; max-height:760px;
+    min-height:calc(100dvh - 106px);
+    max-height:none;
     overflow:hidden; background:#eef8fc;
   }
   .hero-bg{
@@ -174,7 +184,7 @@
   .sec .lead{margin:0 0 28px; color:var(--muted); font-size:15px}
 
   /* builder */
-  .builder{display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start}
+  .builder{display:grid; grid-template-columns:1fr minmax(320px, 400px); gap:28px; align-items:start}
   .cats{display:flex; gap:8px; overflow:auto; padding-bottom:8px; margin-bottom:16px}
   .chip{
     flex:0 0 auto; border:1px solid var(--line); background:#fff; color:#333;
@@ -186,7 +196,7 @@
     outline:none;
   }
   .search:focus{border-color:#111}
-  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
   .card{
     border:1px solid var(--line); background:#fff; cursor:pointer;
     display:flex; flex-direction:column; min-height:100%;
@@ -264,13 +274,16 @@
   .plan.on{border-color:#111; background:#fafafa}
   .load{padding:80px 20px; text-align:center; color:var(--muted)}
 
+  @media (max-width:1280px){
+    .grid{grid-template-columns:repeat(3,1fr)}
+  }
   @media (max-width:980px){
     .strips{grid-template-columns:1fr}
     .builder{grid-template-columns:1fr}
     .grid{grid-template-columns:repeat(2,1fr)}
     .rail{position:static}
     .bar{display:block}
-    .home-hero{height:calc(100dvh - 60px); min-height:380px; max-height:none}
+    .home-hero{height:calc(100dvh - 60px); min-height:calc(100dvh - 60px); max-height:none}
     .hero-bg{object-position:80% center}
     .hero-shade{background:linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.2) 55%, rgba(255,255,255,.55) 100%)}
     .hero-copy{justify-content:flex-end; padding-bottom:28px; max-width:100%}
@@ -281,10 +294,11 @@
     footer .wrap{grid-template-columns:1fr !important}
   }
   @media (max-width:560px){
-    .wrap{width:calc(100% - 28px)}
+    .wrap{width:100%; padding-left:14px; padding-right:14px}
     .row2,.cust{grid-template-columns:1fr}
     .grid{grid-template-columns:1fr 1fr}
     .card-img{height:130px}
+    .nav-tel{font-size:13px; padding:0 6px}
   }
 </style>
 </head>
@@ -294,6 +308,7 @@
   <div class="wrap topbar-in">
     <a href="#apply">ชำระเงินค่าสินค้า / สมัคร Subscribe</a>
     <a href="#support">ค้นหาสาขา / ติดต่อเรา</a>
+    <a class="tel" href="tel:020575757">โทร 02-057-5757</a>
   </div>
 </div>
 <header class="nav" @mouseleave="menu=null">
@@ -361,6 +376,7 @@
       </div>
     </nav>
     <div class="nav-right">
+      <a class="tel nav-tel" href="tel:020575757">02-057-5757</a>
       <button class="ico" type="button" title="ค้นหา" @click="go('#combo'); $nextTick(() => $refs.q && $refs.q.focus())">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.4-3.4"/></svg>
       </button>
@@ -383,11 +399,12 @@
     <a href="#campaign" @click="mobOpen=false">แคมเปญ &amp; กิจกรรม</a>
     <a href="#story" @click="mobOpen=false">เรื่องราวของเรา</a>
     <a href="#support" @click="mobOpen=false">สนับสนุน</a>
+    <a class="tel" href="tel:020575757" @click="mobOpen=false">โทร 02-057-5757</a>
   </div>
 </header>
 
 <section class="home-hero" id="top">
-  <img class="hero-bg" src="assets/banner-hero.jpg" alt="" width="1920" height="1080"/>
+  <img class="hero-bg" src="assets/banner-hero.jpg?v=85" alt="สินค้า LG Subscribe" width="1920" height="1080"/>
   <div class="hero-shade"></div>
   <div class="wrap hero-copy">
     <h1>เติมเต็มครบ <span class="cl-blue">ทุกการ Subscribe</span></h1>
@@ -427,7 +444,7 @@
 </section>
 
 <section class="wrap sec" id="promo">
-  <img src="assets/banner-studio.jpg" alt="" style="width:100%;height:180px;object-fit:cover;margin:0 0 22px;border-radius:4px"/>
+  <img src="assets/banner-studio.jpg?v=85" alt="สินค้า LG Subscribe" style="width:100%;height:min(42vh, 420px);object-fit:cover;object-position:center;margin:0 0 22px"/>
   <h2><span class="cl-blue">โปรโมชัน</span> ส่วนลด และข้อเสนอสุดพิเศษ ให้คุณคนสำคัญ</h2>
   <p class="lead">ข้อเสนอ LG Subscribe เดือนนี้</p>
   <div class="strips" style="margin:0">
@@ -588,6 +605,7 @@
 </section>
 
 <section class="wrap sec" id="story">
+  <img src="assets/banner-life.jpg?v=85" alt="ห้องนั่งเล่นกับสินค้า LG" style="width:100%;height:min(42vh, 420px);object-fit:cover;margin:0 0 22px"/>
   <h2>เรื่องราวของเรา</h2>
   <p class="lead">LG Subscribe คือการเป็นเจ้าของเครื่องใช้ไฟฟ้า LG แบบจ่ายรายเดือน พร้อมบริการดูแลตลอดสัญญา</p>
   <div class="strips" style="margin:0">
@@ -678,7 +696,7 @@
 function lgApply(){
   return {
     ready:false,
-    buildVersion:'2026.08.17-v84-apply',
+    buildVersion:'2026.08.17-v85-apply',
     products:[], categories:[],
     promo:{name:'August Combo', dateStart:'2569-08-01', dateEnd:'2569-08-31'},
     special:{start:'2569-08-15', end:'2569-08-25', rate:15},
