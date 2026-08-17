@@ -167,23 +167,24 @@
     object-fit:cover; object-position:center; margin:0;
   }
 
-  .cate-grid{
-    display:grid;
-    grid-template-columns:repeat(5, 1fr);
-    gap:12px;
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; letter-spacing:2.5px; text-transform:uppercase;
+    color:var(--lg); font-weight:600;
   }
-  .cate-tile{
-    border:1px solid var(--line); background:#fff; cursor:pointer;
-    padding:14px 10px 16px; text-align:center;
-    transition:transform .15s, box-shadow .15s, border-color .15s;
+  .eyebrow::before{content:""; width:16px; height:2px; background:var(--lg); display:inline-block;}
+  .cat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+  .cat-card{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    padding:26px 20px; text-align:left; cursor:pointer; width:100%;
+    transition:.2s border-color ease, .2s transform ease;
   }
-  .cate-tile:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.06); border-color:#ddd}
-  .cate-tile .ph{
-    height:92px; display:grid; place-items:center; background:#fafafa; margin-bottom:10px;
-  }
-  .cate-tile img{max-height:84px; width:auto; object-fit:contain}
-  .cate-tile .nm{font-size:13px; font-weight:500; line-height:1.35}
-  .cate-tile .ct{font-size:11px; color:#999; margin-top:4px}
+  .cat-card:hover{border-color:var(--lg); transform:translateY(-3px)}
+  .cat-card.on{border-color:var(--lg); box-shadow:inset 0 0 0 1px var(--lg)}
+  .cat-card .icon{width:42px; height:42px; color:var(--lg); margin-bottom:16px}
+  .cat-card h4{margin:0 0 4px; font-size:15.5px; font-weight:600}
+  .cat-card span{display:block; font-size:12.5px; color:var(--muted)}
+  .cat-card em{display:block; margin-top:8px; font-style:normal; font-size:11px; color:#999}
 
   .life-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
   .life-card{
@@ -356,7 +357,7 @@
   .drawer-f{padding:14px 18px calc(14px + env(safe-area-inset-bottom)); border-top:1px solid var(--line)}
 
   @media (max-width:1100px){
-    .cate-grid{grid-template-columns:repeat(4,1fr)}
+    .cat-grid{grid-template-columns:repeat(4,1fr)}
     .prod-grid{grid-template-columns:repeat(3,1fr)}
     .life-grid{grid-template-columns:1fr 1fr}
   }
@@ -386,8 +387,12 @@
     .pdp{max-height:94vh; width:100%}
     .drawer{width:100%; height:auto; max-height:92vh}
   }
+  @media (max-width:960px){
+    .cat-grid{grid-template-columns:repeat(2,1fr)}
+  }
   @media (max-width:700px){
-    .cate-grid,.prod-grid{grid-template-columns:1fr 1fr}
+    .cat-grid{grid-template-columns:1fr}
+    .prod-grid{grid-template-columns:1fr 1fr}
     .card-img{height:150px}
     .life-grid{grid-template-columns:1fr}
     .row2,.cust{grid-template-columns:1fr}
@@ -414,9 +419,9 @@
         <button type="button" @click="go('#combo')">ซื้อสินค้า</button>
         <div class="mega">
           <div class="g">เลือกตามประเภท</div>
-          <button type="button" @click="pickCat('')">สินค้าทั้งหมด</button>
-          <template x-for="c in categories" :key="'mn-'+c">
-            <button type="button" @click="pickCat(c)" x-text="shortCat(c)"></button>
+          <button type="button" @click="clearShopFilter()">สินค้าทั้งหมด</button>
+          <template x-for="g in catGroups()" :key="'mn-'+g.id">
+            <button type="button" @click="pickGroup(g.id)" x-text="g.title"></button>
           </template>
         </div>
       </div>
@@ -520,7 +525,7 @@
     </div>
     <div class="hero-cta">
       <button class="btn btn-lg" type="button" @click="goShop()">ดูสินค้าทั้งหมด</button>
-      <a class="btn-view" href="#combo" @click.prevent="goShop()">เลือกตามหมวด →</a>
+      <a class="btn-view" href="#cats" @click.prevent="go('#cats')">เลือกตามหมวด →</a>
     </div>
   </div>
 </section>
@@ -529,22 +534,60 @@
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <h2>ช้อปตาม <span class="cl-blue">ประเภทสินค้า</span></h2>
-        <p class="lead">เลือกรุ่นจากแคตตาล็อกโปรเดือนนี้ · ราคาไม่เดา</p>
+        <span class="eyebrow">หมวดสินค้า</span>
+        <h2>เลือกเครื่องใช้ไฟฟ้าที่ใช่สำหรับบ้านคุณ</h2>
       </div>
-      <button class="btn-view" type="button" @click="pickCat('')">ดูทั้งหมด →</button>
+      <p class="lead">ครบทุกหมวดตั้งแต่ห้องครัวถึงห้องนั่งเล่น สมัครแบบ Subscribe พร้อมบริการดูแลตลอดสัญญา</p>
     </div>
-    <div class="cate-grid">
-      <template x-for="t in catTiles()" :key="'tile-'+t.cat">
-        <button class="cate-tile" type="button" @click="pickCat(t.cat)">
-          <div class="ph">
-            <img x-show="t.image" :src="imgUrl(t)" :alt="shortCat(t.cat)" loading="lazy"/>
-            <span x-show="!t.image" x-text="shortCat(t.cat).slice(0,1)" style="font-size:28px;color:#bbb"></span>
-          </div>
-          <div class="nm" x-text="shortCat(t.cat)"></div>
-          <div class="ct" x-text="t.count + ' รุ่น'"></div>
-        </button>
-      </template>
+    <div class="cat-grid">
+      <button class="cat-card" type="button" :class="group==='water' && 'on'" @click="pickGroup('water')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c3 4 6 7.4 6 11a6 6 0 1 1-12 0c0-3.6 3-7 6-11Z"/></svg>
+        <h4>เครื่องกรองน้ำ</h4>
+        <span>Tankless · UVnano</span>
+        <em x-text="countInGroup('water')+' รุ่น'"></em>
+      </button>
+      <button class="cat-card" type="button" :class="group==='purifier' && 'on'" @click="pickGroup('purifier')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5"/></svg>
+        <h4>เครื่องฟอกอากาศ</h4>
+        <span>H13 HEPA · PM2.5</span>
+        <em x-text="countInGroup('purifier')+' รุ่น'"></em>
+      </button>
+      <button class="cat-card" type="button" :class="group==='laundry' && 'on'" @click="pickGroup('laundry')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M8 6h.01M11 6h.01"/></svg>
+        <h4>เครื่องซักผ้า / อบผ้า</h4>
+        <span>WashTower · AI DD</span>
+        <em x-text="countInGroup('laundry')+' รุ่น'"></em>
+      </button>
+      <button class="cat-card" type="button" :class="group==='fridge' && 'on'" @click="pickGroup('fridge')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M5 10h14"/></svg>
+        <h4>ตู้เย็น</h4>
+        <span>Multi Door · InstaView</span>
+        <em x-text="countInGroup('fridge')+' รุ่น'"></em>
+      </button>
+      <button class="cat-card" type="button" :class="group==='ac' && 'on'" @click="pickGroup('ac')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18h2M15 18h2"/></svg>
+        <h4>เครื่องปรับอากาศ</h4>
+        <span>DUALCOOL AI</span>
+        <em x-text="countInGroup('ac')+' รุ่น'"></em>
+      </button>
+      <button class="cat-card" type="button" :class="group==='tv' && 'on'" @click="pickGroup('tv')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></svg>
+        <h4>ทีวี</h4>
+        <span>OLED evo · QNED</span>
+        <em x-text="countInGroup('tv')+' รุ่น'"></em>
+      </button>
+      <button class="cat-card" type="button" :class="group==='dish' && 'on'" @click="pickGroup('dish')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8Z"/><path d="M4 10 6 4h12l2 6"/></svg>
+        <h4>เครื่องล้างจาน</h4>
+        <span>QuadWash · TrueSteam</span>
+        <em x-text="countInGroup('dish')+' รุ่น'"></em>
+      </button>
+      <button class="cat-card" type="button" :class="group==='av' && 'on'" @click="pickGroup('av')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><circle cx="17" cy="9" r="1.4"/></svg>
+        <h4>มอนิเตอร์ / ลำโพง</h4>
+        <span>UltraGear · xboom</span>
+        <em x-text="countInGroup('av')+' รุ่น'"></em>
+      </button>
     </div>
   </div>
 </section>
@@ -674,22 +717,22 @@
   <div class="crumbs">
     <button type="button" @click="go('#top')">หน้าแรก</button>
     <span> / </span>
-    <button type="button" @click="pickCat('')">สินค้า</button>
-    <template x-if="cat">
-      <span> / <span x-text="shortCat(cat)"></span></span>
+    <button type="button" @click="clearShopFilter()">สินค้า</button>
+    <template x-if="group">
+      <span> / <span x-text="activeGroupTitle()"></span></span>
     </template>
   </div>
   <div class="load" x-show="!ready">กำลังโหลดสินค้า…</div>
   <div class="shop-layout" x-show="ready" x-cloak>
     <aside class="side" aria-label="หมวดหมู่">
       <h3>หมวดหมู่</h3>
-      <button type="button" :class="!cat && homeTab!=='life' && 'on'" @click="pickCat('')">
+      <button type="button" :class="!group && !cat && homeTab!=='life' && 'on'" @click="clearShopFilter()">
         <span>ทั้งหมด</span><span class="n" x-text="products.length"></span>
       </button>
-      <template x-for="c in categories" :key="'side-'+c">
-        <button type="button" :class="cat===c && 'on'" @click="pickCat(c)">
-          <span x-text="shortCat(c)"></span>
-          <span class="n" x-text="countInCat(c)"></span>
+      <template x-for="g in catGroups()" :key="'side-'+g.id">
+        <button type="button" :class="group===g.id && 'on'" @click="pickGroup(g.id)">
+          <span x-text="g.title"></span>
+          <span class="n" x-text="countInGroup(g.id)"></span>
         </button>
       </template>
     </aside>
@@ -993,14 +1036,14 @@
 function lgApply(){
   return {
     ready:false,
-    buildVersion:'2026.08.17-v87-apply',
+    buildVersion:'2026.08.17-v88-apply',
     products:[], categories:[],
     promo:{name:'August Combo', dateStart:'2569-08-01', dateEnd:'2569-08-31'},
     special:{start:'2569-08-15', end:'2569-08-25', rate:15},
     lineUrl:'https://lin.ee/RIw7X1w',
     epId:'', epName:'',
     page:'home',
-    q:'', cat:'',
+    q:'', cat:'', group:'',
     sort:'default',
     shown:24,
     homeTab:'product',
@@ -1045,6 +1088,7 @@ function lgApply(){
       this.tick();
       this._tick = setInterval(() => this.tick(), 1000);
       this.$watch('cat', () => this.shown = 24);
+      this.$watch('group', () => this.shown = 24);
       this.$watch('q', () => this.shown = 24);
       this.$watch('life', () => this.shown = 24);
       this.$watch('sort', () => this.shown = 24);
@@ -1148,6 +1192,33 @@ function lgApply(){
       return (p.plans||[]).some(x => !x.outright && (Number(x.advancePayment)||0) > 0);
     },
     countInCat(c){ return this.products.filter(p => p.category===c).length; },
+    catGroups(){
+      return [
+        { id:'water', title:'เครื่องกรองน้ำ', note:'Tankless · UVnano', cats:['เครื่องกรองน้ำ'] },
+        { id:'purifier', title:'เครื่องฟอกอากาศ', note:'H13 HEPA · PM2.5', cats:['เครื่องฟอกอากาศ'] },
+        { id:'laundry', title:'เครื่องซักผ้า / อบผ้า', note:'WashTower · AI DD', cats:['Wash Tower','เครื่องซักผ้า Front Load','เครื่องซักผ้า Top Load','เครื่องอบผ้า / Styler / ล้างจาน'], exclude:/ล้างจาน/ },
+        { id:'fridge', title:'ตู้เย็น', note:'Multi Door · InstaView', cats:['ตู้เย็น Side-by-Side','ตู้เย็น Multi-Door','ตู้เย็น Top/Bottom Freezer','ตู้เย็น Plumbing'] },
+        { id:'ac', title:'เครื่องปรับอากาศ', note:'DUALCOOL AI', cats:['เครื่องปรับอากาศ DUALCOOL AI','เครื่องปรับอากาศ ARTCOOL','เครื่องปรับอากาศ DUAL INVERTER','แอร์เชิงพาณิชย์ SAC'] },
+        { id:'tv', title:'ทีวี', note:'OLED evo · QNED', cats:['โทรทัศน์ Life Style / OLED / QNED / NANO'] },
+        { id:'dish', title:'เครื่องล้างจาน', note:'QuadWash · TrueSteam', cats:['เครื่องอบผ้า / Styler / ล้างจาน'], include:/ล้างจาน/ },
+        { id:'av', title:'มอนิเตอร์ / ลำโพง', note:'UltraGear · xboom', cats:['มอนิเตอร์','ลำโพง / ซาวด์บาร์'] }
+      ];
+    },
+    groupMatch(p, g){
+      if(!g || !g.cats.includes(p.category)) return false;
+      const blob = (p.name||'') + ' ' + (p.code||'');
+      if(g.include && !g.include.test(blob)) return false;
+      if(g.exclude && g.exclude.test(blob)) return false;
+      return true;
+    },
+    countInGroup(id){
+      const g = this.catGroups().find(x => x.id===id);
+      return g ? this.products.filter(p => this.groupMatch(p, g)).length : 0;
+    },
+    activeGroupTitle(){
+      const g = this.catGroups().find(x => x.id===this.group);
+      return g ? g.title : '';
+    },
     catTiles(){
       return this.categories.map(cat => {
         const items = this.products.filter(p => p.category===cat);
@@ -1175,6 +1246,7 @@ function lgApply(){
       return {home:'บ้าน', condo:'คนเดียว / คอนโด', family:'ครอบครัวใหญ่', office:'บริษัท / ออฟฟิศ'}[this.life] || '';
     },
     shopTitle(){
+      if(this.group) return this.activeGroupTitle();
       if(this.cat) return this.shortCat(this.cat);
       if(this.homeTab==='life' && this.life) return this.lifeLabel();
       return 'สินค้าทั้งหมด';
@@ -1182,14 +1254,17 @@ function lgApply(){
     setLife(key){
       this.life = key;
       this.cat = '';
+      this.group = '';
       this.homeTab = 'life';
       this.goShop();
     },
     filtered(){
       const q = this.q.trim().toLowerCase();
       const life = this.homeTab==='life' ? this.lifeCats() : [];
+      const g = this.group ? this.catGroups().find(x => x.id===this.group) : null;
       let list = this.products.filter(p => {
         if(this.homeTab==='life' && life.length && !life.includes(p.category)) return false;
+        if(g && !this.groupMatch(p, g)) return false;
         if(this.cat && p.category !== this.cat) return false;
         if(!q) return true;
         return [p.code,p.name,p.category].join(' ').toLowerCase().includes(q);
@@ -1303,8 +1378,23 @@ function lgApply(){
     },
     pickCat(c){
       this.cat = c || '';
+      this.group = '';
       this.homeTab = 'product';
       this.life = '';
+      this.goShop();
+    },
+    pickGroup(id){
+      this.group = id || '';
+      this.cat = '';
+      this.homeTab = 'product';
+      this.life = '';
+      this.goShop();
+    },
+    clearShopFilter(){
+      this.group = '';
+      this.cat = '';
+      this.life = '';
+      this.homeTab = 'product';
       this.goShop();
     },
     showToast(msg){
