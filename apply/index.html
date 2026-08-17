@@ -2,8 +2,8 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="theme-color" content="#00A8E1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#A50034"/>
 <title>LG Subscribe · จัดชุดสินค้า ในราคาพิเศษ</title>
 <meta name="description" content="เลือกเครื่องใช้ไฟฟ้า LG แบบ Subscribe จัดชุดเอง กรอกข้อมูลสมัครได้เลย"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -14,7 +14,7 @@
   :root{
     --ink:#111; --muted:#6b6b6b; --line:#e8e8e8; --bg:#fff; --soft:#f5f5f5;
     --lg:#A50034; --lg2:#C8102E; --dark:#111;
-    --cw:#00A8E1;
+    --cw:#A50034;
     --max:100%;
   }
   *{box-sizing:border-box}
@@ -30,7 +30,7 @@
   a{color:inherit;text-decoration:none}
   button,input,select,textarea{font:inherit}
   img{max-width:100%;display:block}
-  .wrap{width:100%; max-width:none; margin:0 auto; padding-left:clamp(16px, 3.2vw, 48px); padding-right:clamp(16px, 3.2vw, 48px)}
+  .wrap{width:100%; max-width:none; margin:0 auto; padding-left:max(clamp(16px, 3.2vw, 48px), env(safe-area-inset-left)); padding-right:max(clamp(16px, 3.2vw, 48px), env(safe-area-inset-right))}
   a[href^="tel"], .tel{
     color:var(--lg); font-weight:700; letter-spacing:.02em;
   }
@@ -50,7 +50,10 @@
   .topbar a.tel:hover, .topbar a[href^="tel"]:hover{color:var(--lg2)}
   .nav{
     position:sticky; top:0; z-index:50;
-    background:#fff; border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,.92);
+    backdrop-filter:saturate(1.2) blur(10px);
+    -webkit-backdrop-filter:saturate(1.2) blur(10px);
+    border-bottom:1px solid var(--line);
   }
   .nav-in{display:flex; align-items:center; gap:18px; min-height:72px}
   .brand{display:flex; align-items:center; gap:8px; font-weight:700}
@@ -109,7 +112,7 @@
   .btn-ghost{background:#fff; color:#111; border:1px solid #111}
   .btn:disabled{opacity:.4; cursor:not-allowed}
 
-  .cl-blue{color:var(--cw)}
+  .cl-blue,.cl-red{color:var(--lg)}
   h1,h2,h3,h4,.brand,.btn,.chip,.card-name,.price{
     font-family:"Anuphan","Noto Sans Thai",system-ui,sans-serif;
     font-weight:500;
@@ -118,23 +121,31 @@
   .home-hero{
     position:relative;
     width:100%;
-    height:calc(100dvh - 106px);
-    min-height:calc(100dvh - 106px);
+    height:100dvh;
+    min-height:100svh;
     max-height:none;
-    overflow:hidden; background:#eef8fc;
+    margin-top:-106px;
+    overflow:hidden; background:#f7f2f3;
   }
+  .home-hero picture{position:absolute; inset:0; display:block}
   .hero-bg{
     position:absolute; inset:0; width:100%; height:100%;
-    object-fit:cover; object-position:72% center;
+    object-fit:cover; object-position:68% center;
   }
   .hero-shade{
     position:absolute; inset:0;
-    background:linear-gradient(90deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.55) 38%, rgba(255,255,255,0) 62%);
+    background:linear-gradient(90deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.28) 30%, rgba(255,255,255,0) 56%);
   }
   .hero-copy{
     position:relative; z-index:1; height:100%;
     display:flex; flex-direction:column; justify-content:center;
-    max-width:520px; padding:24px 0;
+    max-width:520px; padding:120px 0 28px;
+  }
+  .bleed-banner{
+    display:block; width:100%;
+    height:min(56vh, 560px);
+    object-fit:cover; object-position:center;
+    margin:0 0 28px;
   }
   .home-hero h1{
     margin:0 0 12px; font-size:clamp(28px, 4.4vw, 46px);
@@ -166,7 +177,7 @@
   .count{display:flex; gap:10px; margin:0 0 22px; flex-wrap:wrap}
   .count b{
     min-width:64px; background:#fff; color:#111; text-align:center;
-    padding:10px 8px 8px; border-radius:8px; border:1px solid #d7eef6;
+    padding:10px 8px 8px; border-radius:8px; border:1px solid #f3d0d8;
   }
   .count b em{display:block; font-style:normal; font-size:22px; font-weight:700; line-height:1; color:var(--cw)}
   .count b small{font-size:10px; letter-spacing:.08em; color:#666}
@@ -283,10 +294,13 @@
     .grid{grid-template-columns:repeat(2,1fr)}
     .rail{position:static}
     .bar{display:block}
-    .home-hero{height:calc(100dvh - 60px); min-height:calc(100dvh - 60px); max-height:none}
-    .hero-bg{object-position:80% center}
-    .hero-shade{background:linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.2) 55%, rgba(255,255,255,.55) 100%)}
-    .hero-copy{justify-content:flex-end; padding-bottom:28px; max-width:100%}
+    .home-hero{height:100dvh; min-height:100svh; max-height:none; margin-top:-60px}
+    .hero-bg{object-position:center 42%}
+    .hero-shade{background:linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 26%, rgba(255,255,255,.08) 58%, rgba(255,255,255,.88) 100%)}
+    .hero-copy{justify-content:flex-end; padding:72px 0 max(28px, env(safe-area-inset-bottom)); max-width:100%}
+    .home-hero h1{font-size:clamp(26px, 7vw, 38px)}
+    .home-hero p{max-width:none; color:#333}
+    .bleed-banner{height:min(46vh, 380px); margin-bottom:20px}
     .topbar{display:none}
     .nav-menus{display:none}
     .ham{display:grid}
@@ -404,7 +418,10 @@
 </header>
 
 <section class="home-hero" id="top">
-  <img class="hero-bg" src="assets/banner-hero.jpg?v=85" alt="สินค้า LG Subscribe" width="1920" height="1080"/>
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/banner-hero-m.jpg?v=86"/>
+    <img class="hero-bg" src="assets/banner-hero.jpg?v=86" alt="สินค้า LG Subscribe" width="1920" height="1080"/>
+  </picture>
   <div class="hero-shade"></div>
   <div class="wrap hero-copy">
     <h1>เติมเต็มครบ <span class="cl-blue">ทุกการ Subscribe</span></h1>
@@ -443,8 +460,9 @@
   </div>
 </section>
 
-<section class="wrap sec" id="promo">
-  <img src="assets/banner-studio.jpg?v=85" alt="สินค้า LG Subscribe" style="width:100%;height:min(42vh, 420px);object-fit:cover;object-position:center;margin:0 0 22px"/>
+<section class="sec" id="promo">
+  <img class="bleed-banner" src="assets/banner-studio.jpg?v=86" alt="สินค้า LG Subscribe"/>
+  <div class="wrap">
   <h2><span class="cl-blue">โปรโมชัน</span> ส่วนลด และข้อเสนอสุดพิเศษ ให้คุณคนสำคัญ</h2>
   <p class="lead">ข้อเสนอ LG Subscribe เดือนนี้</p>
   <div class="strips" style="margin:0">
@@ -460,6 +478,7 @@
       <strong>จัดชุดสินค้าเอง</strong>
       <span>เลือกสินค้าด้านล่าง ระบบคิดส่วนลดคอมโบให้อัตโนมัติ</span>
     </div>
+  </div>
   </div>
 </section>
 
@@ -604,13 +623,15 @@
   </div>
 </section>
 
-<section class="wrap sec" id="story">
-  <img src="assets/banner-life.jpg?v=85" alt="ห้องนั่งเล่นกับสินค้า LG" style="width:100%;height:min(42vh, 420px);object-fit:cover;margin:0 0 22px"/>
+<section class="sec" id="story">
+  <img class="bleed-banner" src="assets/banner-life.jpg?v=86" alt="ห้องนั่งเล่นกับสินค้า LG"/>
+  <div class="wrap">
   <h2>เรื่องราวของเรา</h2>
   <p class="lead">LG Subscribe คือการเป็นเจ้าของเครื่องใช้ไฟฟ้า LG แบบจ่ายรายเดือน พร้อมบริการดูแลตลอดสัญญา</p>
   <div class="strips" style="margin:0">
     <div class="strip"><strong>ไม่ต้องซื้อขาด</strong><span>จ่ายเป็นรายเดือน เลือกสัญญา 5–7 ปี ตามรุ่น</span></div>
     <div class="strip"><strong>Epromoter POND</strong><span>หน้านี้เป็นลิงก์สมัครของทีมงาน เพื่อส่งใบสมัครไปทำรายการต่อในระบบบริษัท</span></div>
+  </div>
   </div>
 </section>
 
@@ -696,7 +717,7 @@
 function lgApply(){
   return {
     ready:false,
-    buildVersion:'2026.08.17-v85-apply',
+    buildVersion:'2026.08.17-v86-apply',
     products:[], categories:[],
     promo:{name:'August Combo', dateStart:'2569-08-01', dateEnd:'2569-08-31'},
     special:{start:'2569-08-15', end:'2569-08-25', rate:15},
