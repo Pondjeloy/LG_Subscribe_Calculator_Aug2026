@@ -448,7 +448,7 @@
         <button type="button" @click="go('#campaign')">แคมเปญ &amp; กิจกรรม</button>
         <div class="mega">
           <div class="g">กำลังจัดอยู่</div>
-          <a href="#campaign" @click.prevent="go('#campaign')">Birthday Combo 15–25 ส.ค.</a>
+          <a href="#campaign" @click.prevent="go('#campaign')">Birthday Combo 15–24 ส.ค.</a>
           <a href="#combo" @click.prevent="go('#combo')">จัดชุดสินค้าเอง</a>
         </div>
       </div>
@@ -497,7 +497,7 @@
 </header>
 
 <div class="ribbon" x-show="specialOn()" x-cloak>
-  Birthday Combo 15% ถึง 25 ส.ค. 2569 · ลูกค้าใหม่จาก 2 ชิ้น · ลูกค้าเก่าจาก 1 ชิ้น
+  Birthday Combo 15% ถึง 24 ส.ค. 2569 · ลูกค้าใหม่จาก 2 ชิ้น · ลูกค้าเก่าจาก 1 ชิ้น
 </div>
 <div class="admin-bar" x-show="epId" x-cloak>
   <div class="wrap admin-bar-in">
@@ -617,11 +617,11 @@
     <div class="strips">
       <div class="strip">
         <strong>Birthday Combo 15%</strong>
-        <span>15–25 ส.ค. 2569 · ลูกค้าใหม่ 2 ชิ้นขึ้นไป · ลูกค้าเก่า 1 ชิ้นขึ้นไป</span>
+        <span>15–24 ส.ค. 2569 · ลูกค้าใหม่ 2 ชิ้นขึ้นไป · ลูกค้าเก่า 1 ชิ้นขึ้นไป</span>
       </div>
       <div class="strip">
         <strong>คอมโบเดือนปกติ 10%</strong>
-        <span>ใช้เมื่อปิดคอมโบพิเศษ หรือหลัง 25 ส.ค. · ทั้งเดือนถึง 31 ส.ค.</span>
+        <span>ใช้เมื่อปิดคอมโบพิเศษ หรือหลัง 24 ส.ค. · ทั้งเดือนถึง 31 ส.ค.</span>
       </div>
       <div class="strip">
         <strong>จัดชุดสินค้าเอง</strong>
@@ -677,7 +677,7 @@
   <h2>แคมเปญ &amp; กิจกรรม</h2>
   <p class="lead">กำลังจัดอยู่</p>
   <div class="strips">
-    <div class="strip"><strong>Birthday Combo</strong><span>ลด 15% ถึง 25 ส.ค. 2569 เมื่อจัดชุดตามเงื่อนไขลูกค้าใหม่/ลูกค้าเก่า</span></div>
+    <div class="strip"><strong>Birthday Combo</strong><span>ลด 15% ถึง 24 ส.ค. 2569 เมื่อจัดชุดตามเงื่อนไขลูกค้าใหม่/ลูกค้าเก่า</span></div>
     <div class="strip"><strong>จัดชุดเองบนเว็บนี้</strong><span>ลูกค้ากรอกชื่อ นามสกุล เบอร์ ที่อยู่ติดตั้ง แล้วส่งใบสมัครเอง</span></div>
   </div>
 </section>
@@ -1036,10 +1036,10 @@
 function lgApply(){
   return {
     ready:false,
-    buildVersion:'2026.08.17-v88-apply',
+    buildVersion:'2026.08.24-v1-apply',
     products:[], categories:[],
     promo:{name:'August Combo', dateStart:'2569-08-01', dateEnd:'2569-08-31'},
-    special:{start:'2569-08-15', end:'2569-08-25', rate:15},
+    special:{start:'2569-08-15', end:'2569-08-24', rate:15},
     lineUrl:'https://lin.ee/RIw7X1w',
     epId:'', epName:'',
     page:'home',
@@ -1124,7 +1124,7 @@ function lgApply(){
       this.cd = {d:z(d), h:z(h), m:z(m), s:z(s)};
     },
     heroLine(){
-      if(this.specialOn()) return 'Birthday Combo 15% ถึง 25 ส.ค. 2569 · เลือกสินค้าเองแล้วกรอกสมัครได้เลย';
+      if(this.specialOn()) return 'Birthday Combo 15% ถึง 24 ส.ค. 2569 · เลือกสินค้าเองแล้วกรอกสมัครได้เลย';
       return 'จัดชุด Subscribe แล้วกรอกชื่อ นามสกุล เบอร์ ที่อยู่ติดตั้ง ส่งใบสมัครได้เลย';
     },
     promoLabel(){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.22-v2 · หมายเหตุติดตั้งแบบรวม -->
+<!-- LG Subscribe Calculator build 2026.08.24-v1 · Birthday Combo ถึง 24 ส.ค. -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -1560,10 +1560,10 @@ function lgCalculator() {
  newTiers: [ {min:2, rate:10} ], // COMBO_NEW_K-HOUSE_(2 UNITS UP)
  existTiers: [ {min:1, rate:10} ] // COMBO_K-HOUSE_ADD_(1 UNIT UP)
  },
- // LG Special Birthday Combo 15% — 15–25 ส.ค. 69 (ลูกค้าเก่า 1+ · ลูกค้าใหม่ 2+)
+ // LG Special Birthday Combo 15% — 15–24 ส.ค. 69 (ลูกค้าเก่า 1+ · ลูกค้าใหม่ 2+)
  special: {
  name: 'LG Special Birthday Combo Promotion',
- dateStart: '2569-08-15', dateEnd: '2569-08-25',
+ dateStart: '2569-08-15', dateEnd: '2569-08-24',
  newTiers: [ {min:2, rate:15} ],
  existTiers: [ {min:1, rate:15} ]
  }
@@ -1699,7 +1699,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.22-v2',
+ buildVersion: '2026.08.24-v1',
  quoteCustomer: {
    name: '',
    address: '',
@@ -2793,10 +2793,10 @@ function lgCalculator() {
  newTiers: [ {min:2, rate:10} ],
  existTiers: [ {min:1, rate:10} ]
  },
- // LG Special Birthday Combo 15% · 15–25 ส.ค. 69 (อย่าสลับกับคอมโบปกติ 10%)
+ // LG Special Birthday Combo 15% · 15–24 ส.ค. 69 (อย่าสลับกับคอมโบปกติ 10%)
  special: {
  name: 'LG Special Birthday Combo Promotion',
- dateStart: '2569-08-15', dateEnd: '2569-08-25',
+ dateStart: '2569-08-15', dateEnd: '2569-08-24',
  newTiers: [ {min:2, rate:15} ],
  existTiers: [ {min:1, rate:15} ]
  }
@@ -3112,7 +3112,7 @@ function lgCalculator() {
  if (p.length !== 3 || p.some(n => Number.isNaN(n))) return null;
  return new Date(p[0] - 543, p[1] - 1, p[2]);
  },
- // วันนี้ยังอยู่ในช่วง special combo หรือไม่ (เช่น Birthday Combo 15–25 ส.ค.)
+ // วันนี้ยังอยู่ในช่วง special combo หรือไม่ (เช่น Birthday Combo 15–24 ส.ค.)
  isSpecialComboInPeriod() {
  const sp = this.promoConfig && this.promoConfig.special;
  if (!sp || !sp.dateStart || !sp.dateEnd) return false;
