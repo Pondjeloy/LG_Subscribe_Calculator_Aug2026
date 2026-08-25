@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LG Subscribe Calculator build 2026.08.24-v1 · Birthday Combo ถึง 24 ส.ค. -->
+<!-- LG Subscribe Calculator build 2026.08.25-v1 · Birthday Combo ถึง 24 ส.ค. -->
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
@@ -914,7 +914,8 @@
  <img :src="modelImage()" :alt="currentModel()?.name || ''" loading="lazy" decoding="async" />
  </div>
 
- <div x-show="hasModelSelected()">
+ <template x-if="hasModelSelected()" :key="'planpick-' + picker.category + '-' + picker.model">
+ <div>
  <label class="text-xs text-gray-500 mb-2 block font-medium">เลือกแพ็คเกจ / Subscription Plan</label>
  <div class="washer-rec-tip" x-show="showSixYearVisitRecTip()">
  <span x-show="isWasherCategory(picker.category)">เครื่องซักผ้าทุกประเภท สัญญา <strong>6 ปี</strong> คุ้มที่สุด<span x-show="isWasherDeepCleanCategory(picker.category)"> · แนะนำ Visit — ล้างใหญ่ 2 ครั้ง (เดือน 36 และ 72)</span></span>
@@ -922,14 +923,14 @@
  <span x-show="isDishwasherModel(currentModel())">เครื่องล้างจาน สัญญา <strong>6 ปี Visit</strong> คุ้มที่สุด</span>
  </div>
  <div class="space-y-2">
- <template x-for="group in planPickerGroups()" :key="group.key">
+ <template x-for="group in planPickerGroups()" :key="(currentModel()?.code || '') + '|' + group.key">
  <div class="plan-cycle-group" :class="[group.framed ? 'framed' : '', group.cycleClass]">
  <div class="plan-cycle-group-head" x-show="group.framed">
  <span x-text="group.label"></span>
  <span class="pcg-sub" x-show="group.sub" x-text="group.sub"></span>
  </div>
  <div class="space-y-2">
- <template x-for="entry in group.plans" :key="entry.idx">
+ <template x-for="entry in group.plans" :key="(currentModel()?.code || '') + '-' + entry.idx">
  <label class="cursor-pointer block" @click="picker.plan = String(entry.idx)">
  <input type="radio" x-model="picker.plan" :value="String(entry.idx)" class="hidden-peer" name="plan-pick" />
  <div class="plan-card" :class="String(picker.plan) === String(entry.idx) ? 'active' : ''">
@@ -965,7 +966,7 @@
  <!-- สรุปจ่ายต่อเดือนแยกช่วงงวด (5Y / 6Y) -->
  <div class="plan-periods" x-show="!entry.plan.outright && planMonthlyPeriods(entry.plan).length">
  <div class="plan-periods-head" x-text="'สรุปจ่ายต่อเดือน · สัญญา ' + planTermYears(entry.plan)"></div>
- <template x-for="(line, li) in planMonthlyPeriods(entry.plan)" :key="li">
+ <template x-for="(line, li) in planMonthlyPeriods(entry.plan)" :key="line.kind + '-' + line.label + '-' + line.priceText">
  <div class="plan-period-row" :class="line.kind === 'advance' ? 'pp-adv' : ''">
  <span class="pp-label" x-text="line.label"></span>
  <span class="pp-price" x-text="line.priceText"></span>
@@ -982,6 +983,7 @@
  </template>
  </div>
  </div>
+ </template>
 
  
         
@@ -1699,7 +1701,7 @@ function lgCalculator() {
  compareB: { term: '5Y', serviceType: 'Visit', modelIndices: [] },
  cart: [],
  toast: { show: false, msg: '' },
- buildVersion: '2026.08.24-v1',
+ buildVersion: '2026.08.25-v1',
  quoteCustomer: {
    name: '',
    address: '',
@@ -1928,9 +1930,7 @@ function lgCalculator() {
  },
  planMonthlyPeriods(plan) {
  if (!plan || plan.outright) return [];
- const m = this.currentModel();
- if (!m || !this.picker.category) return [];
- return this.itemMonthlyPeriodLines(this.planToItem(this.picker.category, m, plan));
+ return this.itemMonthlyPeriodLines(plan);
  },
  itemPeriodText(item) {
  return this.itemMonthlyPeriodLines(item).map(l => {
